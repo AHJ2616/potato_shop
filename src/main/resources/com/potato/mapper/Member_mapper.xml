@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.potato.mapper.Member_mapper">
+
+<!-- 회원가입 -->
+<insert id="register">
+<![CDATA[
+insert into member(member_number,id,pass,name,nickName,phone,address,profile_image)
+ values(#{member_number},#{id},#{pass},#{name},#{nickName},#{phone},#{address},'.../resources/images/default_profile_1.jpg')
+]]>
+</insert>
+
+<!-- 로그인 -->
+<select id="login" resultType="MemberVO">
+<![CDATA[
+select member_number,id,name,nickName,grade from member where id=#{id} and pass=#{pass}
+]]>
+</select>
+
+<!-- 회원탈퇴 restcontroller로 하기-->
+<insert id="delete">
+<![CDATA[
+delete from member where id=#{id} and pass=#{pass}
+]]>
+</insert>
+
+<!-- 마이 페이지 보기 -->
+<select id="mypage" resultType="UserVO">
+<![CDATA[
+select m.phone, m.address, u.likes,  u.reports, u.temper, u.trades 
+from member m
+join user_table u on m.member_number = u.user_number
+where m.member_number=#{member_number}
+]]>
+</select>
+
+<!-- 마이 페이지 수정 -->
+<update id="modify_mypage">
+<![CDATA[
+update member set pass=#{pass},nickName=#{nickName},phone=#{phone},
+profile_image=#{profile_image},update_date=sysdate 
+where member_number=#{member_number}
+]]>
+</update>
+
+
+<!-- 나의 활동내역 확인(댓글) -->
+<select id="mylist1" resultType="ReplyVO" >
+<![CDATA[
+    select * from reply where writer=#{id}
+]]>
+</select>
+
+<!-- 나의 활동내역 확인(답글) -->
+<select id="mylist2" resultType="Re_replyVO">
+<![CDATA[
+    select * from re_reply where writer=#{id}
+]]>
+</select>
+
+<!-- 나의 활동내역 확인(게시글) -->
+<select id="mylist3" resultType="BoardVO">
+<![CDATA[
+    select * from board where writer_number=#{member_number}
+]]>
+</select>
+
+<!-- 나의 활동내역 확인(신고내용) -->
+<select id="mylist4" resultType="ReportVO">
+<![CDATA[
+    select * from reports where writer_id=#{id}
+]]>
+</select>
+
+<!-- ID중복 확인(회원가입에서) -->
+<select id="check_id" resultType="String">
+<![CDATA[
+    select id from member where id=#{id}
+]]>
+</select>
+
+
+</mapper>

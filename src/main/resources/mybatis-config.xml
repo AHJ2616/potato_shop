@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+    <configuration>
+    <typeAliases>
+    <typeAlias alias="MemberVO" type="com.potato.domain.MemberVO"/>
+    <typeAlias alias="UserVO" type="com.potato.domain.UserVO"/>
+    <typeAlias alias="MylistVO" type="com.potato.domain.MylistVO"/>
+    <typeAlias alias="BoardVO" type="com.potato.domain.BoardVO"/>
+    <typeAlias alias="ReplyVO" type="com.potato.domain.ReplyVO"/>
+    <typeAlias alias="Re_replyVO" type="com.potato.domain.Re_replyVO"/>
+     <typeAlias alias="ReportVO" type="com.potato.domain.ReportVO"/>
+</typeAliases> 
+    	<mappers>
+    		<mapper resource="com/potato/mapper/Member_mapper.xml" />
+    	</mappers>
+    </configuration>
