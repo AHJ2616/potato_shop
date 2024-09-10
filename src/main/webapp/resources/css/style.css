@@ -5,7 +5,16 @@ body {
   color: #101010;
   background-color: #ffffff;
 }
+.main-title {
+    width: 100%; /* 너비를 100%로 설정 */
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+}
 
+.main-title img {
+    max-width: 1200px; /* 최대 너비를 1200px로 설정 (원하는 크기로 조정 가능) */
+    height: auto; /* 비율 유지 */
+}
 .layout_padding {
   padding-top: 90px;
   padding-bottom: 90px;

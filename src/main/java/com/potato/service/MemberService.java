@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
-import com.potato.domain.MylistVO;
 import com.potato.domain.Re_replyVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
@@ -23,10 +22,16 @@ public interface MemberService {
 	public int delete(MemberVO member);
 	
 	//마이페이지 보기 /mypage.jsp
-	public UserVO mypage(MemberVO member);
+	public MemberVO mypage(MemberVO member);
+	
+	//마이페이지 보기2 /mypage.jsp
+	public UserVO mypage2(MemberVO member);
 	
 	//마이페이지 수정
 	public int modify_mypage(MemberVO member);
+	
+	//프로필 사진 수정
+	public int modify_profile(MemberVO member);
 	
 	//나의 활동내역 확인1(댓글 불러오기)
 	public List<ReplyVO> mylist1(MemberVO member);
@@ -42,5 +47,8 @@ public interface MemberService {
 	
 	//아이디 중복확인
 	public String check_id(String id); 
+	
+	//프로필 내용 가져오기
+	public MemberVO profile(MemberVO member);
 	
 }

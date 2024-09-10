@@ -8,7 +8,6 @@ import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
-import com.potato.domain.MylistVO;
 import com.potato.domain.Re_replyVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
@@ -46,15 +45,27 @@ public class MemberService_impl implements MemberService {
 	}
 
 	@Override
-	public UserVO mypage(MemberVO member) {
+	public MemberVO mypage(MemberVO member) {
 		// TODO 마이페이지 보기
 		return mapper.mypage(member);
+	}
+	
+	@Override
+	public UserVO mypage2(MemberVO member) {
+		// TODO 마이페이지 보기
+		return mapper.mypage2(member);
 	}
 
 	@Override
 	public int modify_mypage(MemberVO member) {
 		// TODO 마이페이지 수정
 		return mapper.modify_mypage(member);
+	}
+	
+	@Override
+	public int modify_profile(MemberVO member) {
+		// TODO 프로필사진 수정
+		return mapper.modify_profile(member);
 	}
 
 	@Override
@@ -86,6 +97,12 @@ public class MemberService_impl implements MemberService {
 		// TODO 아이디 중복확인
 		
 		return mapper.check_id(id);
+	}
+
+	@Override
+	public MemberVO profile(MemberVO member) {
+		// TODO 프로필 정보 가져오기
+		return mapper.profile(member);
 	}
 
 	

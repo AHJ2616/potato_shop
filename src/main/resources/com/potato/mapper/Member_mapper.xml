@@ -9,14 +9,21 @@
 <insert id="register">
 <![CDATA[
 insert into member(member_number,id,pass,name,nickName,phone,address,profile_image)
- values(#{member_number},#{id},#{pass},#{name},#{nickName},#{phone},#{address},'.../resources/images/default_profile_1.jpg')
+ values(#{member_number},#{id},#{pass},#{name},#{nickName},#{phone},#{address},'default_profile_1.jpg')
 ]]>
 </insert>
 
 <!-- 로그인 -->
 <select id="login" resultType="MemberVO">
 <![CDATA[
-select member_number,id,name,nickName,grade from member where id=#{id} and pass=#{pass}
+select member_number,id,name,nickName,grade,profile_image from member where id=#{id} and pass=#{pass}
+]]>
+</select>
+
+<!-- 프로필 보여주기 -->
+<select id="porfile" resultType="MemberVO">
+<![CDATA[
+select member_number,id,nickName,profile_image from member where member_number=#{member_number}
 ]]>
 </select>
 
@@ -27,21 +34,35 @@ delete from member where id=#{id} and pass=#{pass}
 ]]>
 </insert>
 
-<!-- 마이 페이지 보기 -->
-<select id="mypage" resultType="UserVO">
+<!-- 마이 페이지 보기1 -->
+<select id="mypage" resultType="MemberVO">
 <![CDATA[
-select m.phone, m.address, u.likes,  u.reports, u.temper, u.trades 
-from member m
-join user_table u on m.member_number = u.user_number
-where m.member_number=#{member_number}
+select pass,phone,address,profile_image from member
+where member_number=#{member_number}
 ]]>
 </select>
+
+<!-- 마이 페이지 보기2 -->
+<select id="mypage2" resultType="UserVO">
+<![CDATA[
+select reports, temper,trades 
+from user_table
+where user_number=#{member_number}
+]]>
+</select>
+
+<!-- 프로필 사진 수정 -->
+<update id="modify_profile">
+<![CDATA[
+update member set profile_image=#{profile_image},update_date=sysdate 
+where member_number=#{member_number}
+]]>
+</update>
 
 <!-- 마이 페이지 수정 -->
 <update id="modify_mypage">
 <![CDATA[
-update member set pass=#{pass},nickName=#{nickName},phone=#{phone},
-profile_image=#{profile_image},update_date=sysdate 
+update member set address=#{address},pass=#{pass},nickName=#{nickName},phone=#{phone},update_date=sysdate 
 where member_number=#{member_number}
 ]]>
 </update>

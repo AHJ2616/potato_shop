@@ -6,13 +6,17 @@
     <typeAliases>
     <typeAlias alias="MemberVO" type="com.potato.domain.MemberVO"/>
     <typeAlias alias="UserVO" type="com.potato.domain.UserVO"/>
-    <typeAlias alias="MylistVO" type="com.potato.domain.MylistVO"/>
     <typeAlias alias="BoardVO" type="com.potato.domain.BoardVO"/>
     <typeAlias alias="ReplyVO" type="com.potato.domain.ReplyVO"/>
     <typeAlias alias="Re_replyVO" type="com.potato.domain.Re_replyVO"/>
-     <typeAlias alias="ReportVO" type="com.potato.domain.ReportVO"/>
+    <typeAlias alias="ReportVO" type="com.potato.domain.ReportVO"/>
+    <typeAlias alias="ChatVO" type="com.potato.domain.ChatVO"/>
+     <typeAlias alias="Chat_roomVO" type="com.potato.domain.Chat_roomVO"/>
 </typeAliases> 
     	<mappers>
     		<mapper resource="com/potato/mapper/Member_mapper.xml" />
+    		<mapper resource="com/potato/mapper/Chat_mapper.xml" />
+    		<mapper resource="com/potato/mapper/ReplyMapper.xml" />
+    		<mapper resource="com/potato/mapper/BoardMapper.xml" />
     	</mappers>
     </configuration>

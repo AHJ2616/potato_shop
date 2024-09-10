@@ -12,8 +12,9 @@ create table member(
    update_date date default sysdate -- 회원수정일
 ); -- 멤버 테이블
 insert into member(member_number,id,pass,name,nickName,phone,adress,profile_image)
- values(sys_guid(),'sql3','sql1','sql1','sql1','sql1','sql1','.../resources/images/default_profile_1.jpg')
+ values(sys_guid(),'sql3','sql1','sql1','sql1','sql1','sql1','default_profile_1.jpg')
 
+ 
 CREATE TABLE user_table (
   user_number VARCHAR2(100), -- 회원번호 member_number외래키
   reports NUMBER NOT NULL default 0, -- 신고 수
@@ -73,12 +74,19 @@ create table re_reply(
 ); -- 대댓글
 
 create table chat(
-   chat_number varchar2(1000) constraint pk_chat_num primary key, -- 채팅번호
-   sender varchar2(100) not null, -- 보낸사람
-   reciever varchar2(100) not null, -- 받는 사람 
-   content varchar2(1000) not null, -- 내용
+   chat_number varchar2(100) not null, -- 채팅방 번호
+   sender varchar2(100) not null,  -- 보낸사람(member_number)
+   content varchar2(2000) not null, -- 채팅 내용
    time_stamp date default sysdate  -- 보낸시간
 );
+
+select * from chat;
+
+create table chat_room(
+chat_number varchar2(100) primary key,
+person_a varchar2(100) not null,
+person_b varchar2(100) not null
+)
 
 create table x_member as select member_number,id,pass,name,nickname,phone,adress,grade,regidate from member where 1<>1
 ;
@@ -106,8 +114,8 @@ from member m
 inner join user_table u on m.member_number = u.user_number
 where m.member_number='01J6TP08EPYFFXJYAAMJ9KV2QW';
 
+select * from reply;
 select * from member;
-select * from x_member;
 
 SELECT dbms_metadata.get_ddl('TRIGGER', 'ADD_X_MEMBER') FROM dual;
 

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
-import com.potato.domain.MylistVO;
 import com.potato.domain.Re_replyVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
@@ -24,11 +23,16 @@ public interface Member_mapper {
 	//회원탈퇴
 	public int delete(MemberVO member);
 	
-	//마이페이지 보기 /mypage.jsp
-	public UserVO mypage(MemberVO member);
+	//마이페이지 보기1
+	public MemberVO mypage(MemberVO member);
+	
+	//마이페이지 보기1
+	public UserVO mypage2(MemberVO member);
 	
 	//마이페이지 수정
 	public int modify_mypage(MemberVO member);
+	
+	public int modify_profile(MemberVO member);
 	
 	//나의 활동내역 확인1(댓글 불러오기)
 	public List<ReplyVO> mylist1(MemberVO member);
@@ -44,6 +48,9 @@ public interface Member_mapper {
 	
 	//아이디 중복확인(회원가입에서)
 	public String check_id(String id);
+	
+	//프로필 내용 가져오기
+	public MemberVO profile(MemberVO member);
 	
 	
 }

@@ -10,7 +10,5 @@ public class UserVO {
 		private int reports;		  //신고당한 수
 		private int temper;			  //온도
 		private int trades;			  //거래완료 수
-		
-		private MemberVO memberVO;
 
 }

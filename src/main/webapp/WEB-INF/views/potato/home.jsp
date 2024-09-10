@@ -3,6 +3,13 @@
  
   <!-- shop section -->
   <%@ include file="../common/header.jsp" %>
+  
+  <section class="slider_section">
+      <div class="main-title">
+       <img src="${pageContext.request.contextPath}/resources/images/potatp_market_main.jpeg" alt="">
+      </div>
+    </section>
+  
   <section class="shop_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
@@ -15,7 +22,7 @@
           <div class="box">
             <a href="">
               <div class="img-box">
-                <img src="${pageContext.request.contextPath}/resources/images/p1.png" alt="">
+              <img src="${pageContext.request.contextPath}/resources/images/p2.png" alt="">
               </div>
               <div class="detail-box">
                 <h6>

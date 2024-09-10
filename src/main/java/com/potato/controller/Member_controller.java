@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.potato.domain.MemberVO;
+import com.potato.domain.UserVO;
 import com.potato.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -25,23 +26,10 @@ public class Member_controller {
 	private MemberService service;
 	
 	//get으로 들어온 경우, form작성할 수 있게 jsp파일 띄우기
-	@GetMapping({"/login","/home","/register"})
+	@GetMapping({"/home","/register","/review"})
 	public void get_form() {
 	}
 	
-	/*
-	 * //로그인 form에 작성된 데이터 DB에서 조회후 세션에 저장하여 메인페이지로 넘기기
-	 * 
-	 * @PostMapping("/login") public String login(MemberVO memberVO,HttpSession
-	 * session,RedirectAttributes rttr) { MemberVO memberVO2 = new MemberVO();
-	 * memberVO2 = service.login(memberVO); if(memberVO2.getMember_number()!=null) {
-	 * session.setAttribute("id", memberVO2.getId());
-	 * session.setAttribute("member_number", memberVO2.getMember_number());
-	 * session.setAttribute("name", memberVO2.getName());
-	 * session.setAttribute("nickName", memberVO2.getNickName()); return
-	 * "redirect:/home"; } else { rttr.addFlashAttribute("errorMessage",
-	 * "로그인에 실패했습니다. 다시 시도해주세요."); return "redirect:/login"; } }
-	 */
 	
 	//회원가입 form에 작성된 데이터 DB에 저장후 메인페이지로 넘기기
 	@PostMapping("/register")
@@ -58,11 +46,14 @@ public class Member_controller {
 	
 	//회원정보 보기
 	//톰캣 세션영역에 저장된 member_number를 이용하여 userVO 조회하여 model에 저장
+	//부적절한 방식으로 들어온 경우 home으로 보내기!
 	@GetMapping({"/mypage","/modify_mypage"})
 	public void mypage(Model model,HttpSession session) {
 		MemberVO memberVO = new MemberVO();
+		UserVO userVO = new UserVO();
 		memberVO.setMember_number((String)session.getAttribute("member_number"));
-		model.addAttribute("userVO",service.mypage(memberVO));
+		model.addAttribute("memberVO",service.mypage(memberVO));
+		model.addAttribute("userVO",service.mypage2(memberVO));
 	}
 	
 	//회원정보 수정
@@ -73,11 +64,12 @@ public class Member_controller {
 		if(result==1) {
 			session.invalidate();//세션 삭제
 			rttr.addFlashAttribute("success", "정보수정이 되었습니다. 자동으로 로그아웃 됩니다.");
-			return "/home";
+			return "redirect:/potato/home";
 		}
 		else {
 			rttr.addFlashAttribute("errorMessage", "정보수정에 실패했습니다. 다시 시도해주세요.");
-		return "redirect:/modify_mypage";}
+			return "redirect:/potato/modify_mypage";
+	}
 	}
 	
 	//나의 활동내역 보기

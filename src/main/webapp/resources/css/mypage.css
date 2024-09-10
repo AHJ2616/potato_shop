@@ -1,0 +1,109 @@
+    /* 중앙 정렬을 위한 컨테이너 스타일 */
+    .mypage-container {
+        max-width: 1200px; /* 전체 크기를 1200px로 증가 */
+        margin: 20px auto; /* 화면 중앙 정렬 */
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex; /* Flexbox 사용 */
+        flex-direction: column; /* 세로 방향으로 배치 */
+    }
+
+    /* 프로필 이미지와 마이페이지 멤버를 같은 크기로 설정 */
+    .profile-image-container, .mypage-member {
+        flex: 1; /* 남은 공간을 동일하게 차지하도록 설정 */
+        padding: 10px; /* 내부 여백 추가 */
+    }
+
+    /* 프로필 이미지와 활동 내역을 같은 크기로 설정 */
+    .profile-image-container {
+        display: flex; /* Flexbox 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        margin-bottom: 20px; /* 아래쪽 여백 추가 */
+    }
+
+
+    /* 기존 스타일 유지 */
+    .profile-image {
+        margin-right: 20px; /* 이미지와 내용 사이의 간격 */
+        border: 2px solid #ddd; /* 외부선 추가 */
+        padding: 10px; /* 내부 여백 추가 */
+        border-radius: 8px; /* 모서리 둥글게 */
+    }
+
+    .profile-image img {
+        width: 100px; /* 원하는 이미지 크기로 조정 */
+        height: auto; /* 비율 유지 */
+    }
+
+
+    /* 헤더 스타일 */
+    .mypage-container h2 {
+        margin-top: 0;
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* 테이블 스타일 */
+    .member-table, .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .member-table th, .member-table td,
+    .user-table th, .user-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .member-table tr:nth-child(even), .user-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .member-table th, .user-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    /* 링크 스타일 */
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* 전체 페이지를 위한 기본 스타일 */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    /* 프로필 사진 변경 폼 스타일 */
+    #profileImageForm {
+        border: 2px solid #ddd; /* 폼 외부선 추가 */
+        padding: 10px; /* 내부 여백 추가 */
+        border-radius: 8px; /* 모서리 둥글게 */
+        display: flex; /* Flexbox 사용 */
+        flex-direction: column; /* 세로 방향으로 배치 */
+    }
+
+    /* 버튼 간격 조정 */
+    #profileImageForm button {
+        margin-top: 10px; /* 버튼 간격 추가 */
+    }
+
+    /* 이미지와 폼을 나란히 배치 */
+    .profile-image-container {
+        display: flex; /* Flexbox 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+    }
+    
+    

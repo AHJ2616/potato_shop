@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
-import com.potato.domain.MylistVO;
 import com.potato.domain.UserVO;
 import com.potato.mapper.Member_mapper;
 
@@ -68,7 +67,7 @@ public class MemberTests {
 		UserVO user = new UserVO();
 		MemberVO member = new MemberVO();
 		member.setMember_number("01J6TP08EPYFFXJYAAMJ9KV2QW");
-		user = mapper.mypage(member);
+		member = mapper.mypage(member);
 	}
 	
 	@Test

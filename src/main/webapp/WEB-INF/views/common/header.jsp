@@ -3,20 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
- <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- Popper.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/bootstrap.css" />
+<link href="/resources/css/style.css" rel="stylesheet" />
+<link href="/resources/css/register.css" rel="stylesheet" />
+
+
+<!-- responsive style -->
+<link href="/resources/css/responsive.css" rel="stylesheet" />
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- Popper.js -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!-- header.js참조 -->
-    <script src="/resources/js/header.js"></script>
+<script src="/resources/js/header.js"></script>
 <head>
 <!-- Basic -->
 <meta charset="utf-8" />
@@ -28,7 +41,8 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<link rel="shortcut icon" href=".../resources/images/favicon.png"
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/images/favicon.png"
 	type="image/x-icon">
 
 <title>감자마켓</title>
@@ -59,7 +73,8 @@
 		<!-- header section strats -->
 		<header class="header_section">
 			<nav class="navbar navbar-expand-lg custom_nav-container ">
-				<a class="navbar-brand" href="../home"> <span> 🥔 감자 </span>
+				<a class="navbar-brand" href="/potato/home"> <span> 🥔 감자
+				</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"
@@ -71,11 +86,11 @@
 				<div class="collapse navbar-collapse innerpage_navbar"
 					id="navbarSupportedContent">
 					<ul class="navbar-nav  ">
-						<li class="nav-item "><a class="nav-link" href="../home">홈
+						<li class="nav-item "><a class="nav-link" href="/potato/home">홈
 								<span class="sr-only">(current)</span>
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
-							href="../shop/list"> 중고거래 </a></li>
+							href="/shop/list"> 중고거래 </a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact
 								Us</a></li>
 					</ul>
@@ -87,13 +102,17 @@
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="/potato/mypage"> <i class="fa fa-user"
-									aria-hidden="true"></i> <span>${sessionScope.nickName}</span>
+								<a
+									href="/potato/mypage?member_number=<c:out value='${sessionScope.member_number}'/>">
+									<i class="fa fa-user" aria-hidden="true"></i> <span>${sessionScope.nickName}</span>
 								</a>
-								<a href="#" id="logoutLink"> 
-   								 <i class="fa fa-sign-out" aria-hidden="true"></i> 
-   								 <span>로그아웃</span>
+								<a href="#" id="logoutLink"> <i class="fa fa-sign-out"
+									aria-hidden="true"></i> <span>로그아웃</span>
 								</a>
+								<a
+									href="/potato/chat?sender=<c:out value='${sessionScope.member_number}'/>"><span>채팅</span>
+								</a>
+									
 							</c:otherwise>
 						</c:choose>
 						<form class="form-inline ">
@@ -126,15 +145,17 @@
 									<label for="loginPass">비밀번호</label> <input type="password"
 										class="form-control" id="loginPass" name="loginPass" required>
 								</div>
-								<button type="submit" class="btn btn-primary">로그인</button> &nbsp;
-								<button type="button" class="btn btn-primary" onclick="location.href='/potato/register'">회원가입</button>
+								<button type="submit" class="btn btn-primary">로그인</button>
+								&nbsp;
+								<button type="button" class="btn btn-primary"
+									onclick="location.href='/potato/register'">회원가입</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 
-		
+
 		</header>
 		<!-- end header section -->
 

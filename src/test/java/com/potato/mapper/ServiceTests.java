@@ -1,7 +1,5 @@
 package com.potato.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
-import com.potato.domain.MylistVO;
 import com.potato.domain.UserVO;
 import com.potato.service.MemberService;
 
@@ -63,7 +60,7 @@ public class ServiceTests {
 		UserVO user = new UserVO();
 		MemberVO member = new MemberVO();
 		member.setMember_number("01J6TP08EPYFFXJYAAMJ9KV2QW");
-		user = service.mypage(member);
+		member = service.mypage(member);
 	}
 	
 	@Test

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="4.0"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-
-	<!-- The definition of the Root Spring Container shared by all Servlets 
-		and Filters -->
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <!-- 웹 애플리케이션 설정 -->
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-
+	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -26,13 +24,13 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-		  <filter>
+  <filter>
         <filter-name>encoding</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -45,15 +43,10 @@
         </init-param>
     </filter>
 
-
-	<filter-mapping>
-		<filter-name>encoding</filter-name>
-		<servlet-name>appServlet</servlet-name>
-	</filter-mapping>
-	
-	<!-- 세션유지시간 설정 -->
-	<session-config>
-        <session-timeout>10</session-timeout> <!-- 10분 -->
-    </session-config>
+    <!-- 필터 매핑 -->
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <servlet-name>appServlet</servlet-name>
+    </filter-mapping>
 
 </web-app>
