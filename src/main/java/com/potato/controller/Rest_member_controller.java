@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.potato.domain.Login_checkVO;
 import com.potato.domain.MemberVO;
 import com.potato.service.MemberService;
 
@@ -42,6 +43,9 @@ public class Rest_member_controller {
 	public ResponseEntity<?> login(@RequestBody MemberVO memberVO, HttpSession session) {
 	    MemberVO memberVO2 = service.login(memberVO);
 	    if (memberVO2 != null&&memberVO2.getGrade()!=4) {
+	    	Login_checkVO login_check = service.login_check2(memberVO2.getMember_number());
+	    	 switch(login_check.getStatus()) {
+		        case 0 : //로그 아웃인 상태일 때
 	        // 로그인 성공 시 세션에 사용자 정보 저장
 	        session.setAttribute("id", memberVO2.getId());
 	        session.setAttribute("name", memberVO2.getName());
@@ -49,18 +53,27 @@ public class Rest_member_controller {
 	        session.setAttribute("member_number", memberVO2.getMember_number());
 	        session.setAttribute("grade", memberVO2.getGrade());
 	        session.setAttribute("profile_image", memberVO2.getProfile_image());
-	        log.info("Login successful for user: " + memberVO2.getId());
+	        service.login_check(memberVO2.getMember_number(), 1); //로그인 됨 상태
 	        return ResponseEntity.ok(memberVO2);
+	    	 case 1 : 
+	    		 Map<String, String> errorResponse = new HashMap<>();
+	 	        errorResponse.put("message", "이미 로그인 되어있습니다.");
+	 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+	    	 }
 	    } else {
 	    	   log.info("Login failed for user: " + memberVO.getId());
 	        Map<String, String> errorResponse = new HashMap<>();
 	        errorResponse.put("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 	    }
+	    Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", "오류가 발생하였습니다.");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 	}
 	
 	@GetMapping(value="/logout",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> logout(HttpSession session) {
+		service.login_check(session.getAttribute("member_number").toString(), 0); //로그아웃 됨 상태
         session.invalidate();
         Map<String, String> response = new HashMap<>();
         response.put("message", "로그아웃 되었습니다");

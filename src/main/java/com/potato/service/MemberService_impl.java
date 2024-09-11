@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.BoardVO;
+import com.potato.domain.Login_checkVO;
 import com.potato.domain.MemberVO;
 import com.potato.domain.Re_replyVO;
 import com.potato.domain.ReplyVO;
@@ -105,7 +106,17 @@ public class MemberService_impl implements MemberService {
 		return mapper.profile(member);
 	}
 
-	
-			
+	@Override
+	public Login_checkVO login_check2(String member_number) {
+		// TODO 로그인 중복확인하기2
+		return mapper.login_check2(member_number);
+	}
+
+	@Override
+	public int login_check(String member_number, int status) {
+		// TODO 로그인 중복확인하기
+		return mapper.login_check(member_number, status);
+	}
+
 
 }

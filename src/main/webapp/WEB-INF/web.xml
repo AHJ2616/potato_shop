@@ -48,5 +48,9 @@
         <filter-name>encoding</filter-name>
         <servlet-name>appServlet</servlet-name>
     </filter-mapping>
+    
+     <listener>
+        <listener-class>com.potato.listener.Session_listener</listener-class>
+    </listener>
 
 </web-app>

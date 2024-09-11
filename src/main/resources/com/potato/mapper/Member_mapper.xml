@@ -103,5 +103,20 @@ where member_number=#{member_number}
 ]]>
 </select>
 
+<!-- 로그인 아이디 상태변경 -->
+<update id="login_check">
+<![CDATA[
+    update login_check set status=#{status} where member_number=#{member_number}
+]]>
+</update>
+
+<!-- 로그인 아이디 중복체크 -->
+<select id="login_check2" resultType="Login_checkVO">
+<![CDATA[
+    select * from login_check where member_number=#{member_number}
+]]>
+</select>
 
 </mapper>
+
+

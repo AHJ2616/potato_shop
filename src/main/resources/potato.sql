@@ -11,8 +11,6 @@ create table member(
    regidate date default sysdate, -- 회원가입일  
    update_date date default sysdate -- 회원수정일
 ); -- 멤버 테이블
-insert into member(member_number,id,pass,name,nickName,phone,adress,profile_image)
- values(sys_guid(),'sql3','sql1','sql1','sql1','sql1','sql1','default_profile_1.jpg')
 
  
 CREATE TABLE user_table (
@@ -49,10 +47,6 @@ create table board(
    constraint fk_board_writer_number foreign key(writer_number) references member(member_number)
 ); -- 게시판
 
-alter table board rename column photoname to photo_name;
-
-select * from board;
-
 create sequence seq_board;
 
 create table reply(
@@ -80,13 +74,17 @@ create table chat(
    time_stamp date default sysdate  -- 보낸시간
 );
 
-select * from chat;
-
 create table chat_room(
 chat_number varchar2(100) primary key,
 person_a varchar2(100) not null,
 person_b varchar2(100) not null
 )
+
+-- 로그아웃 :0 , 로그인 : 1
+create table login_check(
+member_number varchar2(100) primary key,
+status number default 0 constraint status_NN not null  
+);
 
 create table x_member as select member_number,id,pass,name,nickname,phone,adress,grade,regidate from member where 1<>1
 ;
@@ -109,18 +107,15 @@ begin
 	insert into user_table (user_number) values(:new.member_number);
 end; 
 
-select m.phone, m.address, u.likes, u.reports, u.temper, u.trades 
-from member m
-inner join user_table u on m.member_number = u.user_number
-where m.member_number='01J6TP08EPYFFXJYAAMJ9KV2QW';
+--회원가입시 login_check테이블 생성
+create or replace trigger add_user
+after insert on MEMBER
+for each row
+begin
+	insert into login_check (member_number) values(:new.member_number);
+end; 
 
-select * from chat;
+select * from login_check;
+update login_check set status=0;
 
-SELECT dbms_metadata.get_ddl('TRIGGER', 'ADD_X_MEMBER') FROM dual;
 
-delete from member where id='sql2' and pass='sql1'
-select * from REPORTS;
-
-insert into reports (report_number,writer_id,defendant,status) values ('seq_board','qqq','01J6TP08EPYFFXJYAAMJ9KV2QW',0);
-
- 
