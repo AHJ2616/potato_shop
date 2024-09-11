@@ -13,6 +13,7 @@ import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
 import com.potato.domain.UserVO;
 import com.potato.mapper.Member_mapper;
+import com.potato.domain.Chat_roomVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,7 @@ public class MemberTests {
 	
 	@Setter(onMethod_ = @Autowired) // 생성자 자동 주입
 	private Member_mapper mapper;
+	private Chat_mapper cmapper;
 	
 	@Test
 	public void test() {
@@ -44,6 +46,21 @@ public class MemberTests {
 		System.out.println("실행");
 	}
 	
+	@Test
+	public void room_list() {
+		MemberVO member = new MemberVO();
+		member.setMember_number("01J72QVJ83E3YEVWK8JRCKXAZE");
+		cmapper.room_list(member);
+	}
+	
+	@Test
+	public void get_room() {
+		Chat_roomVO ch = new Chat_roomVO();
+		ch.setPerson_a("1");
+		ch.setPerson_b("01J72QVJ83E3YEVWK8JRCKXAZE");
+	}
+	
+
 	@Test
 	public void login() {
 		MemberVO member = new MemberVO();

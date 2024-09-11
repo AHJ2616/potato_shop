@@ -14,9 +14,23 @@
 
 <insert id="insert">
 	<![CDATA[
-		insert into board (board_number, types, title, content, writer, writer_number, status, photo_name, price, likes, interest)
-		values (seq_board.nextval, #{types}, #{title}, #{content}, #{writer}, #{writer_number}, '판매중', #{photo_name}, #{price}, 0, 0)
+		insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price, likes, interest, views)
+		values (seq_board.nextval, #{types}, #{title}, #{content}, #{writer}, #{writer_number}, #{board_address}, '판매중', #{photo_name}, #{price}, 0, 0, 0)
 	]]> 
+</insert>
+
+<insert id="insertLike">
+	<![CDATA[
+		insert into cart (board_member_number, likes_member_number, likes_board_number, types)
+			values(#{board_member_number}, #{likes_member_number}, #{likes_board_number}, '좋아요')
+	]]>
+</insert>
+
+<insert id="insertInterest">
+	<![CDATA[
+		insert into cart (board_member_number, likes_member_number, likes_board_number, types)
+			values(#{board_member_number}, #{likes_member_number}, #{likes_board_number}, '관심')
+	]]>
 </insert>
 
 <select id="read" resultType="BoardVO">
@@ -29,7 +43,7 @@
 <update id="update">
 	<![CDATA[
 		update board set
-		types = #{types}, title = #{title}, content = #{content}, status = #{status}, photo_name = #{photo_name}, updatedate = sysdate,
+		types = #{types}, title = #{title}, content = #{content}, status = #{status}, photo_name = #{photo_name, jdbcType=VARCHAR}, updatedate = sysdate,
 		price = #{price} where board_number = #{board_number}
 	]]>
 </update>
@@ -51,6 +65,27 @@
 	<![CDATA[
 		update board set
 		interest = interest+1 where board_number = #{board_number}
+	]]>
+</update>
+
+<update id="cancelLikes">
+	<![CDATA[
+		update board set
+		likes = likes-1 where board_number = #{board_number}
+	]]>
+</update>
+
+<update id="cancelInterest">
+	<![CDATA[
+		update board set
+		interest = interest-1 where board_number = #{board_number}
+	]]>
+</update>
+
+<update id="updateViews">
+	<![CDATA[
+		update board set
+		views = views+1 where board_number = #{board_number}
 	]]>
 </update>
 	

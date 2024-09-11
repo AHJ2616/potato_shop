@@ -114,8 +114,7 @@ from member m
 inner join user_table u on m.member_number = u.user_number
 where m.member_number='01J6TP08EPYFFXJYAAMJ9KV2QW';
 
-select * from reply;
-select * from member;
+select * from chat;
 
 SELECT dbms_metadata.get_ddl('TRIGGER', 'ADD_X_MEMBER') FROM dual;
 

@@ -10,14 +10,14 @@ public List<BoardVO> getList();
 	
 	public void register(BoardVO board);
 	
-	public BoardVO get(Long board_number);				
+	public void registerCart(BoardVO board);
+	
+	public BoardVO get(String board_number);				
 	
 	public boolean modify(BoardVO board);		
 	
-	public boolean remove(Long board_number);	
+	public boolean remove(String board_number);	
 	
-	public void modifyInterest(Long board_number);
-	
-	public void modifyLikes(Long board_number);
+	public void updateValues(BoardVO board);
 	
 }

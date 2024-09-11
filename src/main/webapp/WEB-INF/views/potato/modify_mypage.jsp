@@ -71,7 +71,19 @@
         </table>
         <input hidden="hidden"  name="member_number" value="${sessionScope.member_number}" />
         <button>제출하기</button>
+        <button type="button" class="btn btn-danger" id="delete" class="delete">탈퇴하기</button>
     </form>
     </div>
+<div id="passwordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+    <div style="background:white; margin:15% auto; padding:20px; width:300px; border-radius:5px;">
+        <form id="passwordForm">
+            <label for="password">고객확인을 위해 비밀번호를 입력해 주세요</label>
+            <input type="password" id="pass" name="pass" required>
+            <input type="password" id="id" name="id" hidden="hidden" value="${sessionScope.id}">
+            <button type="submit">확인</button>
+            <button type="button" id="closeModal">취소</button>
+        </form>
+    </div>
+</div>
 
 <%@ include file="../common/footer.jsp" %>

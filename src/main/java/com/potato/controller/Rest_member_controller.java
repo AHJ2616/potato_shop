@@ -120,4 +120,20 @@ public class Rest_member_controller {
 	    }
 	
 }
+	@PostMapping(value="/delete")
+	public ResponseEntity<Map<String, String>> delete(@RequestBody MemberVO memberVO,HttpSession session){
+		int result = service.delete(memberVO);
+		if(result==1) {//삭제성공
+			session.invalidate();
+			Map<String, String> response = new HashMap<>();
+	        response.put("message", "탈퇴시, 자동 로그아웃됩니다");
+	        response.put("redirect", "/potato/home");
+			 return ResponseEntity.ok(response);
+		}
+		else {
+			 Map<String, String> errorResponse = new HashMap<>();
+		        errorResponse.put("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
+		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+		}
+	}
 }

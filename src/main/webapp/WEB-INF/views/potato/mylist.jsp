@@ -18,7 +18,7 @@
 				</tr>
 				<c:forEach var="board" items="${boardVO}">
 				<tr>
-					<td><a href="/shop/get?board_number='${board.board_number}'"><c:out value="${board.title}" /></a></td>
+					<td><a href="/shop/get?board_number=${board.board_number}"><c:out value="${board.title}" /></a></td>
 					<td><c:out value="${board.status}" /></td>
 					<td><c:out value="${board.regidate}" /></td>
 					<td><c:out value="${board.views}" /></td>

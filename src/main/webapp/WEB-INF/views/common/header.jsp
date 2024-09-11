@@ -12,7 +12,7 @@
 	href="/resources/css/bootstrap.css" />
 <link href="/resources/css/style.css" rel="stylesheet" />
 <link href="/resources/css/register.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="/resources/css/board.css">
 
 <!-- responsive style -->
 <link href="/resources/css/responsive.css" rel="stylesheet" />
@@ -91,8 +91,6 @@
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							href="/shop/list"> 중고거래 </a></li>
-						<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact
-								Us</a></li>
 					</ul>
 					<div class="user_option">
 						<c:choose>
@@ -110,7 +108,7 @@
 									aria-hidden="true"></i> <span>로그아웃</span>
 								</a>
 								<a
-									href="/potato/chat?sender=<c:out value='${sessionScope.member_number}'/>"><span>채팅</span>
+									href="/potato/chat_list"><span>채팅목록</span>
 								</a>
 									
 							</c:otherwise>

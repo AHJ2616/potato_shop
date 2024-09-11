@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- jstl 포메팅 태그용 -->
 <%@ include file="../common/header.jsp"%>
+
 <div class="formbold-main-wrapper">
 	<div class="formbold-form-wrapper">
 		<form action="/shop/modify" method="post">
@@ -80,7 +81,6 @@
 <input type="hidden" name="board_number" value='<c:out value="${ board.board_number }"/>'>
 <button type="submit" class="formbold-btn">등록하기</button>
 	</form>
-
 
 
 

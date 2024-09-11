@@ -21,7 +21,7 @@ select member_number,id,name,nickName,grade,profile_image from member where id=#
 </select>
 
 <!-- 프로필 보여주기 -->
-<select id="porfile" resultType="MemberVO">
+<select id="profile" resultType="MemberVO">
 <![CDATA[
 select member_number,id,nickName,profile_image from member where member_number=#{member_number}
 ]]>

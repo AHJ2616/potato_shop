@@ -1,8 +1,6 @@
 $(document).ready(function() {
-            const sender = '$(#sender")'; // 보내는사람
-            const chat_number = '$(#chat_number")'; // Recipient user ID
-            const time_stamp = '$(#time_stamp)';
-
+            const sender = $('#sender').val(); // 보내는사람
+			const chat_number = $('#chat_number').val();
             // 채팅보내기
             function sendMessage(message) {
                 $.ajax({
@@ -16,7 +14,7 @@ $(document).ready(function() {
                         time_stamp: new Date() // Optional, if needed
                     }),
                     success: function() {
-                        $('#message-input').val(''); // Clear input field
+                        $('#content').val(''); // Clear input field
                         loadMessages(); // Reload messages
                     },
                     error: function(xhr, status, error) {
@@ -29,24 +27,31 @@ $(document).ready(function() {
              function loadMessages() {
     $.ajax({
       url: '/chat/messages',
-      type: 'GET',
-      data: {
-        chat_number: chat_number
-      },
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        chat_number:chat_number
+      }),
       success: function(response) {
+	  let chat_list = response; //list<ChatVO> 넣기
         $('.message-left').empty();
         $('.message-right').empty();
-        response.forEach(function(chatVO) {
-          const messageClass = chatVO.sender === sender?'message-right' :'message-left';
+        chat_list.forEach(function(chat) {
+		const formattedTime = new Date(chat.time_stamp).toLocaleString('ko-KR', {
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    }).replace(',', ''); // 쉼표 제거
+          const messageClass = chat.sender === sender?'.message-right' :'.message-left';
           const messageHTML = `
             <div class="message">
-              <span class="sender">${chatVO.sender}</span>
-              <span class="content">${chatVO.content}</span>
-              <span class="time-stamp">${chatVO.time_stamp}</span>
-              ${msg.sender === sender? '<button id="delete-button" class="btn btn-danger">삭제하기</button>' : ''}
+              <span class="content">${chat.content}</span>
+              <span class="time-stamp">${formattedTime}</span>
             </div>
           `;
-          $(`.${messageClass}`).append(messageHTML);
+           $(messageClass).append(messageHTML);
         });
         $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight); // Scroll to bottom
       },
@@ -81,7 +86,7 @@ $(document).ready(function() {
 
             // 전송버튼 눌러서 전송하기
             $('#send-button').click(function() {
-                const message = $('#message-input').val().trim();
+                const message = $('#content').val().trim();
                 if (message) {
                     sendMessage(message);
                 }
@@ -98,5 +103,10 @@ $(document).ready(function() {
     const time_stamp = $(this).parent().find('.time-stamp').text();
     deleteMessage(chat_number, time_stamp);
   });
+  
+  setInterval(function() {
+  loadMessages();
+}, 5000); // 1초마다 채팅내용을 불러옵니다.
+  
 });
             

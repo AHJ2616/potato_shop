@@ -28,21 +28,19 @@ public class Rest_chat_controller {
 	private ChatService service;
 	
 	// 채팅 전송
-    @PostMapping("/send")
+    @PostMapping(value="/send")
     public void sendMessage(@RequestBody ChatVO chatVO) {
-    	Ulid ulid = UlidCreator.getUlid();
-    	chatVO.setChat_number(ulid.toString());
     	service.add_chat(chatVO);
     }
 
     // 채팅내역 불러오기
-    @GetMapping("/messages")
+    @PostMapping(value="/messages",produces = "application/json")
     public List<ChatVO> getMessages(@RequestBody ChatVO chatVO) {
         return service.list(chatVO);
     }
 
     // Delete a chat message by its number
-    @DeleteMapping("/delete")
+    @DeleteMapping(value="/delete")
     public void deleteMessage(@RequestBody ChatVO chatVO) {
     	service.delete_chat(chatVO);
     }

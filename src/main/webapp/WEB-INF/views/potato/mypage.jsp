@@ -12,7 +12,8 @@
 			</form>
 		</div>
 		<div class="mypage-member">
-			<h2>마이페이지</h2> 
+		<a href="/potato/mylist" >나의 활동내역 확인하기</a>
+			<h2>마이페이지</h2>
 			<div class="member-info">
 				<table class="member-table">
 					<tr>
@@ -93,7 +94,7 @@
 <div id="passwordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
     <div style="background:white; margin:15% auto; padding:20px; width:300px; border-radius:5px;">
         <form id="passwordForm">
-            <label for="password">비밀번호:</label>
+            <label for="password">고객확인을 위해 비밀번호를 입력해 주세요</label>
             <input type="password" id="pass" name="pass" required>
             <input type="password" id="id" name="id" hidden="hidden" value="${sessionScope.id}">
             <button type="submit">확인</button>

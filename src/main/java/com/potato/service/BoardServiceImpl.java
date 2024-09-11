@@ -19,43 +19,68 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<BoardVO> getList() {
-		log.info("보드서비스IMPL getList 메서드 실행");
 		return mapper.getList();
 	}
 
 	@Override
 	public void register(BoardVO board) {
-		log.info("보드서비스IMPL register 메서드 실행");
 		mapper.insert(board);
 	}
 
 	@Override
-	public BoardVO get(Long board_number) {
-		log.info("보드서비스IMPL get 메서드 실행");
+	public void registerCart(BoardVO board) {
+		
+		switch(board.getType()) {
+		case "likes":
+			mapper.insertLike(board);
+			break;
+		
+		case "interest":
+			mapper.insertInterest(board);
+			break;
+			
+		default:
+			throw new IllegalArgumentException("타입인식 오류");
+		}
+	}
+	
+	@Override
+	public BoardVO get(String board_number) {
 		return mapper.read(board_number);
 	}
 
 	@Override
 	public boolean modify(BoardVO board) {
-		log.info("보드서비스IMPL modify 메서드 실행");
 		return mapper.update(board) == 1;
 	}
 
 	@Override
-	public boolean remove(Long board_number) {
-		log.info("보드서비스IMPL remove 메서드 실행");
+	public boolean remove(String board_number) {
 		return mapper.delete(board_number) == 1;
 	}
-	
+
 	@Override
-	public void modifyLikes(Long board_number) {
-        mapper.updateLikes(board_number);
-    }
-	
-	@Override
-	public void modifyInterest(Long board_number) {
-        mapper.updateInterest(board_number);
-    }
+	public void updateValues(BoardVO board) {
+		
+		switch (board.getType()) {
+		case "likes":
+			mapper.insertLike(board);
+			mapper.updateLikes(board);
+			break;
+
+		case "interest":
+			mapper.insertInterest(board);
+			mapper.updateInterest(board);
+			break;
+
+		case "views":
+			mapper.updateViews(board);
+			break;
+
+		default:
+			throw new IllegalArgumentException("타입인식 오류");
+		}
+	}
 
 
 }

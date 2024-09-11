@@ -1,0 +1,410 @@
+/* Reset some default browser styles */
+body, h2, p {
+    margin: 0;
+    padding: 0;
+}
+.row {
+    width: 80%;
+    margin: 0 auto; /* 부모 요소에서 가운데 정렬 */
+}
+
+.formbold-main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff;
+    padding: 20px;
+}
+
+.formbold-form-wrapper {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.formbold-form-title h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.file-input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: center; /* 버튼을 가운데 정렬 */
+}
+
+.file-input-wrapper input[type="file"] {
+     /* 파일 입력 필드 숨김 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer; /* 파일 선택 시 커서 변경 */
+}
+
+.file-input-wrapper label {
+    display: block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    max-width: 200px; /* 버튼의 최대 너비 설정 */
+    margin: 0 auto; /* 버튼을 가운데 정렬 */
+}
+
+.file-input-wrapper img.image-preview {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.formbold-form-input, .formbold-form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.formbold-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formbold-checkbox-wrapper {
+    margin-bottom: 20px;
+}
+
+.formbold-checkbox-label {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+.formbold-input-checkbox {
+    margin-right: 10px;
+}
+
+.formbold-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.formbold-btn:hover {
+    background-color: #0056b3;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* 카테고리선택 css */
+
+/* 전체 컨테이너 스타일링 */
+.formbold-input-flex {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 20px;
+}
+
+/* 선택 상자 스타일링 */
+.types {
+    width: 100%; /* 부모 컨테이너에 맞게 조정 */
+    max-width: 300px; /* 최대 너비 설정 */
+    padding: 10px 15px; /* 안쪽 여백 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 8px; /* 둥근 모서리 */
+    background-color: #f9f9f9; /* 배경 색상 */
+    color: #333; /* 글자 색상 */
+    font-size: 16px; /* 글자 크기 */
+    font-family: 'Arial', sans-serif; /* 폰트 설정 */
+    appearance: none; /* 기본 스타일 제거 */
+    cursor: pointer; /* 클릭 가능 커서 */
+    transition: border-color 0.3s, background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+/* 선택 상자의 포커스 시 스타일 */
+.types:focus {
+    border-color: #007bff; /* 포커스 시 테두리 색상 */
+    background-color: #fff; /* 포커스 시 배경 색상 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+
+/* 선택 상자의 드롭다운 화살표 스타일링 */
+.types::-ms-expand {
+    display: none; /* IE 드롭다운 화살표 제거 */
+}
+
+/* 드롭다운 화살표를 커스터마이즈 하기 위한 스타일 */
+.types::after {
+    content: '▼'; /* 드롭다운 화살표 기호 */
+    font-size: 16px;
+    color: #333; /* 화살표 색상 */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+    pointer-events: none; /* 화살표 클릭 방지 */
+}
+
+/* 부모 컨테이너에서 드롭다운 화살표 위치 조정 */
+.formbold-input-flex {
+    position: relative;
+}
+
+/* 선택 상자가 화살표를 감싸도록 설정 */
+.types {
+    padding-right: 40px; /* 화살표 공간 확보 */
+}
+
+/* 자세히보기 css */
+
+/* 전체 제품 세부정보 컨테이너 */
+.product-details {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+/* 제품 이미지 스타일링 */
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* 폼 그룹 스타일링 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.formbold-form-input, .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.formbold-form-input[readonly], .form-control[readonly] {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+}
+
+/* 버튼 스타일링 */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+}
+
+/* 버튼 호버 및 클릭 효과 */
+.btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* 모달 스타일링 */
+.modal-content {
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+}
+
+.modal-footer .btn {
+    border-radius: 4px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+}
+
+.modal-footer .btn-danger {
+    background-color: #dc3545;
+}
+
+/* 조회수 텍스트 스타일링 */
+#views {
+    display: block;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+/* 리스트 꾸미기 */
+
+/* 전체 섹션 스타일 */
+.shop_section {
+    padding: 40px 0;
+    background-color: #f9f9f9; /* 섹션 배경 색상 */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.heading_container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.heading_container h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.btn-outline-warning {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+/* 카드 스타일 */
+.box {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.box:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* 이미지 박스 스타일 */
+.img-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 상세 박스 스타일 */
+.detail-box {
+    padding: 15px;
+    text-align: center;
+}
+
+.detail-box h6 {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 가격, 주소, 상태 스타일 */
+.card_preice, .card_adress, .card_status {
+    padding: 10px 15px;
+    text-align: center;
+    color: #555;
+    border-top: 1px solid #ddd;
+}
+
+
+.card_adress, .card_status, .card_preice {
+    font-size: 0.9rem;
+}
+
+/* 좋아요, 관심, 조회수 스타일 */
+.card_count {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.card_count span {
+    flex: 1;
+    text-align: center;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 767px) {
+    .col-sm-6 {
+        margin-bottom: 20px;
+    }
+}

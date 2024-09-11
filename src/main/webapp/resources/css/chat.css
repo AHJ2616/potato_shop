@@ -1,6 +1,8 @@
 #chat-box {
-  width: 300px;
-  height: 400px;
+  position: relative;
+
+  width: 1000px;
+  height: calc(100vh - 200px); /* header와 footer의 높이를 고려하여 높이를 설정 */
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -71,5 +73,25 @@
   width: 10%;
   height: 30px;
   margin-left: 10px;
+}
+
+.message-left {
+  text-align: left; /* 왼쪽 정렬 */
+  background-color: #f1f1f1; /* 배경색 설정 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  padding: 10px; /* 패딩 추가 */
+  margin-bottom: 10px; /* 아래쪽 여백 추가 */
+  max-width: 70%; /* 최대 너비 설정 */
+  clear: both; /* 이전 요소와 겹치지 않도록 설정 */
+}
+
+.message-right {
+  text-align: right; /* 오른쪽 정렬 */
+  background-color: #dff0d8; /* 배경색 설정 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  padding: 10px; /* 패딩 추가 */
+  margin-bottom: 10px; /* 아래쪽 여백 추가 */
+  max-width: 70%; /* 최대 너비 설정 */
+  float: right; /* 오른쪽으로 정렬 */
 }
 		

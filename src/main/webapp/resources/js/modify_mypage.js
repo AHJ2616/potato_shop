@@ -42,6 +42,37 @@ $(document).ready(function() {
 		}
     });
 
+	    $('#delete').click(function(e) {
+        e.preventDefault(); // 기본 링크 동작 방지
+        $('#passwordModal').show(); // 모달 창 표시
+    });
+     $('#closeModal').click(function() {
+        $('#passwordModal').hide(); // 모달 창 닫기
+    });
+
+    $('#passwordForm').submit(function(e) {
+        e.preventDefault(); // 기본 폼 제출 방지
+        let pass = $('#pass').val();
+        let id = $('#id').val();
+        // AJAX 요청
+        $.ajax({
+            url: '/rest/delete', // 비밀번호 확인을 위한 URL
+            type: 'POST',
+            contentType: 'application/json',
+               data: JSON.stringify({pass:pass,id:id}), // JSON 문자열로 변환
+            success: function(response) {
+                // 성공 시 처리
+                if (response.success) {
+                } else {
+                    alert('비밀번호가 틀렸습니다.');
+                }
+            },
+            error: function() {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+    
     // 사용자 정의 알림 표시 함수
     function showCustomAlert(message, targetSelector) {
         const alertBox = $(targetSelector);
