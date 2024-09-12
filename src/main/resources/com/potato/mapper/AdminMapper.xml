@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.potato.mapper.AdminMapper">
+  
+  <select id="getList" resultType="MemberVO">
+  <![CDATA[
+     select * from member where id = #{id}
+  ]]>
+  </select> <!-- 관리자 정보 확인(완) -->
+  
+  <select id="getMemberList" resultType="MemberVO">  
+  <![CDATA[
+         SELECT *
+    FROM member
+    WHERE id = #{id}
+  ]]>
+  </select> <!-- 회원 정보 검색 -->
+  
+  <update id="updateBlack">
+   <![CDATA[
+      update member set
+      grade = 4 ,
+      update_date = sysdate
+      where id = #{id}
+    ]]>
+  </update> <!-- 블랙리스트  -->
+  
+  <insert id="insertBoard">
+  <![CDATA[
+		insert into board(board_number,types,title, content, writer, writer_number,
+		status, photo_name, regidate)
+		values (seq_board.nextval ,#{types}, #{title}, #{content}, #{writer},
+		#{writer_number}, #{status}, #{photo_name}, sysdate)
+		]]>
+  </insert> <!-- 공지 추가 -->
+  
+  <delete id="deleteReport">
+  <![CDATA[
+     delete from board where board_number = #{board_number} 
+  ]]>
+  </delete> <!-- 게시판 삭제 -->
+  
+  <delete id="replyDelete">
+  <![CDATA[
+     delete from reply where id= #{id} 
+  ]]>
+  </delete> <!-- 댓글 삭제 -->
+  
+  <select id="readReport" resultType="ReportVO">
+  <![CDATA[
+     select 
+     r.report_number, 
+      r.writer_id, 
+      w.name AS writer_name, 
+      r.defendant, 
+      d.name AS defendant_name, 
+      r.status, 
+      r.regidate, 
+      r.done_date
+    FROM 
+      reports r
+    JOIN 
+      member w ON r.writer_id = w.id  -- 신고자의 이름을 가져오기 위해 member 테이블 조인
+    LEFT JOIN 
+      member d ON r.defendant = d.member_number  -- 신고 당한 사람의 이름을 가져오기 위해 member 테이블 조인
+    where 
+     w.grade !=4
+      AND (d.grade IS NULL OR d.grade != 4) 
+  ]]>
+  </select> <!-- 신고내역 확인(완) -->
+  
+  <update id="updateReport">
+  <![CDATA[
+     update reports
+     set
+     status = 4,
+     done_date = sysdate
+     where id = #{id}
+  ]]>
+  </update> <!-- 신고처리 -->
+  
+   <select id="viewBlack" resultType="MemberVO">
+    <![CDATA[
+       select member_number, id, update_date from member where grade=4
+   ]]>
+   </select> <!-- 블랙리스트 확인 -->
+  
+  </mapper>

@@ -38,7 +38,7 @@ public class Chat_controller {
 		chat_room.setPerson_b(reciever);
 		MemberVO memberVO = new MemberVO(); //상대방 데이터 저장용
 		memberVO.setMember_number(reciever);
-		memberVO = m_service.profile(memberVO);
+		memberVO = m_service.profile(memberVO);//상대방 데이터 저장
 		Ulid ulid = UlidCreator.getUlid();
 		chat_room.setChat_number(ulid.toString());
 		ChatVO chatVO = new ChatVO(); 

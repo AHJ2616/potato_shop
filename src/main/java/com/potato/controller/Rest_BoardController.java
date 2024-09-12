@@ -27,7 +27,6 @@ public class Rest_BoardController {
 		
 		 try {
 			 service.updateValues(board);
-			 service.registerCart(board);
 			 return ResponseEntity.ok().build();
 		 
 		 } catch (Exception e) {

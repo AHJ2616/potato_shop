@@ -52,6 +52,7 @@ public class Rest_member_controller {
 	        session.setAttribute("nickName", memberVO2.getNickName());
 	        session.setAttribute("member_number", memberVO2.getMember_number());
 	        session.setAttribute("grade", memberVO2.getGrade());
+	        session.setAttribute("address", memberVO2.getAddress());
 	        session.setAttribute("profile_image", memberVO2.getProfile_image());
 	        service.login_check(memberVO2.getMember_number(), 1); //로그인 됨 상태
 	        return ResponseEntity.ok(memberVO2);

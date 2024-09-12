@@ -9,15 +9,29 @@
         display: flex; /* Flexbox 사용 */
         flex-direction: column; /* 세로 방향으로 배치 */
     }
+.profile_photo{    
+    position: relative;
+    width: 100px;
+    height: 100px;
+} 
+    .profile_photo .mask {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(https://static.nid.naver.com/images/web/user/img_bg_profile_thumb.png) 0 0;
+}
 
     /* 프로필 이미지와 마이페이지 멤버를 같은 크기로 설정 */
-    .profile-image-container, .mypage-member {
+    .profile_image-container, .mypage-member {
         flex: 1; /* 남은 공간을 동일하게 차지하도록 설정 */
         padding: 10px; /* 내부 여백 추가 */
     }
 
     /* 프로필 이미지와 활동 내역을 같은 크기로 설정 */
-    .profile-image-container {
+    .profile_image-container {
         display: flex; /* Flexbox 사용 */
         align-items: center; /* 수직 중앙 정렬 */
         margin-bottom: 20px; /* 아래쪽 여백 추가 */
@@ -25,16 +39,11 @@
 
 
     /* 기존 스타일 유지 */
-    .profile-image {
+    .profile_image {
         margin-right: 20px; /* 이미지와 내용 사이의 간격 */
         border: 2px solid #ddd; /* 외부선 추가 */
         padding: 10px; /* 내부 여백 추가 */
         border-radius: 8px; /* 모서리 둥글게 */
-    }
-
-    .profile-image img {
-        width: 100px; /* 원하는 이미지 크기로 조정 */
-        height: auto; /* 비율 유지 */
     }
 
 
@@ -105,5 +114,4 @@
         display: flex; /* Flexbox 사용 */
         align-items: center; /* 수직 중앙 정렬 */
     }
-    
     

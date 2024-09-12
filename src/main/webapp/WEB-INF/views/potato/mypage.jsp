@@ -3,14 +3,19 @@
 <link rel="stylesheet" href="/resources/css/mypage.css">
 <div class="mypage-container">
 	<div class="profile-image-container">
-		<div class="profile-image">
-			<img src="${pageContext.request.contextPath}/resources/images/${memberVO.profile_image}" alt="">
+	
+		<div class="profile_image">
+		<div class="profile_photo">
+			<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${sessionScope.profile_image}" alt="" width="100" height="100">
+			<span class="mask"></span>
+		</div>
 			<form id="profileImageForm" enctype="multipart/form-data">
 				<input type="file" id="profile_file" name="file" accept="image/*">
 				<input type="hidden" id="member_number" name="member_number" value="${sessionScope.member_number}">
 				<button type="submit">프로필 사진 변경</button>
 			</form>
 		</div>
+		
 		<div class="mypage-member">
 		<a href="/potato/mylist" >나의 활동내역 확인하기</a>
 			<h2>마이페이지</h2>

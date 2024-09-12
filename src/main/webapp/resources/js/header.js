@@ -65,4 +65,14 @@ $(document).ready(function() {
 	e.href= potato/register;
 	
 });
+
+window.addEventListener('beforeunload', function() {
+    let url = '/rest/logout';
+    navigator.sendBeacon(url);
+    });
 });
+
+window.addEventListener('unload', function() {
+    let url = '/rest/logout';
+    navigator.sendBeacon(url);
+    });

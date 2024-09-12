@@ -50,7 +50,6 @@ public class Member_controller {
 	@GetMapping({"/mypage","/modify_mypage"})
 	public void mypage(Model model,HttpSession session) {
 		MemberVO memberVO = new MemberVO();
-		UserVO userVO = new UserVO();
 		memberVO.setMember_number((String)session.getAttribute("member_number"));
 		model.addAttribute("memberVO",service.mypage(memberVO));
 		model.addAttribute("userVO",service.mypage2(memberVO));

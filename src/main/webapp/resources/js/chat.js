@@ -47,7 +47,7 @@ $(document).ready(function() {
           const messageClass = chat.sender === sender?'.message-right' :'.message-left';
           const messageHTML = `
             <div class="message">
-              <span class="content">${chat.content}</span>
+              <span class="content">${chat.content}</span><br>
               <span class="time-stamp">${formattedTime}</span>
             </div>
           `;

@@ -1,12 +1,14 @@
 #chat-box {
   position: relative;
-
   width: 1000px;
   height: calc(100vh - 200px); /* header와 footer의 높이를 고려하여 높이를 설정 */
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .chat-header {
@@ -25,7 +27,16 @@
 }
 
 .chat-body {
-  padding: 10px;
+  --dimmed: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .15));
+    height: 100%;
+    overflow-y: auto;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    background-size: cover;
+    background-position: 50%;
+    padding : 4px 16px 16px;
 }
 
 #messages {
@@ -64,9 +75,15 @@
 }
 
 #send-button {
-  width: 20%;
-  height: 30px;
-  margin-left: 10px;
+    width: 74px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: 8px;
+    border-radius: 6px;
+    background-color: rgb(var(--chatColorBUBBLE_OTHERS));
+    color: rgb(var(--chatColorLINE_OPACITY));
+    font-size: 13px;
+    font-weight: 700;
 }
 
 #delete-button {
@@ -77,8 +94,9 @@
 
 .message-left {
   text-align: left; /* 왼쪽 정렬 */
-  background-color: #f1f1f1; /* 배경색 설정 */
-  border-radius: 5px; /* 모서리 둥글게 */
+  background-color: #dff0d8; /* 배경색 설정 */
+  border-radius: 21px;
+  overflow: hidden;
   padding: 10px; /* 패딩 추가 */
   margin-bottom: 10px; /* 아래쪽 여백 추가 */
   max-width: 70%; /* 최대 너비 설정 */
@@ -87,11 +105,41 @@
 
 .message-right {
   text-align: right; /* 오른쪽 정렬 */
+  border-radius: 21px;
   background-color: #dff0d8; /* 배경색 설정 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  padding: 10px; /* 패딩 추가 */
+  padding: 9px 12px;
+  font-size: 13px;
+  line-height: 16px;
   margin-bottom: 10px; /* 아래쪽 여백 추가 */
   max-width: 70%; /* 최대 너비 설정 */
   float: right; /* 오른쪽으로 정렬 */
 }
+
+.input_wrap {
+    display: flex;
+    border-top: .5px solid rgb(var(--chatColorLINE_OPACITY));
+    padding-top: 16px;
+    background-color: #f9f9f9;
+}
 		
+.input {
+    width: 100%;
+    height: 32px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgb(var(--chatColorTITLE));
+    overflow: auto;
+}
+
+.textarea {
+    -webkit-appearance: none;
+}
+
+.time-stamp{
+	margin-right: 6px;
+}
+

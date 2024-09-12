@@ -31,17 +31,31 @@ $(document).ready(function() {
 	});
 
 	// 좋아요 버튼 클릭 시
-	$("#likeForm").on("submit", function() {
-		let board_number = $("#board_number").val();
-		let data = {"type":"likes","board_number":board_number};
+	$("#likeForm").on("submit", function(event) {
+		event.preventDefault();
+		let board_number = $("#board_number1").val();
+		let member_number = $("#member_number1").val();
+		
+		let data = {
+			"type":"likes",
+			"board_number":board_number,
+			"writer_number":member_number};
+			
 		updateValue(data);
 		location.reload();
 	});
 
 	// 관심 버튼 클릭 시
-	$("#interestForm").on("submit", function() {
-		let board_number = $("#board_number").val();
-		let data = {"type":"interest","board_number":board_number};
+	$("#interestForm").on("submit", function(event) {
+		event.preventDefault();
+		let board_number = $("#board_number2").val();
+		let member_number = $("#member_number2").val();
+		
+		let data = {
+			"type":"interest",
+			"board_number":board_number,
+			"writer_number":member_number};
+			
 		updateValue(data);
 		location.reload();
 	});
@@ -54,9 +68,11 @@ $(document).ready(function() {
 			contentType: "application/json",
 			data: JSON.stringify(data),
 			success: function() {
+				alert("목록에 담겼습니다.");
 			},
 			error: function() {
-				alert("업데이트 실패");
+				console.log(data);
+				alert("로그인후 이용해주세요.");
 			}
 		});
 	}

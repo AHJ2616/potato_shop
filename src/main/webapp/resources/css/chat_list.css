@@ -23,8 +23,8 @@
 }
 
 #chat-list img {
-  width: 40px; /* 이미지 너비를 40px로 줄임 */
-  height: 40px; /* 이미지 높이를 40px로 줄임 */
+  width: 100px; /* 이미지 너비를 100px */
+  height: 100px; /* 이미지 높이를 100px */
   border-radius: 50%;
   margin-right: 20px;
 }
@@ -99,4 +99,54 @@
   padding: 10px; /* 셀 패딩 추가 */
   text-align: left; /* 텍스트 정렬 */
 }
+
+/* .profile_module{
+	height: 96px;
+    padding: 22px 18px 10px 18px;
+    box-sizing: border-box;
+	
+}
+
+.profile_info{
+	position: relative;
+    display: flex;
+    padding-right: 98px;
+}
+
+.profile_photo{    
+    position: relative;
+    width: 100px;
+    height: 100px;
+} 
+
+.profile_photo .mask {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(https://static.nid.naver.com/images/web/user/img_bg_profile_thumb.png) 0 0;
+}
+
+.profile_user{
+	-webkit-box-flex: 1;
+    flex: 1;
+}
+
+.profile_name{
+	margin: -1px 0 2px;
+    line-height: 20px;
+    white-space: nowrap;
+}
+	
+.go_chat{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 1px;
+    max-width: 200px;
+    font-size: 1.3rem;
+    line-height: 20px;
+} */
 	

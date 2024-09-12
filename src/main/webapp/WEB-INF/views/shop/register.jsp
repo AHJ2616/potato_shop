@@ -19,13 +19,19 @@
         <div class="formbold-mb-3">
             <div>
                 <label for="writer" class="formbold-form-label">판매자</label>
-                <input class="form-control" name="address" value='<c:out value="${sessionScope.nickName}"/>' readonly="readonly" />
+                <input class="formbold-form-input" name="writer" value='<c:out value="${sessionScope.nickName}"/>' readonly="readonly" />
             </div>
         </div>
         <div class="formbold-mb-3">
             <div>
                 <label for="writer_number" class="formbold-form-label">판매자코드</label>
-                <input class="form-control" name="address" value='<c:out value="${sessionScope.member_number}"/>' readonly="readonly" />
+                <input class="formbold-form-input" name="writer_number" value='<c:out value="${sessionScope.member_number}"/>' readonly="readonly" />
+            </div>
+        </div>
+        <div class="formbold-mb-3">
+            <div>
+                <label for="board_address" class="formbold-form-label">판매자 주소</label>
+                <input class="formbold-form-input" name="board_address" value="수원시" readonly="readonly" />
             </div>
         </div>
         <div class="formbold-mb-3">
@@ -78,20 +84,3 @@
     </div>
 </div>
 <%@include file="../common/footer.jsp"%>
-<script type="text/javascript">
-document.getElementById('InputFile').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            const imgElement = document.getElementById('image-preview');
-            imgElement.src = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
-    } else {
-        document.getElementById('image-preview').src = '';
-    }
-});
-    </script>

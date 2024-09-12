@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <!DOCTYPE html>
 <html>
 <!-- Bootstrap CSS -->
@@ -28,6 +29,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+<script src="/resources/js/board_register.js"></script>
 <!-- header.js참조 -->
 <script src="/resources/js/header.js"></script>
 <head>
@@ -45,7 +48,7 @@
 	href="${pageContext.request.contextPath}/resources/images/favicon.png"
 	type="image/x-icon">
 
-<title>감자마켓</title>
+
 <style>
 .modal-dialog {
 	display: flex;
@@ -73,7 +76,7 @@
 		<!-- header section strats -->
 		<header class="header_section">
 			<nav class="navbar navbar-expand-lg custom_nav-container ">
-				<a class="navbar-brand" href="/potato/home"> <span> 🥔 감자
+				<a class="navbar-brand" href="/potato/home"> <span> 🥔 감자마켓
 				</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -96,7 +99,7 @@
 						<c:choose>
 							<c:when test="${empty sessionScope.id}">
 								<a href="#login" data-toggle="modal" data-target="#loginModal">
-									<i class="fa fa-user" aria-hidden="true"></i> <span>로그인</span>
+									<i class="fa fa-user" aria-hidden="true"></i> <span>로그인/회원가입</span>
 								</a>
 							</c:when>
 							<c:otherwise>
@@ -113,11 +116,6 @@
 									
 							</c:otherwise>
 						</c:choose>
-						<form class="form-inline ">
-							<button class="btn nav_search-btn" type="submit">
-								<i class="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</form>
 					</div>
 				</div>
 			</nav>

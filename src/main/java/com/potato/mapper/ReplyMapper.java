@@ -6,26 +6,66 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.potato.domain.ReplyVO;
+import com.potato.domain.MemberVO;
 import com.potato.domain.Reply_critera;
+import com.potato.domain.Re_replyVO;
 
 @Mapper
 public interface ReplyMapper {
 	// xml와 연동해서 sql 처리
 		// 추상메서드가 필요하다.
 		
-		// 추상메서드
-		public int insert(ReplyVO replyVO); // 외부에서 폼으로 ReplyVO 객체가 넘어오고 리턴은 int가 됨.
-		
-		public ReplyVO read(String reply_number); // 댓글 번호를 가지고 댓글(객체)을 가져옴.
-		
-		public int update(ReplyVO replyVO); // 객체가 넘어가서 수정됨. 결과는 int 처리
-		
-		public int delete(String reply_number); // 댓글 번호를 가지고 레코드를 삭제.
-		
-		// 댓글 리스트 : 페이징처리 + board_number (pk+fk) -> 여러개의 파라미터인 경우 @Param을 사용하면 편리함
-		public List<ReplyVO> getListWithPaging(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
-		//																페이징처리 기준점, 게시물의 번호 pk+fk
-		
-		// 댓글 리스트 무한 스크롤 페이징
-		public List<ReplyVO> getListScroll(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
-}
+	// 추상메서드
+			public int insert(ReplyVO replyVO); // 외부에서 폼으로 ReplyVO 객체가 넘어오고 리턴은 int가 됨.
+			
+			public ReplyVO read(String reply_number); // 댓글 번호를 가지고 댓글(객체)을 가져옴.
+			
+			public int update(ReplyVO replyVO); // 객체가 넘어가서 수정됨. 결과는 int 처리
+			
+			public int delete(String reply_number); // 댓글 번호를 가지고 레코드를 삭제.
+			
+			// 댓글 리스트 : 페이징처리 + board_number (pk+fk) -> 여러개의 파라미터인 경우 @Param을 사용하면 편리함
+			public List<ReplyVO> getListWithPaging(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
+			//																페이징처리 기준점, 게시물의 번호 pk+fk
+			
+			// 해당하는 댓글 갯수
+			public int getCountById(String id);
+			
+			// 댓글 리스트 무한 스크롤 페이징
+//			public List<ReplyVO> getListScroll(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
+			
+			// 대댓글----------------------------
+			
+			// 회원 id 조회
+			public MemberVO getMemberById(String id);
+			
+			// 댓글 리스트 출력
+			public List<ReplyVO> getRepliesByMemberId(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
+			
+			// 댓글 작성
+			public int insertReply(ReplyVO replyVO);
+			
+			// 댓글 수정
+			public int updateReply(ReplyVO replyVO);
+			
+			// 댓글 삭제
+			public int deleteReply(String reply_number);
+			
+			// 대댓글 조회
+			public Re_replyVO readReReply(String re_reply_Number);
+			
+			// 대댓글 리스트 조회
+			public List<Re_replyVO> getReRepliesByReplyNumber(String reply_number);
+			
+			// 대댓글 작성
+			public int insertReReply(Re_replyVO re_replyVO);
+			
+			// 대댓글 수정
+			public int updateReReply(Re_replyVO re_replyVO);
+			
+			// 대댓글 삭제
+			public int deleteReReply(String re_reply_Number);
+			
+			
+			
+	}

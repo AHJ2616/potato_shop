@@ -12,6 +12,7 @@ create table member(
    update_date date default sysdate -- 회원수정일
 ); -- 멤버 테이블
 
+
  
 CREATE TABLE user_table (
   user_number VARCHAR2(100), -- 회원번호 member_number외래키
@@ -83,8 +84,16 @@ person_b varchar2(100) not null
 -- 로그아웃 :0 , 로그인 : 1
 create table login_check(
 member_number varchar2(100) primary key,
-status number default 0 constraint status_NN not null  
+status number default 0 constraint status_NN not null,
+id varchar2(100) not null unique
 );
+
+-- 비로그인 회원도 코멘트를 쓸 수 있게 한다
+create table coments (
+	id varchar2(50) default '비회원' constraint id_nn not null,
+	message varchar2(500) constraint message_nn not null,
+	regidate date default sysdate
+)
 
 create table x_member as select member_number,id,pass,name,nickname,phone,adress,grade,regidate from member where 1<>1
 ;
@@ -112,10 +121,12 @@ create or replace trigger add_user
 after insert on MEMBER
 for each row
 begin
-	insert into login_check (member_number) values(:new.member_number);
+	insert into login_check (member_number,id) values(:new.member_number,:new.id);
 end; 
 
 select * from login_check;
+select * from member;
+select * from user_table;
 update login_check set status=0;
-
-
+insert into coments(message,id)
+ values('sql에서 테스트','비회원');

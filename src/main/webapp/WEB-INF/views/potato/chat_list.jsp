@@ -20,5 +20,27 @@
       </tr>
     </c:forEach>
   </table>
+  <%-- <ul>
+  <c:forEach var="member" items="${memberVO}">
+  <li>
+  <div class="profile_module">
+  	<div class="profile_info">
+  		<div class="profile_photo">
+			<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}"  width="100" height="100">
+			<span class="mask"></span>
+		</div>
+		<div class="profile_user">
+			<div class="profile_name">
+			<a>${member.nickName}</a>
+			</div>
+			<div class="go_chat">
+			<a href="/potato/chat?reciever=${member.member_number}">채팅하기</a>
+			</div>
+		</div>
+  	</div>
+  </div>
+  </li>
+  </c:forEach>
+  </ul> --%>
 </div>
 <%@ include file="../common/footer.jsp"%>

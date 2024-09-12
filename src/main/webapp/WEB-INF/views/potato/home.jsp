@@ -1,14 +1,8 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+ <title>감자마켓</title>
   <!-- shop section -->
   <%@ include file="../common/header.jsp" %>
-  
-  <section class="slider_section">
-      <div class="main-title">
-       <img src="${pageContext.request.contextPath}/resources/images/potatp_market_main.jpeg" alt="">
-      </div>
-    </section>
   
   <section class="shop_section layout_padding">
     <div class="container">
