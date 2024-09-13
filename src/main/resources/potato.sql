@@ -12,8 +12,6 @@ create table member(
    update_date date default sysdate -- 회원수정일
 ); -- 멤버 테이블
 
-
- 
 CREATE TABLE user_table (
   user_number VARCHAR2(100), -- 회원번호 member_number외래키
   reports NUMBER NOT NULL default 0, -- 신고 수
@@ -27,12 +25,17 @@ CREATE TABLE user_table (
 create table reports(
    report_number varchar2(1000) constraint pk_report_num primary key, -- 신고번호
    writer_id varchar2(30) not null, -- 신고자 (member_id)
-   defendant varchar2(100), -- 신고 당한사람 fk(member_number)
-   status number(1) not null, -- 신고처리 상태
+   defendant_id varchar2(30), -- 신고 당한사람 id
+   defendant varchar2(30), -- 신고 당한사람 fk(member_number)
+   status number(1) default 0 not null, -- 신고처리 상태
+   content varchar2(2000) not null,   -- 신고내용
    regidate date default sysdate, -- 신고일
    done_date date default sysdate, -- 신고처리일
    constraint fk_report_defendant_number foreign key(defendant) references member(member_number)
 ); -- 신고 테이블
+
+
+
 
 create table board(
    board_number varchar2(1000) constraint pk_board_num primary key, -- 글 번호
@@ -117,15 +120,14 @@ begin
 end; 
 
 --회원가입시 login_check테이블 생성
-create or replace trigger add_user
+create or replace trigger login_check
 after insert on MEMBER
 for each row
 begin
 	insert into login_check (member_number,id) values(:new.member_number,:new.id);
 end; 
 
-select * from login_check;
-select * from member;
+select * from reports;
 select * from user_table;
 update login_check set status=0;
 insert into coments(message,id)

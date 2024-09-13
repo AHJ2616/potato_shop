@@ -32,7 +32,11 @@ $(document).ready(function() {
         if (response && response.id) {
           alert('로그인 성공');
           $('#loginModal').modal('hide');
+          if(response.member_number=='admin'){
+		  window.location.href ='/admin/home'
+		  }else{
           window.location.href = window.location.href;
+          }
         } else {
           alert('로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.');
         }
@@ -44,7 +48,10 @@ $(document).ready(function() {
   });
 
   // 로그아웃 처리
-  $('#logoutLink').click(function(e) {
+  $('#logoutLink').click(logout);
+  
+  //로그아웃 함수
+  function logout(e) {
     e.preventDefault();
     $.ajax({
       url: '/rest/logout',
@@ -58,21 +65,15 @@ $(document).ready(function() {
         alert('로그아웃 처리 중 오류가 발생했습니다.');
       }
     });
-  });
+  };
   
   //회원가입 버튼 처리
   $('#register').click(function(e){
 	e.href= potato/register;
 	
 });
+window.addEventListener('unload', logout);
+});   
 
-window.addEventListener('beforeunload', function() {
-    let url = '/rest/logout';
-    navigator.sendBeacon(url);
-    });
-});
 
-window.addEventListener('unload', function() {
-    let url = '/rest/logout';
-    navigator.sendBeacon(url);
-    });
+  

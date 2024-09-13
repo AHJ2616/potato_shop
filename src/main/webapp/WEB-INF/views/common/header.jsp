@@ -76,7 +76,7 @@
 		<!-- header section strats -->
 		<header class="header_section">
 			<nav class="navbar navbar-expand-lg custom_nav-container ">
-				<a class="navbar-brand" href="/potato/home"> <span> 🥔 감자마켓
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/home"> <span> 🥔 감자마켓
 				</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -88,10 +88,20 @@
 
 				<div class="collapse navbar-collapse innerpage_navbar"
 					id="navbarSupportedContent">
-					<ul class="navbar-nav  ">
-						<li class="nav-item "><a class="nav-link" href="/potato/home">홈
+					<c:choose>
+					<c:when test="${sessionScope.member_number}=='admin'">
+					<li class="nav-item "><a class="nav-link" href="/home/admin">관리자홈
 								<span class="sr-only">(current)</span>
 						</a></li>
+					</c:when>
+					<c:otherwise>
+					<li class="nav-item "><a class="nav-link" href="/home">홈
+								<span class="sr-only">(current)</span>
+						</a></li>
+					</c:otherwise>
+					</c:choose>
+					<ul class="navbar-nav  ">
+						
 						<li class="nav-item active"><a class="nav-link"
 							href="/shop/list"> 중고거래 </a></li>
 					</ul>
@@ -144,7 +154,7 @@
 								<button type="submit" class="btn btn-primary">로그인</button>
 								&nbsp;
 								<button type="button" class="btn btn-primary"
-									onclick="location.href='/potato/register'">회원가입</button>
+									onclick="location.href='${pageContext.request.contextPath}/potato/register'">회원가입</button>
 							</form>
 						</div>
 					</div>

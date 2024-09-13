@@ -34,10 +34,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override // 블랙리스트 등록
-	public void updateBlack(String id) {
-		
-		log.info("블랙리스트 아이디 :" + id);
-		mapper.updateBlack(id);
+	public void updateBlack(MemberVO member) {
+		mapper.updateBlack(member);
 	}
 
 	@Override // 공지 추가
@@ -65,15 +63,20 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override // 신고 처리
-	public void updateReport(int status) {
-		log.info("게시글 삭제" + status );
-		mapper.updateReport(status);
+	public void updateReport(ReportVO reportVO) {
+		mapper.updateReport(reportVO);
 	}
 
 	@Override   // 블랙리스트 보기
 	public List<MemberVO> viewBlack() {
 		log.info("블랙리스트 확인");
 		return mapper.viewBlack();
+	}
+
+	@Override
+	public ReportVO get_report(String report_number) {
+		// TODO 신고내역 확인
+		return mapper.get_report(report_number);
 	}
 	
 }

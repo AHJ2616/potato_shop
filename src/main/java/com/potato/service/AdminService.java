@@ -17,7 +17,7 @@ public interface AdminService {
  public MemberVO getMemberList(String id);
 
  // 블랙리스트 등록
- public void updateBlack(String id);
+ public void updateBlack(MemberVO memberVO);
 
  // 공지사항 추가
  public void insertBoard(BoardVO board);
@@ -32,9 +32,11 @@ public interface AdminService {
  public List<ReportVO> readReport();
 
  // 신고 처리
- public void updateReport(int status);
+ public void updateReport(ReportVO report);
  
  // 블랙리스트 보기
  public List<MemberVO> viewBlack();
+ 
+ public ReportVO get_report(String report_number);
 	
 }

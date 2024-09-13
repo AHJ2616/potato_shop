@@ -78,7 +78,7 @@ public class Rest_member_controller {
         session.invalidate();
         Map<String, String> response = new HashMap<>();
         response.put("message", "로그아웃 되었습니다");
-        response.put("redirect", "/potato/home");
+        response.put("redirect", "/home");
         return ResponseEntity.ok(response);
     }
 	

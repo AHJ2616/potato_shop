@@ -26,7 +26,7 @@ public class Member_controller {
 	private MemberService service;
 	
 	//get으로 들어온 경우, form작성할 수 있게 jsp파일 띄우기
-	@GetMapping({"/home","/register","/review"})
+	@GetMapping({"/register","/review"})
 	public void get_form() {
 	}
 	
@@ -36,7 +36,7 @@ public class Member_controller {
 	public String register(MemberVO memberVO,RedirectAttributes rttr) {
 		int result = service.register(memberVO);
 		if(result==1) {
-		return "redirect:/potato/home";}
+		return "redirect:/home";}
 		if(result==0) {
 		rttr.addFlashAttribute("errorMessage", "회원가입에 실패했습니다. 다시 시도해주세요.");
 	    return "redirect:/register";

@@ -13,11 +13,11 @@ import com.potato.domain.ReportVO;
 @Mapper
 public interface AdminMapper {
 
-public MemberVO getList(@Param("id") String id); // 관리자 정보확인 - 완
+    public MemberVO getList(@Param("id") String id); // 관리자 정보확인 - 완
 	
 	public MemberVO getMemberList(@Param("id") String id); // 회원 정보 검색 - 완
 	
-	public int updateBlack(@Param("id") String id ); // 블랙리스트 - 완
+	public int updateBlack(MemberVO memberVO); // 블랙리스트 등록 - 사용함
 	
 	public int insertBoard(BoardVO boardVO); // 공지 추가 - 완
 	
@@ -25,12 +25,14 @@ public MemberVO getList(@Param("id") String id); // 관리자 정보확인 - 완
 	
 	public int replyDelete(ReplyVO replyVO); // 댓글 삭제
 	
-	public List<ReportVO> readReport(); // 신고내역 확인 - 완
-	
-	public int updateReport(@Param("status") int status); // 신고 처리 - 완
+	public int updateReport(ReportVO report); // 신고 처리 - 사용함
 	
 	public List<MemberVO> viewBlack(); // 블랙리스트 확인
 	
 	public List<MemberVO> eng(); // 통계
+	
+	public List<ReportVO> readReport(); // 신고내역 리스트 - 사용함
+	
+	public ReportVO get_report(String report_number); //신고내역 확인하기 -사용함
 	
 }

@@ -17,15 +17,7 @@
     WHERE id = #{id}
   ]]>
   </select> <!-- 회원 정보 검색 -->
-  
-  <update id="updateBlack">
-   <![CDATA[
-      update member set
-      grade = 4 ,
-      update_date = sysdate
-      where id = #{id}
-    ]]>
-  </update> <!-- 블랙리스트  -->
+
   
   <insert id="insertBoard">
   <![CDATA[
@@ -50,41 +42,39 @@
   
   <select id="readReport" resultType="ReportVO">
   <![CDATA[
-     select 
-     r.report_number, 
-      r.writer_id, 
-      w.name AS writer_name, 
-      r.defendant, 
-      d.name AS defendant_name, 
-      r.status, 
-      r.regidate, 
-      r.done_date
-    FROM 
-      reports r
-    JOIN 
-      member w ON r.writer_id = w.id  -- 신고자의 이름을 가져오기 위해 member 테이블 조인
-    LEFT JOIN 
-      member d ON r.defendant = d.member_number  -- 신고 당한 사람의 이름을 가져오기 위해 member 테이블 조인
-    where 
-     w.grade !=4
-      AND (d.grade IS NULL OR d.grade != 4) 
+     select  * FROM reports where status=0
   ]]>
-  </select> <!-- 신고내역 확인(완) -->
+  </select> <!-- 신고내역 리스트(사용함) -->
   
   <update id="updateReport">
   <![CDATA[
      update reports
      set
-     status = 4,
+     status = 1,
      done_date = sysdate
-     where id = #{id}
+     where report_number=#{report_number}
   ]]>
-  </update> <!-- 신고처리 -->
+  </update> <!-- 신고처리 (사용함) -->
   
    <select id="viewBlack" resultType="MemberVO">
     <![CDATA[
-       select member_number, id, update_date from member where grade=4
+       select * from member where grade=4
    ]]>
-   </select> <!-- 블랙리스트 확인 -->
+   </select> <!-- 블랙리스트 확인 (사용함)-->
+     
+  <update id="updateBlack">
+   <![CDATA[
+      update member set
+      grade = #{grade} ,
+      update_date = sysdate
+      where member_number = #{member_number}
+    ]]>
+  </update> <!-- 블랙리스트 등록 (사용함) -->
+  
+     <select id="get_report" resultType="ReportVO">
+  <![CDATA[
+     select  * FROM reports where report_number=#{report_number}
+  ]]>
+  </select> <!-- 신고내역 리스트(사용함) -->
   
   </mapper>
