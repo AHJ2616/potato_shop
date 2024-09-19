@@ -7,25 +7,26 @@
 
 <div class="formbold-main-wrapper"> <!-- 스타일을 외부로 분리 -->
     <div class="formbold-form-wrapper" > <!-- 스타일을 외부로 분리 -->
-        <form id="uploadForm" action="/shop/register" method="POST">
         <div class="formbold-form-title">
             <h2>상품등록</h2>
         </div>
+        <form id="uploadForm" action="/shop/register" method="POST" enctype="multipart/form-data">
         <div class="file-input-wrapper">
 		    <label for="InputFile">파일 선택</label>
-		    <input type="file" accept="image/*" name="photo_name" id="InputFile">
+		    <input type="multiple" accept="image/*" name="upload_file" id="upload_file">
 		    <img id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
 		</div>
+		</form>
         <div class="formbold-mb-3">
             <div>
                 <label for="writer" class="formbold-form-label">판매자</label>
-                <input class="formbold-form-input" name="writer" value='<c:out value="${sessionScope.nickName}"/>' readonly="readonly" />
+                <input class="formbold-form-input" name="writer" value="${sessionScope.nickName}" readonly="readonly" />
             </div>
         </div>
         <div class="formbold-mb-3">
             <div>
                 <label for="writer_number" class="formbold-form-label">판매자코드</label>
-                <input class="formbold-form-input" name="writer_number" value='<c:out value="${sessionScope.member_number}"/>' readonly="readonly" />
+                <input class="formbold-form-input" name="writer_number" value="${sessionScope.member_number}"  readonly="readonly" />
             </div>
         </div>
         <div class="formbold-mb-3">

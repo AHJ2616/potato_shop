@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- jstl 코어 태그용 -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- jstl 포메팅 태그용 -->
 <%@ include file="../common/header.jsp" %>
 <script src="/resources/js/board_list.js"></script>
   <!-- shop section -->
@@ -16,7 +14,7 @@
 			</c:when>
 			<c:otherwise>
 				<h2>🥔 인기매물</h2>
-				<button id="regBtn" type="button" class="btn btn-outline-warning">내 물건 등록</button>
+				<button id="regBtn2" type="button" class="btn btn-outline-warning">내 물건 등록</button>
 			</c:otherwise>
 		</c:choose>
 		</div>

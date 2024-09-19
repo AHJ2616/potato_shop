@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.potato.domain.BoardVO;
+import com.potato.domain.MemberVO;
 import com.potato.service.BoardService;
+import com.potato.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +24,7 @@ public class BoardController {
 
 	// 필드
 	private BoardService service;
+	private MemberService m_service;
 	
 	
 	@GetMapping("/list")
@@ -31,7 +34,12 @@ public class BoardController {
 	
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("board_number") String board_number, Model model) {
-		model.addAttribute("board", service.get(board_number));
+		BoardVO board = service.get(board_number);
+		model.addAttribute("board",board);
+		MemberVO member = new MemberVO();
+		member.setMember_number(board.getWriter_number());
+		model.addAttribute("member",m_service.profile(member)); //넘버,id,닉네임,프사
+		model.addAttribute("user",m_service.mypage2(member)); //온도
 	}
 	
 	@GetMapping("/register")

@@ -1,0 +1,92 @@
+/* 전체 섹션 스타일 */
+#article-profile {
+    padding: 16px;
+}
+
+/* 전체 컨테이너를 flexbox로 설정 */
+.container {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽에 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 전체 너비 사용 */
+    margin-right: 30%; /* 오른쪽 여백 추가 (값은 필요에 따라 조정) */
+}
+
+.hide {
+    display: none;
+}
+
+/* 왼쪽 부분 스타일 */
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+/* 오른쪽 부분 스타일 */
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 오른쪽 정렬 */
+}
+
+/* 링크 스타일 제거 (옵션) */
+#article-profile-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 프로필 이미지 스타일 */
+.profile_photo{    
+    position: relative;
+    width: 100px;
+    height: 100px;
+} 
+    .profile_photo .mask {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(https://static.nid.naver.com/images/web/user/img_bg_profile_thumb.png) 0 0;
+}
+
+/* 프로필 왼쪽 부분 스타일 */
+#article-profile-left {
+    margin-left: 16px;
+}
+
+/* 온도 스타일 */
+#temperature-wrap {
+    margin: 8px 0;
+}
+
+/* 막대 스타일 */
+.meters {
+    background-color: #eee;
+    height: 10px;
+    width: 100%;
+    border-radius: 5px;
+    margin: 8px 0;
+    position: relative;
+}
+
+.bar {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.bar-color-04 {
+    background-color: #ffcc00; /* 색상 예시 */
+}
+
+/* 얼굴 스타일 */
+.face {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.face-04 {
+    background-color: #ffcc00; /* 색상 예시 */
+}

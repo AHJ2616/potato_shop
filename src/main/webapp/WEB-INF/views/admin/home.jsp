@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <%@ include file="../common/header.jsp" %>
+  <%@ include file="../common/admin_header.jsp" %>
   <link rel="stylesheet" href="/resources/css/admin.css">
   	<div class="dashboard">
 		<header class="dashboard-header">

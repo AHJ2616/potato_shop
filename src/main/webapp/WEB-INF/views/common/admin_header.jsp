@@ -76,7 +76,7 @@
 		<!-- header section strats -->
 		<header class="header_section">
 			<nav class="navbar navbar-expand-lg custom_nav-container ">
-				<a class="navbar-brand" href="${pageContext.request.contextPath}/home"> <span> 🥔 감자마켓
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/admin/home"> <span> 🥔 감자마켓
 				</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -89,7 +89,7 @@
 				<div class="collapse navbar-collapse innerpage_navbar"
 					id="navbarSupportedContent">
 						<ul class="navbar-nav  ">
-						<li class="nav-item "><a class="nav-link" href="/home">홈
+						<li class="nav-item "><a class="nav-link" href="/admin/home">홈
 								<span class="sr-only">(current)</span>
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"

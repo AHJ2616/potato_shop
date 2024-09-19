@@ -15,7 +15,7 @@ create table member(
 CREATE TABLE user_table (
   user_number VARCHAR2(100), -- 회원번호 member_number외래키
   reports NUMBER NOT NULL default 0, -- 신고 수
-  temper NUMBER NOT NULL default 0, -- 온도
+  temper NUMBER NOT NULL default 36.5, -- 온도
   trades NUMBER NOT NULL default 0, -- 거래완료 수
   CONSTRAINT fk_user_member_num FOREIGN KEY (user_number) REFERENCES member(member_number)
 ); -- user 테이블
@@ -127,8 +127,8 @@ begin
 	insert into login_check (member_number,id) values(:new.member_number,:new.id);
 end; 
 
-select * from reports;
+
+select * from member;
+select * from login_check;
 select * from user_table;
 update login_check set status=0;
-insert into coments(message,id)
- values('sql에서 테스트','비회원');

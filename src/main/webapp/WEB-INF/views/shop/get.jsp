@@ -2,7 +2,40 @@
 	pageEncoding="UTF-8"%>
 
 <script src="/resources/js/board_get.js"></script>
+<link href="/resources/css/shop_get.css" rel="stylesheet" />
 <%@ include file="../common/header.jsp"%>
+<section id="article-profile">
+       <a id="article-profile-link">
+           <h3 class="hide">프로필</h3>
+           <div class="container">
+               <!-- 왼쪽 섹션 -->
+               <div class="left-section">
+                  <div class="profile_photo">
+					<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt="" 
+					 width=100px height=100px>
+					<span class="mask"></span>
+				  </div>
+                   <div id="article-profile-left">
+                       <a id="nickname"  href="/potato/review">${member.nickName}</a>
+                       <div id="region-name"><span>${member.address}</span></div>
+                   </div>
+               </div>
+
+               <!-- 오른쪽 섹션 -->
+               <div class="right-section">
+                   <dl id="temperature-wrap">
+                       <dt>매너온도</dt>
+                       <dd class="text-color-04">
+                           <span>${user.temper}°C</span>
+                       </dd>
+                   </dl>
+                   <div class="meters">
+                       <div class="bar bar-color-04" style="width: 40%;"></div>
+                   </div>
+               </div>
+           </div>
+       </a>
+   </section>
 	<div class="product-details">
 		<div class="product-image">
 			<img id="productImage" src="../resources/images/${board.photo_name}"

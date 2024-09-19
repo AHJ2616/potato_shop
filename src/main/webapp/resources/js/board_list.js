@@ -1,6 +1,7 @@
-document.getElementById('regBtn').addEventListener('click', function() {
-	window.location.href = '/shop/register';
-});
+$(document).ready(function() {
+    $('#regBtn2').click(function() {
+        window.location.href = '/shop/register';
+    });
 
 document.addEventListener('DOMContentLoaded', function() {
 	// 상품 리스트의 모든 링크에 클릭 이벤트를 추가
@@ -27,4 +28,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
+});
 });
