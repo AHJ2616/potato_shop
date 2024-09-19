@@ -19,19 +19,7 @@
 	]]> 
 </insert>
 
-<insert id="insertLike">
-	<![CDATA[
-		insert into cart (board_member_number, likes_member_number, likes_board_number, types)
-			values(#{board_member_number}, #{likes_member_number}, #{likes_board_number}, '좋아요')
-	]]>
-</insert>
 
-<insert id="insertInterest">
-	<![CDATA[
-		insert into cart (board_member_number, likes_member_number, likes_board_number, types)
-			values(#{board_member_number}, #{likes_member_number}, #{likes_board_number}, '관심')
-	]]>
-</insert>
 
 <select id="read" resultType="BoardVO">
 	<![CDATA[
@@ -88,5 +76,65 @@
 		views = views+1 where board_number = #{board_number}
 	]]>
 </update>
+
+<update id="cancelViews">
+	<![CDATA[
+		update board set
+		views = views-1 where board_number = #{board_number}
+	]]>
+</update>
+
+<insert id="insertLike">
+	<![CDATA[
+		insert into cart(likes_member_number,likes_board_number,likes)
+			values(#{likes_member_number},#{likes_board_number},1)
+	]]>
+</insert>
+
+<insert id="insertInterest">
+	<![CDATA[
+		insert into cart (likes_member_number, likes_board_number, interest)
+			values(#{likes_member_number}, #{likes_board_number},1)
+	]]>
+</insert>
+
+<update id="insert_both">
+	<![CDATA[
+		update cart set likes=1,interest=1 
+		where likes_member_number=#{likes_member_number} 
+		and likes_board_number = #{likes_board_number}
+	]]>
+</update>
+
+<update id="cancelLike">
+	<![CDATA[
+		update cart set likes=0,interest=1 
+		where likes_member_number=#{likes_member_number} 
+		and likes_board_number = #{likes_board_number}
+	]]>
+</update>
+
+<update id="cancelInterest2">
+	<![CDATA[
+		update cart set likes=1,interest=0 
+		where likes_member_number=#{likes_member_number} 
+		and likes_board_number = #{likes_board_number}
+	]]>
+</update>
+
+<delete id="cancel_both">
+	<![CDATA[
+		delete from cart
+		where likes_member_number=#{likes_member_number} 
+		and likes_board_number = #{likes_board_number}
+	]]>
+</delete>
+
+<select id="get_cart" resultType="CartVO">
+	<![CDATA[
+		select * from cart where likes_board_number = #{likes_board_number} 
+		and likes_member_number = #{likes_member_number}
+	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
+</select>
 	
 </mapper>

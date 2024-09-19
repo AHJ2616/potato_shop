@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.potato.domain.BoardVO;
+import com.potato.domain.CartVO;
 import com.potato.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -27,22 +28,6 @@ public class BoardServiceImpl implements BoardService{
 		mapper.insert(board);
 	}
 
-	@Override
-	public void registerCart(BoardVO board) {
-		
-		switch(board.getType()) {
-		case "likes":
-			mapper.insertLike(board);
-			break;
-		
-		case "interest":
-			mapper.insertInterest(board);
-			break;
-			
-		default:
-			throw new IllegalArgumentException("타입인식 오류");
-		}
-	}
 	
 	@Override
 	public BoardVO get(String board_number) {
@@ -60,27 +45,82 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void updateValues(BoardVO board) {
-		
-		switch (board.getType()) {
-		case "likes":
-			mapper.insertLike(board);
-			mapper.updateLikes(board);
-			break;
+	public int updateLikes(String board_number) {
+		// TODO 좋아요 수 +1
+		return mapper.updateLikes(board_number);
+	}
 
-		case "interest":
-			mapper.insertInterest(board);
-			mapper.updateInterest(board);
-			break;
+	@Override
+	public int updateInterest(String board_number) {
+		// TODO 관심 수 +1
+		return mapper.updateInterest(board_number);
+	}
 
-		case "views":
-			mapper.updateViews(board);
-			break;
+	@Override
+	public int cancelLikes(String board_number) {
+		// TODO 좋아요 수 -1
+		return mapper.cancelLikes(board_number);
+	}
 
-		default:
-			throw new IllegalArgumentException("타입인식 오류");
-		}
+	@Override
+	public int cancelInterest(String board_number) {
+		// TODO 관심 수 -1
+		return mapper.cancelInterest(board_number);
+	}
+
+	@Override
+	public int updateViews(String board_number) {
+		// TODO 조회 수 +1
+		return mapper.updateViews(board_number);
+	}
+
+	@Override
+	public int insertLike(CartVO cart) {
+		// TODO 좋아요 추가
+		return mapper.insertLike(cart);
+	}
+
+	@Override
+	public int insertInterest(CartVO cart) {
+		// TODO 관심 추가
+		return mapper.insertInterest(cart);
+	}
+
+	@Override
+	public int cancelLike(CartVO cart) {
+		// TODO 좋아요 취소
+		return mapper.cancelLike(cart);
+	}
+
+	@Override
+	public int cancelInterest2(CartVO cart) {
+		// TODO 관심 취소
+		return mapper.cancelInterest2(cart);
+	}
+
+	@Override
+	public CartVO get_cart(CartVO cart) {
+		// TODO 관심, 좋아요 확인
+		return mapper.get_cart(cart);
+	}
+
+	@Override
+	public int insert_both(CartVO cart) {
+		// TODO Auto-generated method stub
+		return mapper.insert_both(cart);
+	}
+
+	@Override
+	public int cancel_both(CartVO cart) {
+		// TODO Auto-generated method stub
+		return mapper.cancel_both(cart);
+	}
+
+	@Override
+	public int cancelViews(String board_number) {
+		// TODO Auto-generated method stub
+		return mapper.cancelViews(board_number);
 	}
 
 
-}
+}//class end

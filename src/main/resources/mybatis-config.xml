@@ -14,6 +14,7 @@
     <typeAlias alias="Chat_roomVO" type="com.potato.domain.Chat_roomVO"/>
     <typeAlias alias="Login_checkVO" type="com.potato.domain.Login_checkVO"/>
     <typeAlias alias="ComentsVO" type="com.potato.domain.ComentsVO"/>
+    <typeAlias alias="CartVO" type="com.potato.domain.CartVO"/>
 </typeAliases> 
     	<mappers>
     		<mapper resource="com/potato/mapper/Member_mapper.xml" />

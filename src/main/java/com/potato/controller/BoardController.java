@@ -1,5 +1,7 @@
 package com.potato.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.potato.domain.BoardVO;
+import com.potato.domain.CartVO;
 import com.potato.domain.MemberVO;
 import com.potato.service.BoardService;
 import com.potato.service.MemberService;
@@ -32,14 +35,30 @@ public class BoardController {
 		model.addAttribute("list", service.getList());
 	}
 	
-	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("board_number") String board_number, Model model) {
+	@GetMapping("/get")
+	public void get(@RequestParam("board_number") String board_number, Model model,HttpSession session) {
+		service.updateViews(board_number);
+		BoardVO board = service.get(board_number);
+		model.addAttribute("board",board);
+		MemberVO member = new MemberVO();
+		CartVO cart = new CartVO();
+		member.setMember_number(board.getWriter_number());
+		cart.setLikes_board_number(board_number);
+		cart.setLikes_member_number(session.getAttribute("member_number").toString());
+		model.addAttribute("member",m_service.profile(member)); //넘버,id,닉네임,프사
+		model.addAttribute("user",m_service.mypage2(member)); //온도
+		model.addAttribute("cart",service.get_cart(cart)); //카트 정보 가져오기
+	}
+	
+	@GetMapping("/modify")
+	public void modify(@RequestParam("board_number") String board_number, Model model) {
 		BoardVO board = service.get(board_number);
 		model.addAttribute("board",board);
 		MemberVO member = new MemberVO();
 		member.setMember_number(board.getWriter_number());
 		model.addAttribute("member",m_service.profile(member)); //넘버,id,닉네임,프사
 		model.addAttribute("user",m_service.mypage2(member)); //온도
+		
 	}
 	
 	@GetMapping("/register")
