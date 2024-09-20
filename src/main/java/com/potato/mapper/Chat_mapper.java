@@ -11,21 +11,21 @@ import com.potato.domain.MemberVO;
 @Mapper
 public interface Chat_mapper {
 	
-	//채팅방 리스트 가져오기
+	//1.채팅방 리스트 가져오기
 	public List<Chat_roomVO> room_list(MemberVO member);
 	
-	//채팅방 번호 가져오기
+	//2.채팅방 번호 가져오기
 	public ChatVO get_room(Chat_roomVO chat_room);
 	
-	//채팅방 만들기
+	//3.채팅방 만들기
 	public int add_room(Chat_roomVO chat_room);
 	
-	//채팅내역 가져오기
+	//4.채팅내역 가져오기
 	public List<ChatVO> list(ChatVO chat);
 	
-	//채팅 입력하기
+	//5.채팅 입력하기
 	public int add_chat(ChatVO chat);
 	
-	//채팅 지우기
+	//6.채팅 지우기
 	public int delete_chat(ChatVO chat);
 }

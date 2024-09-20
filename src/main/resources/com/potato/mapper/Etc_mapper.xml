@@ -5,7 +5,7 @@
   
 <mapper namespace="com.potato.mapper.Etc_mapper">
 
-<!-- 개선사항 질문 -->
+<!-- 1.고객의 편지 등록 -->
 <insert id="send_coments">
 <![CDATA[
 insert into coments(message,id)
@@ -13,7 +13,10 @@ insert into coments(message,id)
 ]]>
 </insert>
 
-
-
-
+<!-- 2.고객의 편지 리스트 가져오기 -->
+<select id="get_coments" resultType="ComentsVO">
+<![CDATA[
+select * from coments
+]]>
+</select>
 </mapper>

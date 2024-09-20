@@ -1,5 +1,7 @@
 package com.potato.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.potato.domain.ComentsVO;
@@ -18,8 +20,14 @@ public class EtcSerivce_impl implements EtcService{
 
 	@Override
 	public int send_coments(ComentsVO coments) {
-		// TODO 개선사항 설문
+		// TODO 1. 고객편지 쓰기
 		return mapper.send_coments(coments);
+	}
+
+	@Override
+	public List<ComentsVO> get_coments() {
+		// TODO 2. 고객편지 보기
+		return mapper.get_coments();
 	}
 
 }

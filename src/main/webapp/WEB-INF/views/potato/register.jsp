@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%>
 <%@ include file="../common/header.jsp" %>
 <script src="/resources/js/register.js"></script>
 <link rel="stylesheet" href="/resources/css/register.css">
-
+<title>회원가입</title>
 
 <div class="register-container">
 <h2>회원가입</h2>

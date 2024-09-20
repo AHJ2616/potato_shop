@@ -5,7 +5,7 @@
   
 <mapper namespace="com.potato.mapper.Member_mapper">
 
-<!-- 회원가입 -->
+<!-- 1.회원가입 -->
 <insert id="register">
 <![CDATA[
 insert into member(member_number,id,pass,name,nickName,phone,address,profile_image)
@@ -13,28 +13,22 @@ insert into member(member_number,id,pass,name,nickName,phone,address,profile_ima
 ]]>
 </insert>
 
-<!-- 로그인 -->
+<!-- 2.로그인 -->
 <select id="login" resultType="MemberVO">
 <![CDATA[
 select member_number,id,name,nickName,grade,profile_image from member where id=#{id} and pass=#{pass}
 ]]>
 </select>
 
-<!-- 프로필 보여주기 -->
-<select id="profile" resultType="MemberVO">
-<![CDATA[
-select member_number,id,nickName,address,profile_image from member where member_number=#{member_number}
-]]>
-</select>
 
-<!-- 회원탈퇴 restcontroller로 하기-->
+<!-- 3.회원탈퇴 restcontroller로 하기-->
 <insert id="delete">
 <![CDATA[
 delete from member where id=#{id} and pass=#{pass}
 ]]>
 </insert>
 
-<!-- 마이 페이지 보기1 -->
+<!-- 4.마이 페이지 보기1 -->
 <select id="mypage" resultType="MemberVO">
 <![CDATA[
 select pass,phone,address,profile_image from member
@@ -42,7 +36,7 @@ where member_number=#{member_number}
 ]]>
 </select>
 
-<!-- 마이 페이지 보기2 -->
+<!-- 5.마이 페이지 보기2 -->
 <select id="mypage2" resultType="UserVO">
 <![CDATA[
 select reports, temper,trades 
@@ -51,15 +45,7 @@ where user_number=#{member_number}
 ]]>
 </select>
 
-<!-- 프로필 사진 수정 -->
-<update id="modify_profile">
-<![CDATA[
-update member set profile_image=#{profile_image},update_date=sysdate 
-where member_number=#{member_number}
-]]>
-</update>
-
-<!-- 마이 페이지 수정 -->
+<!-- 6.마이 페이지 수정 -->
 <update id="modify_mypage">
 <![CDATA[
 update member set address=#{address},pass=#{pass},nickName=#{nickName},phone=#{phone},update_date=sysdate 
@@ -68,54 +54,101 @@ where member_number=#{member_number}
 </update>
 
 
-<!-- 나의 활동내역 확인(댓글) -->
+
+<!-- 7.프로필 보여주기 -->
+<select id="profile" resultType="MemberVO">
+<![CDATA[
+select member_number,id,nickName,address,profile_image from member where member_number=#{member_number}
+]]>
+</select>
+
+
+<!-- 8.나의 활동내역 확인(댓글) -->
 <select id="mylist1" resultType="ReplyVO" >
 <![CDATA[
     select * from reply where writer=#{id}
 ]]>
 </select>
 
-<!-- 나의 활동내역 확인(답글) -->
+<!-- 9.나의 활동내역 확인(답글) -->
 <select id="mylist2" resultType="Re_replyVO">
 <![CDATA[
     select * from re_reply where writer=#{id}
 ]]>
 </select>
 
-<!-- 나의 활동내역 확인(게시글) -->
+<!-- 10.나의 활동내역 확인(게시글) -->
 <select id="mylist3" resultType="BoardVO">
 <![CDATA[
     select * from board where writer_number=#{member_number}
 ]]>
 </select>
 
-<!-- 나의 활동내역 확인(신고내용) -->
+<!-- 11.나의 활동내역 확인(신고내용) -->
 <select id="mylist4" resultType="ReportVO">
 <![CDATA[
     select * from reports where writer_id=#{id}
 ]]>
 </select>
 
-<!-- ID중복 확인(회원가입에서) -->
+<!-- 12.ID중복 확인(회원가입에서) -->
 <select id="check_id" resultType="String">
 <![CDATA[
     select id from member where id=#{id}
 ]]>
 </select>
 
-<!-- 로그인 아이디 상태변경 -->
+<!-- 13.프로필 사진 수정 -->
+<update id="modify_profile">
+<![CDATA[
+update member set profile_image=#{profile_image},update_date=sysdate 
+where member_number=#{member_number}
+]]>
+</update>
+
+<!-- 14.로그인 됨으로 상태변경 -->
 <update id="login_check">
 <![CDATA[
     update login_check set status=#{status} where member_number=#{member_number}
 ]]>
 </update>
 
-<!-- 로그인 아이디 중복체크 -->
+<!-- 15.로그인 아이디 중복체크 -->
 <select id="login_check2" resultType="Login_checkVO">
 <![CDATA[
     select * from login_check where member_number=#{member_number}
 ]]>
 </select>
+
+<!-- 16.세션 mno로 좋아요& 관심 목록 가져오기 -->
+<select id="get_likes_list" resultType="Board_member_cartVO">
+<![CDATA[	select
+            b.board_number,
+            b.title,
+            m.nickName,
+            m.profile_image,
+            m.id,
+            c.likes_member_number,
+            c.likes,
+            c.interest
+        FROM 
+            board b
+        JOIN 
+            member m ON b.writer_number = m.member_number
+        JOIN 
+            cart c ON b.board_number = c.likes_board_number
+        WHERE 
+            c.likes_member_number = #{member_number}
+]]>
+</select>
+
+<!-- 16.신고 작성하기 -->
+<insert id="report">
+<![CDATA[
+insert into reports (report_number,writer_id,defendant_id,defendant,content)
+values(#{report_number},#{writer_id},#{defendant_id},#{defendant},#{content})
+]]>
+</insert>
 
 </mapper>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/header.jsp" %>
+<title>마이 페이지</title>
 <link rel="stylesheet" href="/resources/css/mypage.css">
 <div class="mypage-container">
 	<div class="profile-image-container">

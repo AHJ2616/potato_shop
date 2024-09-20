@@ -7,8 +7,8 @@
 <%@ include file="../common/header.jsp"%>
 <section id="article-profile">
        <a id="article-profile-link">
-           <h3 class="hide">프로필</h3>
            <div class="container">
+           <h5>판매자 프로필</h5>
                <!-- 왼쪽 섹션 -->
                <div class="left-section">
                   <div class="profile_photo">
@@ -20,8 +20,7 @@
                        <a id="nickname"  href="/potato/review">${member.nickName}</a>
                        <div id="region-name"><span>${member.address}</span></div>
                    </div>
-               </div>
-
+      
                <!-- 오른쪽 섹션 -->
                <div class="right-section">
                    <dl id="temperature-wrap">
@@ -138,22 +137,30 @@
 			</svg> <c:out value="${ board.views }" /></span>
 		</div>
 		<c:set var="user" value="${sessionScope.member_number}" />
-		<form id="setup" action="/shop/modify" method="get">
-			<input type="hidden" name="board_number"
-				value='<c:out value="${ board.board_number }"/>' />
+		
 			<c:choose>
 				<c:when test="${user == board.writer_number}">
+				<form id="setup" action="/shop/modify" method="get">
+			<input type="hidden" name="board_number"
+				value='<c:out value="${ board.board_number }"/>' />
 					<button id="modifyBtn" type="submit" class="btn btn-primary">수정</button>
+					</form>
 					<button id="removeBtn" type="button" class="btn btn-danger"
 						data-toggle="modal" data-target="#deleteModal">삭제</button>
 					<button id="listBtn" type="button" class="btn btn-info">리스트</button>
 				</c:when>
+				
 				<c:otherwise>
 					<button type="button" class="btn btn-warning" onclick="location.href='/potato/chat?reciever=${board.writer_number}'">대화연결</button>
 					<button id="listBtn" type="button" class="btn btn-info">리스트</button>
+					<form method="post" action="/potato/report">
+					<input type="hidden" name="defendant_id" value="${board.writer}"/>
+					<input type="hidden" name="defendant" value="${board.writer_number}"/>
+					<button id="reportBtn" type="submit" class="btn btn-danger">신고하기</button>
+					</form>
 				</c:otherwise>
 			</c:choose>
-		</form>
+		
 
 		<!-- 삭제 모달 -->
 		<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">

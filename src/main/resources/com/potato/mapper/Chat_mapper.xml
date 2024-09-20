@@ -5,14 +5,14 @@
   
 <mapper namespace="com.potato.mapper.Chat_mapper">
 
-<!-- 채팅방 리스트 가져오기 -->
+<!-- 1.채팅방 리스트 가져오기 -->
 <select id="room_list" resultType="Chat_roomVO">
 <![CDATA[
 SELECT * FROM chat_room WHERE person_a = #{member_number} OR person_b = #{member_number}
 ]]>
 </select>
 
-<!-- 채팅방 번호 가져오기 -->
+<!-- 2.채팅방 번호 가져오기 -->
 <select id="get_room" resultType="ChatVO">
 <![CDATA[
 SELECT chat_number 
@@ -22,14 +22,14 @@ IN ((#{person_a}, #{person_b}), (#{person_b}, #{person_a}))
 ]]>
 </select>
 
-<!-- 채팅방 만들기 -->
+<!-- 3.채팅방 만들기 -->
 <insert id="add_room">
 insert into chat_room(chat_number,person_a,person_b) 
 values(#{chat_number},#{person_a},#{person_b})
 </insert>
 
 
-<!-- 채팅내역 가져오기 -->
+<!-- 4.채팅내역 가져오기 -->
 <select id="list" resultType="ChatVO">
 <![CDATA[
 SELECT *
@@ -37,13 +37,13 @@ SELECT *
 ]]>
 </select>
 
-<!-- 채팅 입력하기 -->
+<!-- 5.채팅 입력하기 -->
 <insert id="add_chat">
 insert into chat(chat_number,sender,content) 
 values(#{chat_number},#{sender},#{content})
 </insert>
 
-<!-- 채팅 삭제하기 -->
+<!-- 6.채팅 삭제하기 -->
 <insert id="delete_chat">
 <![CDATA[
 delete from chat where time_stamp=#{time_stamp} and sender=#{sender} and chat_number=#{chat_number}

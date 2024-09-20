@@ -3,6 +3,7 @@
 <%@ include file="../common/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/chat_list.css"> <!-- CSS 링크를 헤더 아래로 이동 -->
 <div id="chat-list">
+<title>채팅 목록</title>
   <h2>나의 채팅목록</h2>
   <table>
     <tr>

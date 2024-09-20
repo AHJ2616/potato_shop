@@ -3,7 +3,8 @@ $(document).ready(function() {
      event.preventDefault(); // 기본 form 제출 동작 방지
      let message = $('#coment').val();
      let id = $('#id').val()     
-	 if(id==null){id="비회원"};
+	 if(id==null || id==""){id="비회원";
+	 }
                 $.ajax({
                     url: '/rest/coments',
                     type: 'POST',

@@ -113,7 +113,9 @@
 								<a
 									href="/potato/chat_list"><span>채팅목록</span>
 								</a>
-									
+								<a
+									href="/potato/likes_list"><span>관심목록</span>
+								</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

@@ -82,6 +82,27 @@
 							</tbody>
 						</table>
 					</section>
+					<section class="section">
+						<h2 class="section-title">고객의 편지</h2>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>내용</th>
+									<th>등록일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="coment" items="${coments}">
+									<tr>
+										<td><c:out value="${coment.id}" /></td>
+										<td><c:out value="${coment.message}"/></td>
+										<td><fmt:formatDate value="${coment.regidate}" pattern="yyyy년 MM월 dd일 (E) HH:mm:ss" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</section>
 				</div>
 			</div>
 		</div>

@@ -6,10 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.github.f4b6a3.ulid.Ulid;
+import com.github.f4b6a3.ulid.UlidCreator;
+import com.potato.domain.Board_member_cartVO;
 import com.potato.domain.MemberVO;
+import com.potato.domain.ReportVO;
 import com.potato.domain.UserVO;
 import com.potato.service.MemberService;
 
@@ -85,4 +90,27 @@ public class Member_controller {
 		model.addAttribute("reportVO", service.mylist4(memberVO));
 		
 	}
-}
+	
+	//좋아요 관심 리스트 보기
+	//톰캣 세션영역에 저장된 member_number로 자료 조회
+	@GetMapping("/likes_list")
+	public void likes_list(Model model,HttpSession session) {
+		String member_number = session.getAttribute("member_number").toString();
+		model.addAttribute("result",service.get_likes_list(member_number));
+	}
+	
+	@PostMapping("/report")
+	public void report(ReportVO report2,Model model) {
+		model.addAttribute("report",report2);
+	}
+	
+	@PostMapping("/do_report")
+	public String do_report(ReportVO report) {
+	Ulid ulid = UlidCreator.getUlid();
+	String repot_number = ulid.toString();
+	report.setReport_number(repot_number);
+	service.report(report);
+	return "redirect:/shop/list";
+	}
+	
+}//class end

@@ -1,7 +1,5 @@
 package com.potato.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.ReportVO;
 import com.potato.domain.MemberVO;
 import com.potato.service.AdminService;
+import com.potato.service.EtcService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,6 +28,7 @@ import lombok.extern.log4j.Log4j2;
 public class PotatoController {
 	
 	private AdminService service;
+	private EtcService etc_service;
 
 	// 관리자 페이지
 	@GetMapping("/home")
@@ -37,7 +36,9 @@ public class PotatoController {
 		String member_number = session.getAttribute("member_number").toString();
 		if(member_number.equals("admin")) {
 		model.addAttribute("reportList", service.readReport());
-		model.addAttribute("black", service.viewBlack());}
+		model.addAttribute("black", service.viewBlack());
+		model.addAttribute("coments",etc_service.get_coments());
+		}
 		
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.BoardVO;
+import com.potato.domain.Board_member_cartVO;
 import com.potato.domain.Login_checkVO;
 import com.potato.domain.MemberVO;
 import com.potato.domain.Re_replyVO;
@@ -26,7 +27,7 @@ public class MemberService_impl implements MemberService {
 
 	@Override
 	public int register(MemberVO member) {
-		// TODO 회원가입
+		// TODO 1.회원가입
 		Ulid ulid = UlidCreator.getUlid();
 		member.setMember_number(ulid.toString());
 		return mapper.register(member);
@@ -34,88 +35,101 @@ public class MemberService_impl implements MemberService {
 
 	@Override
 	public MemberVO login(MemberVO member) {
-		// TODO 로그인
+		// TODO 2.로그인
 		return mapper.login(member);
 	}
 
 	@Override
 	public int delete(MemberVO member) {
-		// TODO 회원탈퇴
+		// TODO 3.회원탈퇴
 		
 		return mapper.delete(member);
 	}
 
 	@Override
 	public MemberVO mypage(MemberVO member) {
-		// TODO 마이페이지 보기
+		// TODO 4.마이페이지 보기1
 		return mapper.mypage(member);
 	}
 	
 	@Override
 	public UserVO mypage2(MemberVO member) {
-		// TODO 마이페이지 보기
+		// TODO 5.마이페이지 보기2
 		return mapper.mypage2(member);
 	}
 
 	@Override
 	public int modify_mypage(MemberVO member) {
-		// TODO 마이페이지 수정
+		// TODO 6.마이페이지 수정
 		return mapper.modify_mypage(member);
 	}
 	
 	@Override
 	public int modify_profile(MemberVO member) {
-		// TODO 프로필사진 수정
+		// TODO 7.프로필사진 수정
 		return mapper.modify_profile(member);
 	}
 
 	@Override
 	public List<ReplyVO> mylist1(MemberVO member) {
-		// TODO 나의 활동내역 확인1(댓글 불러오기)
+		// TODO 8.나의 활동내역 확인1(댓글 불러오기)
 		return mapper.mylist1(member);
 	}
 
 	@Override
 	public List<Re_replyVO> mylist2(MemberVO member) {
-		// TODO 나의 활동내역 확인2(답글 불러오기)
+		// TODO 9.나의 활동내역 확인2(답글 불러오기)
 		return mapper.mylist2(member);
 	}
 
 	@Override
 	public List<BoardVO> mylist3(MemberVO member) {
-		// TODO 나의 활동내역 확인3(게시글 불러오기)
+		// TODO 10.나의 활동내역 확인3(게시글 불러오기)
 		return mapper.mylist3(member);
 	}
 
 	@Override
 	public List<ReportVO> mylist4(MemberVO member) {
-		// TODO 나의 활동내역 확인4(신고내용 불러오기)
+		// TODO 11.나의 활동내역 확인4(신고내용 불러오기)
 		return mapper.mylist4(member);
 	}
 
 	@Override
 	public String check_id(String id) {
-		// TODO 아이디 중복확인
+		// TODO 12.아이디 중복확인
 		
 		return mapper.check_id(id);
 	}
 
 	@Override
 	public MemberVO profile(MemberVO member) {
-		// TODO 프로필 정보 가져오기
+		// TODO 13.프로필 정보 가져오기
 		return mapper.profile(member);
 	}
 
 	@Override
+	public int login_check(String member_number, int status) {
+		// TODO 14.로그인 됨으로 상태변경
+		return mapper.login_check(member_number, status);
+	}
+	
+	@Override
 	public Login_checkVO login_check2(String member_number) {
-		// TODO 로그인 중복확인하기2
+		// TODO 15.로그인 상태 확인
 		return mapper.login_check2(member_number);
 	}
 
+
 	@Override
-	public int login_check(String member_number, int status) {
-		// TODO 로그인 중복확인하기
-		return mapper.login_check(member_number, status);
+	public List<Board_member_cartVO> get_likes_list(String member_number) {
+		// TODO 16.세션 mno로 좋아요& 관심 목록 가져오기
+		return mapper.get_likes_list(member_number);
+	}
+
+	@Override
+	public int report(ReportVO report) {
+		// TODO 17.신고 작성하기
+		return mapper.report(report);
 	}
 
 

@@ -26,7 +26,7 @@ CREATE TABLE user_table (
 create table reports(
    report_number varchar2(1000) constraint pk_report_num primary key, -- 신고번호
    writer_id varchar2(30) not null, -- 신고자 (member_id)
-   defendant_id varchar2(30), -- 신고 당한사람 id
+   defendant_id varchar2(30), -- 신고 당한사람 닉네임
    defendant varchar2(30), -- 신고 당한사람 fk(member_number)
    status number(1) default 0 not null, -- 신고처리 상태
    content varchar2(2000) not null,   -- 신고내용
@@ -142,8 +142,9 @@ end;
 update login_check set status=0;
 update board set likes=0, interest=0;
 delete from cart;
-select * from cart;
+select * from reports;
 select * from member;
+
 
 --샘플 등록
 insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
