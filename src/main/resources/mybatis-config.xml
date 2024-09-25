@@ -16,6 +16,7 @@
     <typeAlias alias="ComentsVO" type="com.potato.domain.ComentsVO"/>
     <typeAlias alias="CartVO" type="com.potato.domain.CartVO"/>
     <typeAlias alias="Board_member_cartVO" type="com.potato.domain.Board_member_cartVO"/>
+    <typeAlias alias="AlarmsVO" type="com.potato.domain.AlarmsVO"/>
 </typeAliases> 
     	<mappers>
     		<mapper resource="com/potato/mapper/Member_mapper.xml" />
@@ -24,5 +25,6 @@
     		<mapper resource="com/potato/mapper/ReplyMapper.xml" />
     		<mapper resource="com/potato/mapper/BoardMapper.xml" />
     		<mapper resource="com/potato/mapper/AdminMapper.xml" />
+    		<mapper resource="com/potato/mapper/Alarm_mapper.xml" />
     	</mappers>
     </configuration>

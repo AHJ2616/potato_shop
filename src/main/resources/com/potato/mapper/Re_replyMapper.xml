@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potato.mapper.Re_replyMapper">
+
+<!-- 대댓글 -->
+
+<!-- 대댓글 리스트 조회 쿼리 -->
+<select id="getReRepliesByReplyNumber" parameterType="String" resultType="com.potato.domain.Re_replyVO">
+	<![CDATA[
+    SELECT * FROM re_reply WHERE reply_number = #{reply_number}
+    ]]>
+</select>
+
+<!-- 대댓글 1개 읽기 -->
+<select id="readReReply" resultType="com.potato.domain.Re_replyVO">
+	<![CDATA[
+		select * from re_reply where re_reply_number = #{re_reply_number}
+	]]>
+</select>
+
+<!-- 대댓글 작성 쿼리 -->
+<insert id="insertReReply" parameterType="com.potato.domain.Re_replyVO">
+	<![CDATA[
+    INSERT INTO re_reply (re_reply_number, reply_number, content, writer)
+    VALUES (#{re_reply_number}, #{reply_number}, #{content}, #{writer})
+    ]]>
+</insert>
+
+<!-- 대댓글 수정 쿼리 -->
+<update id="updateReReply" parameterType="com.potato.domain.Re_replyVO">
+    <![CDATA[
+    UPDATE re_reply SET content = #{content}, regidate = sysdate WHERE re_reply_number = #{re_reply_number}
+    ]]>
+</update>
+
+<!-- 대댓글 삭제 쿼리 -->
+<delete id="deleteReReply" parameterType="String">
+	<![CDATA[
+    DELETE FROM re_reply WHERE re_reply_number = #{re_reply_number}
+    ]]>
+</delete>
+
+</mapper>

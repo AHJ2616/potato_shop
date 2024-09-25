@@ -17,7 +17,7 @@
 					<span class="mask"></span>
 				  </div>
                    <div id="article-profile-left">
-                       <a id="nickname"  href="/potato/review">${member.nickName}</a>
+                       <a id="nickname"  href="/potato/review?board_number=${board.board_number}">${member.nickName}</a>
                        <div id="region-name"><span>${member.address}</span></div>
                    </div>
       
@@ -36,6 +36,7 @@
            </div>
        </a>
    </section>
+   
 	<div class="product-details">
 		<div class="product-image">
 			<img id="productImage" src="../resources/images/${board.photo_name}"
@@ -151,7 +152,7 @@
 				</c:when>
 				
 				<c:otherwise>
-					<button type="button" class="btn btn-warning" onclick="location.href='/potato/chat?reciever=${board.writer_number}'">대화연결</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='/potato/chat?reciever=${board.writer_number}&board_number=${board.board_number}'">대화연결</button>
 					<button id="listBtn" type="button" class="btn btn-info">리스트</button>
 					<form method="post" action="/potato/report">
 					<input type="hidden" name="defendant_id" value="${board.writer}"/>

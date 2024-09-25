@@ -14,5 +14,5 @@ public interface Etc_mapper {
 	
 	//2. 고객편지 보기
 	public List<ComentsVO> get_coments();
-
+	
 }

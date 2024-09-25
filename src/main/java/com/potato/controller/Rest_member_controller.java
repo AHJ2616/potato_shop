@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.potato.domain.AlarmsVO;
 import com.potato.domain.Login_checkVO;
 import com.potato.domain.MemberVO;
+import com.potato.service.AlarmService;
 import com.potato.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +40,7 @@ import lombok.extern.log4j.Log4j2;
 public class Rest_member_controller {
 	
 	private MemberService service;
+	private AlarmService a_service;
 	private ServletContext servletContext;
 	
 	@PostMapping(value="/login",produces=MediaType.APPLICATION_JSON_VALUE)
@@ -55,6 +59,9 @@ public class Rest_member_controller {
 	        session.setAttribute("address", memberVO2.getAddress());
 	        session.setAttribute("profile_image", memberVO2.getProfile_image());
 	        service.login_check(memberVO2.getMember_number(), 1); //로그인 됨 상태
+	        AlarmsVO alarms = new AlarmsVO();
+	        alarms.setMember_number(memberVO2.getMember_number());
+	        session.setAttribute("alarms", a_service.get_alarms(alarms));
 	        return ResponseEntity.ok(memberVO2);
 	    	 case 1 : 
 	    		 Map<String, String> errorResponse = new HashMap<>();
@@ -80,6 +87,22 @@ public class Rest_member_controller {
         response.put("message", "로그아웃 되었습니다");
         response.put("redirect", "/home");
         return ResponseEntity.ok(response);
+    }
+	
+	@PostMapping(value="/logout2",produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> logout2(MemberVO member,HttpSession session) {
+		MemberVO member2 =service.login(member);
+		session.setAttribute("id", member2.getId());
+        session.setAttribute("name", member2.getName());
+        session.setAttribute("nickName", member2.getNickName());
+        session.setAttribute("member_number", member2.getMember_number());
+        session.setAttribute("grade", member2.getGrade());
+        session.setAttribute("address", member2.getAddress());
+        session.setAttribute("profile_image", member2.getProfile_image());
+        AlarmsVO alarms = new AlarmsVO();
+        alarms.setMember_number(member2.getMember_number());
+        session.setAttribute("alarms", a_service.get_alarms(alarms));
+        return ResponseEntity.ok(member2);
     }
 	
 	@PostMapping(value="/check_id")
@@ -149,5 +172,11 @@ public class Rest_member_controller {
 		        errorResponse.put("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
 		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 		}
+	}
+	
+	@PostMapping(value="/alarm")
+	public ResponseEntity<?> update_alarm(AlarmsVO alarms,HttpSession session){
+		 session.setAttribute("alarms", a_service.get_alarms(alarms));
+	     return ResponseEntity.ok(alarms);
 	}
 }

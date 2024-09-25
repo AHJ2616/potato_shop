@@ -1,10 +1,3 @@
-/**
- * 댓글 ajax 처리용 javaScript 파일 입니다.
- */
- 
- 
- console.log("댓글용 모듈 실행 중.....");
- 
  var replyService = (function(){
  
  					// 댓글 추가하기
@@ -235,3 +228,5 @@
 						displayTime : displayTime
 						};
 					})();
+					
+					

@@ -20,7 +20,6 @@
 </insert>
 
 
-
 <select id="read" resultType="BoardVO">
 	<![CDATA[
 		select * from board where board_number = #{board_number}
@@ -41,6 +40,12 @@
 		delete from board where board_number = #{board_number}
 	]]>
 </delete>
+
+<select id="search" resultType="BoardVO">
+	<![CDATA[ 
+		select * from board where title LIKE '%' || #{title} || '%'
+	]]>
+</select>
 
 <update id="updateLikes">
 	<![CDATA[
@@ -136,5 +141,14 @@
 		and likes_member_number = #{likes_member_number}
 	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
 </select>
+
+<update id="set_status">
+<![CDATA[
+update board set status=#{status} 
+where board_number=#{board_number}
+and writer_number =#{writer_number}
+]]>
+</update>
+
 	
 </mapper>

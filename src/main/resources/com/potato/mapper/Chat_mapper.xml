@@ -8,7 +8,7 @@
 <!-- 1.채팅방 리스트 가져오기 -->
 <select id="room_list" resultType="Chat_roomVO">
 <![CDATA[
-SELECT * FROM chat_room WHERE person_a = #{member_number} OR person_b = #{member_number}
+SELECT * FROM chat_room WHERE buyer_number = #{member_number} OR celler_number = #{member_number}
 ]]>
 </select>
 
@@ -17,15 +17,15 @@ SELECT * FROM chat_room WHERE person_a = #{member_number} OR person_b = #{member
 <![CDATA[
 SELECT chat_number 
 FROM chat_room 
-WHERE (person_a, person_b) 
-IN ((#{person_a}, #{person_b}), (#{person_b}, #{person_a}))
+WHERE (buyer_number, celler_number,board_number) 
+IN ((#{buyer_number}, #{celler_number},#{board_number}), (#{celler_number}, #{buyer_number},#{board_number}))
 ]]>
 </select>
 
 <!-- 3.채팅방 만들기 -->
 <insert id="add_room">
-insert into chat_room(chat_number,person_a,person_b) 
-values(#{chat_number},#{person_a},#{person_b})
+insert into chat_room(chat_number,buyer_number, celler_number,board_number) 
+values(#{chat_number},#{buyer_number},#{celler_number},#{board_number})
 </insert>
 
 
@@ -49,6 +49,20 @@ values(#{chat_number},#{sender},#{content})
 delete from chat where time_stamp=#{time_stamp} and sender=#{sender} and chat_number=#{chat_number}
 ]]>
 </insert>
+
+<!-- 7.채팅방 번호로 참여자 불러오기 -->
+<select id="find_chat" resultType="Chat_roomVO">
+<![CDATA[
+select * from chat_room where chat_number=#{chat_number}
+]]>
+</select>
+
+<!-- 8.채팅방 번호로 status 변경하기 -->
+<update id="set_status">
+<![CDATA[
+update chat_room set status=#{status} where chat_number=#{chat_number}
+]]>
+</update>
 
 </mapper>
 

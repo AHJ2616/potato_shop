@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.ChatVO;
+import com.potato.domain.Chat_profileVO;
 import com.potato.domain.Chat_roomVO;
 import com.potato.domain.MemberVO;
 import com.potato.service.ChatService;
@@ -32,10 +33,11 @@ public class Chat_controller {
 	private MemberService m_service;
 	
 	@GetMapping("/chat")
-	public void list(@RequestParam("reciever")String reciever,HttpSession session,Model model) {
+	public void list(@RequestParam("reciever")String reciever,@RequestParam("board_number")String board_number,HttpSession session,Model model) {
 		Chat_roomVO chat_room = new Chat_roomVO(); //채팅방 번호 저장용
-		chat_room.setPerson_a(session.getAttribute("member_number").toString());
-		chat_room.setPerson_b(reciever);
+		chat_room.setBuyer_number(session.getAttribute("member_number").toString());
+		chat_room.setCeller_number(reciever);
+		chat_room.setBoard_number(board_number);
 		MemberVO memberVO = new MemberVO(); //상대방 데이터 저장용
 		memberVO.setMember_number(reciever);
 		memberVO = m_service.profile(memberVO);//상대방 데이터 저장
@@ -50,28 +52,37 @@ public class Chat_controller {
 			}
 			} catch (Exception e) {
 		
-			} 
-		model.addAttribute("chatVO",chatVO);
+			}
+		String chat_number = chatVO.getChat_number();
+		model.addAttribute("chatVO",service.find_chat(chat_number));
 		model.addAttribute("memberVO",memberVO);
 	}
 
 	@GetMapping("/chat_list")
 	public void chat_list(Model model,HttpSession session) {
 		MemberVO member = new MemberVO(); // 세션 나의 member_number 저장용
-		MemberVO member2 = new MemberVO(); // 불러올 상대방 프로필 저장용
+		
 
 		member.setMember_number(session.getAttribute("member_number").toString());
 		List<Chat_roomVO> list1 = new ArrayList<Chat_roomVO>(); //chat리스트 불러오기
-		List<MemberVO> list2 = new ArrayList<MemberVO>(); //상대방 프로필 리스트 불러오기
+		List<Chat_profileVO> list2 = new ArrayList<Chat_profileVO>(); //상대방 프로필 리스트 불러오기
 		list1 = service.room_list(member);
 		for(Chat_roomVO each_lists : list1) {
-		if(each_lists.getPerson_a().equals(member.getMember_number())) {
-		member2.setMember_number(each_lists.getPerson_b());
+		MemberVO member2 = new MemberVO(); // 불러올 상대방 프로필 저장용
+		Chat_profileVO chat_pro = new Chat_profileVO();
+		if(each_lists.getCeller_number().equals(member.getMember_number())) {
+		member2.setMember_number(each_lists.getBuyer_number());
 		}
-		else {member2.setMember_number(each_lists.getPerson_a());
+		else {member2.setMember_number(each_lists.getCeller_number());
 		}
 		member2 = m_service.profile(member2);
-		list2.add(member2);
+		chat_pro.setAddress(member2.getAddress());
+		chat_pro.setBoard_number(each_lists.getBoard_number());
+		chat_pro.setId(member2.getId());
+		chat_pro.setMember_number(member2.getMember_number());
+		chat_pro.setNickName(member2.getNickName());
+		chat_pro.setProfile_image(member2.getProfile_image());
+		list2.add(chat_pro);
 			}
 		model.addAttribute("memberVO",list2);
 	}

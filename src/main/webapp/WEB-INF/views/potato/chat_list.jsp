@@ -10,14 +10,15 @@
       <th>프로필 사진</th> <!-- <td>를 <th>로 변경 -->
       <th>닉네임</th>
       <th>아이디</th>
-      <th>채팅</th>
+      <th>선택</th>
     </tr>
     <c:forEach var="member" items="${memberVO}">
       <tr>
         <td><img src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt=""></td>
         <td>${member.nickName}</td>
         <td>${member.id}</td>
-        <td><a href="/potato/chat?reciever=${member.member_number}">채팅하기</a></td>
+        <td><a href="/potato/chat?reciever=${member.member_number}&board_number=${member.board_number}">채팅하기</a>
+         | <a href="/shop/get?board_number=${member.board_number}">게시글보기</a> </td>
       </tr>
     </c:forEach>
   </table>

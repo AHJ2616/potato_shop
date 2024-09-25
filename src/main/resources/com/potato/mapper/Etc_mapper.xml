@@ -8,8 +8,8 @@
 <!-- 1.고객의 편지 등록 -->
 <insert id="send_coments">
 <![CDATA[
-insert into coments(message,id)
- values(#{message},#{id})
+insert into coments(message,id,ip_address)
+ values(#{message},#{id},#{ip_address})
 ]]>
 </insert>
 
@@ -19,4 +19,5 @@ insert into coments(message,id)
 select * from coments
 ]]>
 </select>
+
 </mapper>

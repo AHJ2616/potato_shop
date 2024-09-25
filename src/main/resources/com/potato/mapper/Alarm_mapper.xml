@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.potato.mapper.Alarm_mapper">
+
+<!-- 1.유저가 활동을 하면 알람을 만든다. -->
+<insert id="add_alarm">
+<![CDATA[
+insert into alarms (alarm_number,member_number,target_type,target_key,contents) 
+values (#{alarm_number},#{member_number},#{target_type},#{target_key},#{contents})
+]]>
+</insert>
+
+<!-- 2.알람내역을 불러온다 -->
+<select id="get_alarms" resultType="AlarmsVO">
+<![CDATA[
+select * from alarms where member_number=#{member_number}
+]]>
+</select>
+
+<!-- 3.알람을 삭제한다(1개) -->
+<delete id="delete_alarm">
+<![CDATA[
+delete from alarms where alarm_number=#{alarm_number}
+]]>
+</delete>
+
+<!-- 4.알람을 삭제한다(전체) -->
+<delete id="delete_alarm2">
+<![CDATA[
+delete from alarms where member_number=#{member_number}
+]]>
+</delete>
+
+<!-- 5.알람을 읽음 표시 -->
+<update id="status_alarm">
+<![CDATA[
+    update alarms set status=1 
+    where alarm_number=#{alarm_number}
+]]>
+</update>
+
+
+
+</mapper>

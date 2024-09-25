@@ -33,7 +33,7 @@ $(document).ready(function() {
     $('#registerForm').submit(function(event) {
         isValid = true; // 유효성 검사 초기화
         if (!isIdChecked) {
-            showCustomAlert('아이디 중복 확인을 해주세요.'); // 사용자 정의 알림 표시
+            showCustomAlert('아이디 중복 확인을 해주세요.','#alert-phone'); // 사용자 정의 알림 표시
             event.preventDefault(); // 폼 제출 방지
         }
 

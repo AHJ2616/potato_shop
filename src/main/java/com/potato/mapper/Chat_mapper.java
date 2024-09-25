@@ -28,4 +28,10 @@ public interface Chat_mapper {
 	
 	//6.채팅 지우기
 	public int delete_chat(ChatVO chat);
+	
+	//7.채팅방 번호로 채팅방데이터 불러오기
+	public Chat_roomVO find_chat(String chat_number);
+	
+	//8.채팅방 번호로 status 변경하기
+	public int set_status(Chat_roomVO chat_room);
 }

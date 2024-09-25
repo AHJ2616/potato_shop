@@ -16,7 +16,7 @@ insert into member(member_number,id,pass,name,nickName,phone,address,profile_ima
 <!-- 2.로그인 -->
 <select id="login" resultType="MemberVO">
 <![CDATA[
-select member_number,id,name,nickName,grade,profile_image from member where id=#{id} and pass=#{pass}
+select member_number,id,name,nickName,grade,profile_image,address from member where id=#{id} and pass=#{pass}
 ]]>
 </select>
 
@@ -142,13 +142,31 @@ where member_number=#{member_number}
 ]]>
 </select>
 
-<!-- 16.신고 작성하기 -->
+<!-- 17.신고 작성하기 -->
 <insert id="report">
 <![CDATA[
 insert into reports (report_number,writer_id,defendant_id,defendant,content)
 values(#{report_number},#{writer_id},#{defendant_id},#{defendant},#{content})
 ]]>
 </insert>
+
+<!-- 18.email, phone으로 id 찾기 (1: form정상 / 0: form오류) -->
+<select id="find_id" resultType="MemberVO">
+<![CDATA[
+    select id from member where name=#{name} and phone =#{phone}
+]]>
+</select>
+
+<!-- 19.id, email, phone으로 임시 비밀번호 저장 (1: 저장됨 / 0: form오류) -->
+<update id="find_pass">
+<![CDATA[
+    update member set pass=#{pass} 
+    where id=#{id} and name=#{name} and phone=#{phone}
+]]>
+</update>
+
+
+
 
 </mapper>
 

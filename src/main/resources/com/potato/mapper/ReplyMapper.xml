@@ -35,31 +35,23 @@
 
 <!-- 댓글 리스트 -->
 <select id="getListWithPaging" resultType="ReplyVO">
-	<![CDATA[
-		select reply_number, id, content, writer, regidate
-		from
-			(select /*+INDEX(reply idx_reply) */
-				rownum rn, reply_number, id, content, writer, regidate
-			from reply
-			where id = #{id}
-			and rownum <= #{reCritera.pageNum} * #{reCritera.amount}
-			) where rn > (#{reCritera.pageNum} -1) * #{reCritera.amount}
-			ORDER BY regidate desc
-	]]>
+    <![CDATA[
+        select reply_number, id, content, writer, regidate
+        from (
+            select reply_number, id, content, writer, regidate,
+                   ROW_NUMBER() OVER (ORDER BY regidate desc, reply_number desc) as rn
+            from reply
+            where id = #{id}
+        )
+        where rn > (#{reCritera.pageNum} - 1) * #{reCritera.amount}
+        and rn <= #{reCritera.pageNum} * #{reCritera.amount}
+    ]]>
 </select>
 
-<select id="getListScroll">
+<!-- 댓글 갯수 구하기 -->
+<select id="getCountById" parameterType="String" resultType="int">
 	<![CDATA[
-	SELECT reply_number, id, content, writer, regidate 
-	FROM 
-		(SELECT reply_number, id, content, writer, regidate, ROWNUM rn
-		FROM 
-			(SELECT reply_number, id, content, writer, regidate 
-			FROM reply 
-			WHERE id = #{id} 
-			ORDER BY regidate DESC) 
-		WHERE rn <= #{reCritera.offset} + #{reCritera.limit}) 
-	WHERE rn > #{reCritera.offset}
+		select count(reply_number) from reply where id = #{id}
 	]]>
 </select>
 

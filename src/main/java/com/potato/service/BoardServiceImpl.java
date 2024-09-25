@@ -122,5 +122,16 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.cancelViews(board_number);
 	}
 
+	@Override
+	public List<BoardVO> search(String title) {
+		return mapper.search(title);
+	}
+
+	@Override
+	public int set_status(BoardVO board) {
+		// TODO 20.판매상태만 변경하기
+		return mapper.set_status(board);
+	}
+	
 
 }//class end

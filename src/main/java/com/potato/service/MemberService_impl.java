@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
+import com.potato.domain.AlarmsVO;
 import com.potato.domain.BoardVO;
 import com.potato.domain.Board_member_cartVO;
 import com.potato.domain.Login_checkVO;
@@ -131,6 +132,20 @@ public class MemberService_impl implements MemberService {
 		// TODO 17.신고 작성하기
 		return mapper.report(report);
 	}
+
+	@Override
+	public MemberVO find_id(MemberVO member) {
+		// TODO 18.email, phone으로 id 찾기
+		return mapper.find_id(member);
+	}
+
+	@Override
+	public int find_pass(MemberVO member) {
+		// TODO 19.id, email, phone으로 임시 비밀번호 저장 (1: 저장됨 / 0: form오류)
+		return mapper.find_pass(member);
+	}
+
+	
 
 
 }

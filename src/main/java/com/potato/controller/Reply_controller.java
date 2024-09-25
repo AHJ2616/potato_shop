@@ -1,5 +1,5 @@
 package com.potato.controller;
-import java.util.List;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.potato.domain.Re_replyVO;
 import com.potato.domain.ReplyPageDTO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.Reply_critera;
-import com.potato.domain.MemberVO;
 import com.potato.service.ReplyService;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +32,7 @@ public class Reply_controller {
 	private ReplyService service;
 	
 	
-	// 댓글 추가
+	// 댓글 추가 (사용)
 		// http://localhost:80/replies/new (json으로 입력 되면 객체로 저장됨)
 		@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})// 입력값은 json 으로
 		public ResponseEntity<String> create(@RequestBody ReplyVO replyVO){
@@ -56,7 +53,7 @@ public class Reply_controller {
 			// 삼항 연산자 처리
 		}
 		
-		// 댓글 보기
+		// 댓글 보기(사용)
 		// http://localhost:80/replies/4
 		@GetMapping(value="/{reply_number}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 		public ResponseEntity<ReplyVO> get(@PathVariable("reply_number") String reply_number){
@@ -66,7 +63,7 @@ public class Reply_controller {
 			return new ResponseEntity<>(service.get(reply_number), HttpStatus.OK); // 200 정상
 		}
 		
-		// 댓글 수정
+		// 댓글 수정(사용)
 		// http://localhost:80/replies/3
 		// RequestMethod.PUT -> @PutMapping (객체 전체 필드를 수정한다)
 		// RequestMethod.PATCH -> @PatchMapping (객체의 일부 필드(부분) 수정한다)
@@ -88,7 +85,7 @@ public class Reply_controller {
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 서버 오류;
 		}
 		
-		// 댓글 삭제
+		// 댓글 삭제(사용)
 		@DeleteMapping(value="/{reply_number}", produces = {MediaType.TEXT_PLAIN_VALUE}) // JSON으로 나올 필요가 없음
 		public ResponseEntity<String> remove(@PathVariable("reply_number") String reply_number){
 			
@@ -99,45 +96,7 @@ public class Reply_controller {
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 서버 오류
 		}
 		
-		// 댓글 리스트
-		// http://localhost:80/replies/pages/kwh/1 -> xml
-		// http://localhost:80/replies/pages/kwh/1.json -> json
-		@GetMapping(value="/pages/{id}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-		public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("id") String id){
-			
-			log.info("ReplyController.getList()메서드 실행");
-			log.info("페이지 번호 : " + page);
-			log.info("판매자 번호 : " + id);
-			
-			Reply_critera reCritera = new Reply_critera(page, 10); // 현재 페이지와 리스트 개수를 전달
-			
-			log.info("ReplyCritera : " + reCritera);
-			// [{"reply_number":"1","id":"kwh","content":"댓글 수정합니다.","writer":"김우혁","regidate":1725419078000},
-			// {"reply_number":"01J6XFYHD2DEB4QH046S85TWNW","id":"kwh","content":"컨트롤러 댓글 테스트1","writer":"김우혁","regidate":1725419177000}]
-			
-			return new ResponseEntity<>(service.getListPage(reCritera, id), HttpStatus.OK); // 200 정상
-			
-		}
-		// 대댓글---------------------------------
-		
-		// 회원 id 조회
-		// http://localhost:80/pages/review/{id}
-		@GetMapping("/{id}")
-	    public MemberVO getMember(@PathVariable String id) {
-	        return service.getMemberById(id);
-	    }
-		
-		// 대댓글 보기
-		// http://localhost:80/replies/reply/4
-		@GetMapping(value="/reply/{re_reply_number}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-		public ResponseEntity<Re_replyVO> readReReply(@PathVariable("re_reply_number") String re_reply_number){
-			
-			log.info("ReplyController.get()메서드 실행 / 찾을 reply_number : " + re_reply_number);
-			
-			return new ResponseEntity<>(service.readReReply(re_reply_number), HttpStatus.OK); // 200 정상
-		}
-		
-		// 댓글 리스트
+		// 댓글 리스트(사용)
 		// http://localhost:80/replies/page/{id}/{page}
 		// http://localhost:80/replies/page/kwh/1.json
 	    @GetMapping(value="/page/{id}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -148,61 +107,5 @@ public class Reply_controller {
 	    	return new ResponseEntity<>(service.getListPage(reCritera, id), HttpStatus.OK);
 	    }
 
-	    // 댓글 작성
-	    // http://localhost:80/replies/reply
-	    @PostMapping("/reply")
-	    public void postReply(@RequestBody ReplyVO replyVO) {
-	    	Ulid ulid = UlidCreator.getUlid();
-			replyVO.setReply_number(ulid.toString());
-	    	
-	    	service.addReply(replyVO);
-	    }
-
-	    // 댓글 수정
-	    // http://localhost:80/replies/reply
-	    @PutMapping("/reply")
-	    public void updateReply(@RequestBody ReplyVO replyVO) {
-	    	service.updateReply(replyVO);
-	    }
-
-	    // 댓글 삭제
-	    // http://localhost:80/replies/reply/12
-	    @DeleteMapping("/reply/{reply_number}")
-	    public void deleteReply(@PathVariable String reply_number) {
-	    	service.deleteReply(reply_number);
-	    }
-	    
-	    // 대댓글 리스트
-	    // http://localhost:80/replies/reply/12/re_replies
-	    @GetMapping("/reply/{reply_number}/re_replies")
-	    public List<Re_replyVO> getReReplies(@PathVariable String reply_number) {
-	        return service.getReRepliesByReplyNumber(reply_number);
-	    }
-	    
-	    // 대댓글 작성
-	    // http://localhost:80/replies/re_replies
-	    @PostMapping("/re_replies")
-	    public void postReReply(@RequestBody Re_replyVO re_replyVO) {
-	    	Ulid ulid = UlidCreator.getUlid();
-			re_replyVO.setRe_reply_number(ulid.toString());
-	    	
-	    	service.addReReply(re_replyVO);
-	    }
-
-	    // 대댓글 수정
-	    // http://localhost:80/replies/re_replies
-	    @PutMapping("/re_replies")
-	    public void updateReReply(@RequestBody Re_replyVO re_replyVO) {
-	    	service.updateReReply(re_replyVO);
-	    }
-	    
-	    // 대댓글 삭제
-	    // http://localhost:80/replies/re_replies/1
-	    @DeleteMapping("/re_replies/{re_reply_number}")
-	    public void deleteReReply(@PathVariable String re_reply_number) {
-	    	service.deleteReReply(re_reply_number);
-	    }
-		
-		
 	}
 

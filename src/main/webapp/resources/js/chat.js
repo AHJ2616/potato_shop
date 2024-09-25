@@ -1,6 +1,11 @@
 $(document).ready(function() {
             const sender = $('#sender').val(); // 보내는사람
 			const chat_number = $('#chat_number').val();
+			let status = $('#set_status').val();
+			let buyer_number = $('#buyer_number').val();
+			let celler_number = $('#celler_number').val();
+			let board_number = $('board_number').val();
+			
             // 채팅보내기
             function sendMessage(message) {
                 $.ajax({
@@ -16,6 +21,7 @@ $(document).ready(function() {
                     success: function() {
                         $('#content').val(''); // Clear input field
                         loadMessages(); // Reload messages
+						$('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
                     },
                     error: function(xhr, status, error) {
                         console.error('Error sending message:', error);
@@ -24,7 +30,7 @@ $(document).ready(function() {
             }
 
             // 채팅내용 불러오기
-             function loadMessages() {
+    function loadMessages() {
     $.ajax({
       url: '/chat/messages',
       type: 'POST',
@@ -104,9 +110,40 @@ $(document).ready(function() {
     deleteMessage(chat_number, time_stamp);
   });
   
+function chat_status() {
+	console.log("status=" + status +" ,chat_number="+chat_number);
+    $.ajax({
+      url: '/chat/status',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+            chat_number: chat_number,
+            status: status,
+            board_number:board_number,
+            celler_number:celler_number,
+            buyer_number:buyer_number
+        }),
+        success: function(response) {
+            console.log('예약신청 성공:', response);
+            window.location.href = window.location.href;
+            // 추가적인 성공 처리 로직
+        },
+        error: function(xhr, status, error) {
+            console.error('예약신청 오류:', error);
+        }
+    });
+}
+
+$("#buyBtn").on('click',chat_status);
+$("#buyBtn2").on('click',chat_status);
+$("#cellBtn").on('click',chat_status);
+$("#cellBtn2").on('click',chat_status);  
+loadMessages();
+function focus_roll(){ $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);	}
+focus_roll;		
   setInterval(function() {
   loadMessages();
-}, 5000); // 1초마다 채팅내용을 불러옵니다.
+}, 5000); // 3초마다 채팅내용을 불러옵니다.
   
 });
             

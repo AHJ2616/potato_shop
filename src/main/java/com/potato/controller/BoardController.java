@@ -1,15 +1,21 @@
 package com.potato.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.github.f4b6a3.ulid.Ulid;
+import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
 import com.potato.domain.MemberVO;
@@ -45,8 +51,8 @@ public class BoardController {
 		member.setMember_number(board.getWriter_number());
 		cart.setLikes_board_number(board_number);
 		cart.setLikes_member_number(session.getAttribute("member_number").toString());
-		model.addAttribute("member",m_service.profile(member)); //넘버,id,닉네임,프사
-		model.addAttribute("user",m_service.mypage2(member)); //온도
+		model.addAttribute("member",m_service.profile(member)); //판매자의 넘버,id,닉네임,프사
+		model.addAttribute("user",m_service.mypage2(member)); //판매자의 온도
 		model.addAttribute("cart",service.get_cart(cart)); //카트 정보 가져오기
 	}
 	
@@ -67,12 +73,22 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
-		service.register(board);
-		rttr.addFlashAttribute("result", board.getBoard_number()); // 객체에 있는 bno값을 1회성으로 가지고 있음(model영역)
-		return "redirect:/shop/list";
-		// 등록후에는 list페이지로 보냄
+	public String register(@ModelAttribute("board") BoardVO board) throws Exception {
+		String fileName = null;
+		MultipartFile file = board.getFileUpload();
 		
+		if(!file.isEmpty()) {
+			String photo_name = file.getOriginalFilename();
+			Ulid ulid = UlidCreator.getUlid();
+			
+			fileName = ulid+"_"+photo_name;
+			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\images\\" + fileName));
+			
+			board.setPhoto_name(fileName);
+		}
+		
+		service.register(board);
+		return "redirect:/shop/list";
 	}
 	
 	@PostMapping("/modify")
@@ -89,5 +105,10 @@ public class BoardController {
 			rttr.addFlashAttribute("result", "success"); // 수정 성공시 success 메시지를 보냄
 		}
 		return "redirect:/shop/list";
+	}
+	
+	@GetMapping("/search")
+	public void search(@RequestParam("title") String title, Model model) {
+		model.addAttribute("search", service.search(title));
 	}
 }

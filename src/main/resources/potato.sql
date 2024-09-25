@@ -54,7 +54,6 @@ create table board(
    views number default 0 not null,
    board_address varchar2(50) not null
 ); -- 게시판
-alter table board add ;
 
 create sequence seq_board;
 
@@ -84,9 +83,12 @@ create table chat(
 
 create table chat_room(
 chat_number varchar2(100) primary key,
-person_a varchar2(100) not null,
-person_b varchar2(100) not null
+buyer_number varchar2(50) not null,
+celler_number varchar2(50) not null,
+board_number varchar2(50) not null,
+status number default 0 not null
 );
+
 
 -- 로그아웃 :0 , 로그인 : 1
 create table login_check(
@@ -99,6 +101,7 @@ id varchar2(100) not null unique
 create table coments (
 	id varchar2(50) default '비회원' constraint id_nn not null,
 	message varchar2(500) constraint message_nn not null,
+	ip_address varchar2(50),
 	regidate date default sysdate
 );
 
@@ -109,6 +112,16 @@ create table cart (
 	likes_board_number varchar2(50) not null,
 	likes_member_number varchar2(50) not null
 );
+
+create table alarms(
+alarm_number varchar2(50) primary key,
+member_number varchar2(50) not null,
+target_type varchar2(50) not null,
+target_key varchar2(50) not null,
+contents varchar2(100) not null,
+status number default 0 not null
+);
+
 
 create table x_member as select member_number,id,pass,name,nickname,phone,address,grade,regidate from member where 1<>1
 ;
@@ -141,9 +154,9 @@ end;
 
 update login_check set status=0;
 update board set likes=0, interest=0;
-delete from cart;
-select * from reports;
-select * from member;
+select * from chat_room;
+select * from coments;
+select * from alarms;
 
 
 --샘플 등록

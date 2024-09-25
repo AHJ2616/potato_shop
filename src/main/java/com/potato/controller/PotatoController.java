@@ -57,9 +57,9 @@ public class PotatoController {
 	 * 경로 수정 }
 	 */
 
-	// 블랙리스트 등록
+	// 블랙리스트 해제
 	@PostMapping("/blacklist")
-	public String updateBlack(@RequestBody MemberVO member) {
+	public String updateBlack(MemberVO member) {
 		service.updateBlack(member);
 		return "redirect:/admin/home"; // 블랙리스트 등록 후 회원 목록으로 리다이렉트
 	}

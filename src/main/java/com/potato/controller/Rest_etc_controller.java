@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +30,24 @@ public class Rest_etc_controller {
 	EtcService service;
 	
 	@PostMapping(value="/coments", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> coments(@RequestBody ComentsVO coments) {
+	public ResponseEntity<?> coments(@RequestBody ComentsVO coments,HttpServletRequest request) {
+		String ip_address = request.getHeader("X-Forwarded-For");
+		if (ip_address == null) {
+			ip_address = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip_address == null) {
+	    	ip_address = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip_address == null) {
+	    	ip_address = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip_address == null) {
+	    	ip_address = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip_address == null) {
+	    	ip_address = request.getRemoteAddr();
+	    }
+	        coments.setIp_address(ip_address);
 		int result = service.send_coments(coments);
 		switch(result) {
 		case 1 :

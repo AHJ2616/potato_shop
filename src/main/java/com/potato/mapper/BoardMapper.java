@@ -10,61 +10,69 @@ import com.potato.domain.CartVO;
 @Mapper
 public interface BoardMapper {
 	
-	//완 완
+	//1.전체 게시글 리스트 불러오기
 	public List<BoardVO> getList();
 
-	//완 완
+	//2.게시글 작성
 	public void insert(BoardVO board);
 	
-	//완 완
+	//3.게시글 1개 보기
 	public BoardVO read(String board_number);
 
-	//완 완
+	//4.게시글 수정
 	public int update(BoardVO vo);
 
-	//완 완
+	//5.게시글 삭제
 	public int delete(String board_number);
-
-	// 추후 아이디당 1회성으로 코드 변경
 	
-	//완
+	//6.게시글 검색
+	public List<BoardVO> search(String title);
+
+	
+	//7.좋아요 추가
 	public int updateLikes(String board_number);
 
-	//완
+	//8.관심 추가
 	public int updateInterest(String board_number);
 
-	//완
+	//9.좋아요 취소
 	public int cancelLikes(String board_number);
 
-	//완
+	//10.관심 취소
 	public int cancelInterest(String board_number);
 
-	//완
+	//11.조회수 1 증가
 	public int updateViews(String board_number);
 	
+	//12.조회수 1 감소
 	public int cancelViews(String board_number);
-	
-	// 좋아요, 관심 버튼 장바구니
-	
 
-	//완
+
+	//13.cart에 좋아요 추가
 	public int insertLike(CartVO cart);
 
-	//완
+	//14.cart에 관심 추가
 	public int insertInterest(CartVO cart);
 	
-	//좋아요 , 관심 둘 다 누른경우
+	//15.cart에 좋아요,관심 추가 / 버튼 상태
 	public int insert_both(CartVO cart);
 
-	//2개 다 누른경우 취소
+	//16.cart에 좋아요,관심 있을때 좋아요 취소
 	public int cancelLike(CartVO cart);
 
-	//2개 다 누른경우 취소
+	//17.cart에 좋아요,관심 있을때 관심 취소
 	public int cancelInterest2(CartVO cart);
 	
-	// 1개 취소
+	//18.1개 취소
 	public int cancel_both(CartVO cart);
 	
-	//get.jsp용 리스트 가져오기
+	//19.get.jsp용 리스트 가져오기
 	public CartVO get_cart(CartVO cart);
-}
+	
+	//20.판매상태만 변경하기
+	public int set_status(BoardVO board);
+	
+	
+	//구매확정시 -> 후기 작성기능 활성화
+	
+}//class end

@@ -55,9 +55,6 @@ public class MemberTests {
 	
 	@Test
 	public void get_room() {
-		Chat_roomVO ch = new Chat_roomVO();
-		ch.setPerson_a("1");
-		ch.setPerson_b("01J72QVJ83E3YEVWK8JRCKXAZE");
 	}
 	
 

@@ -30,7 +30,6 @@
   --dimmed: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .15));
     height: 100%;
     overflow-y: auto;
-    overflow-y: overlay;
     overflow-x: hidden;
     box-sizing: border-box;
     background-color: #f9f9f9;

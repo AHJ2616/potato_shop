@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.potato.domain.AlarmsVO;
 import com.potato.domain.BoardVO;
 import com.potato.domain.Board_member_cartVO;
 import com.potato.domain.Login_checkVO;
@@ -66,5 +67,15 @@ public interface MemberService {
 	
 	//17.신고 작성하기
 	public int report(ReportVO report);
+	
+	//18.email, phone으로 id 찾기
+	public MemberVO find_id(MemberVO member);
+		
+	//19.id, email, phone으로 임시 비밀번호 저장 (1: 저장됨 / 0: form오류)
+	public int find_pass(MemberVO member);
+	
+	
+		
+
 		
 }
