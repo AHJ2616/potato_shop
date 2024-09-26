@@ -74,7 +74,14 @@ public interface MemberService {
 	//19.id, email, phone으로 임시 비밀번호 저장 (1: 저장됨 / 0: form오류)
 	public int find_pass(MemberVO member);
 	
+	//20.[트리거문제] 회원가입시 user테이블도 같이 생성
+	public void register2(MemberVO memberVO);
 	
+	//21.[트리거문제] 회원탈퇴시 X_member테이블로 데이터 옮기기
+	public void delete2(MemberVO memberVO);
+	
+	//22.[트리거문제] 회원가입시 login_check테이블도 같이 생성
+	public void register3(MemberVO memberVO);
 		
 
 		

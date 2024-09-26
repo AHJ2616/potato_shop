@@ -43,10 +43,10 @@ $(document).ready(function() {
         contentType: false, // 파일 전송 시 contentType은 false로 설정
         processData: false, // FormData 객체는 문자열로 변환하지 않음
                     success: function(response) {
-                        alert('파일 업로드 성공: ' + response);
+                        alert('변경 완료되었습니다. ');
                     },
                     error: function(xhr, status, error) {
-                        alert('파일 업로드 실패: ' + error);
+                        alert('이미지파일을 선택해주세요.');
                     }
 	})
 	

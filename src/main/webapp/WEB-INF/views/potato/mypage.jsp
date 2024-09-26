@@ -7,7 +7,7 @@
 	
 		<div class="profile_image">
 		<div class="profile_photo">
-			<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${sessionScope.profile_image}" alt="" width="100" height="100">
+			<img id="img_thumb" src="${pageContext.request.contextPath}/resources/upload/${sessionScope.profile_image}" alt="" width="100" height="100">
 			<span class="mask"></span>
 		</div>
 			<form id="profileImageForm" enctype="multipart/form-data">

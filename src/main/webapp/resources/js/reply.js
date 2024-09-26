@@ -27,13 +27,40 @@
 						}) // ajax 종료
 					} // function add 종료
 					
+					// 대댓글 추가하기
+ 					function addReply(reply, callback, error){ // 외부에서 replyService.add(객체, 콜백)을 전달하는 형태
+						console.log("대댓글추가용 함수.....");
+						
+						$.ajax({
+							type : 'post',					// @PostMapping
+							url : '/replies/re_replies',			// http://localhost:80/replies/re_replies
+							data : JSON.stringify(reply),	// Json으로 받아 객체로 넘김 (stringify)
+							contentType : "application/json; charset=utf-8",
+							
+							success : function(result, status, xhr){ // 위 코드 성공시 함수
+								// result : 결과
+								// status : 200 | 500
+								// xhr : xmlHttpRequest 객체(서블릿에서 요청 객체와 유사함.)
+								if(callback){ // callback = true 면 아래 코드 실행
+									callback(result);
+								} // 콜백 if 종료
+							}, // success 종료
+							
+							error : function(xhr, status, er){
+								if(error){
+									error(er);
+								} // 에러 if 종료
+							} // error 종료
+						}) // ajax 종료
+					} // function add 종료
+					
 					// 댓글 리스트 가져오기
 					function getList(param, callback, error){
 						
-						var id = param.id;
+						var member_number = param.member_number;
 						var page = param.page || 1;
 						
-						$.getJSON("/replies/page/" + id + "/" + page + ".json",
+						$.getJSON("/replies/page/" + member_number + "/" + page + ".json",
 							function(data){
 								if (callback){
 									//callback(data); //댓글 목록만 가져오는 경우
@@ -138,9 +165,10 @@
 					
 					console.log("re_rno : " + re_reply.re_reply_number);
 				        $.ajax({
-				            url: '/replies' + '/re_replies/' + re_reply.re_reply_number,
-				            type: 'put',
+							type: 'put',
+				            url: '/replies/re_replies/' + re_reply.re_reply_number,
 				            data: JSON.stringify(re_reply),
+				            contentType : 'application/json; charset=utf-8', // 콘텐츠 타입 설정
 				            success: function(result, status, xhr) {
 				                if (callback){
 									callback(result);
@@ -217,6 +245,7 @@
  					
 					 return {
 						add : add,
+						addReply : addReply,
 						getList : getList,
 						getReList : getReList,
 						remove : remove,

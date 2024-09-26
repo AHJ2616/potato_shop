@@ -160,6 +160,7 @@ public class Rest_member_controller {
 	@PostMapping(value="/delete")
 	public ResponseEntity<Map<String, String>> delete(@RequestBody MemberVO memberVO,HttpSession session){
 		int result = service.delete(memberVO);
+		service.delete2(memberVO);
 		if(result==1) {//삭제성공
 			session.invalidate();
 			Map<String, String> response = new HashMap<>();

@@ -17,29 +17,9 @@
 				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple>
 				<img id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
 			</div>
-			<div class="formbold-mb-3">
-				<div>
-					<label for="writer" class="formbold-form-label">판매자</label>
-					<input class="formbold-form-input" name="writer"
-						value='<c:out value="${sessionScope.nickName}"/>'
-						readonly="readonly" />
-				</div>
-			</div>
-			<div class="formbold-mb-3">
-				<div>
-					<label for="writer_number" class="formbold-form-label">판매자코드</label>
-					<input class="formbold-form-input" name="writer_number"
-						value='<c:out value="${sessionScope.member_number}"/>'
-						readonly="readonly" />
-				</div>
-			</div>
-			<div class="formbold-mb-3">
-				<div>
-					<label for="board_address" class="formbold-form-label">판매자주소</label>
-					<input class="formbold-form-input" name="board_address"
-						value='<c:out value="${sessionScope.address}"/>' readonly="readonly" />
-				</div>
-			</div>
+			<input type="hidden" id="writer" name="writer" value="<c:out value='${sessionScope.nickName}'/>"/>
+			<input type="hidden" id="writer_number" name="writer_number" value="<c:out value='${sessionScope.member_number}'/>"/>
+			<input type="hidden" id="board_address" name="board_address" value="<c:out value='${sessionScope.address}'/>"/>
 			<div class="formbold-mb-3">
 				<div>
 					<label for="title" class="formbold-form-label">제목</label> <input
@@ -55,9 +35,8 @@
 				</div>
 			</div>
 			<div class="formbold-mb-3">
-				<label for="content" class="formbold-form-label">내용</label> <input
-					type="text" name="content" id="content" class="formbold-form-input"
-					required />
+				<label for="content" class="formbold-form-label">내용</label>
+				<textarea name="content" id="content" class="formbold-form-input" required></textarea>
 			</div>
 			<div class="formbold-input-flex">
 				<div>
@@ -92,4 +71,5 @@
 		</form>
 	</div>
 </div>
+<script src="/resources/js/board_register.js"></script>
 <%@include file="../common/footer.jsp"%>

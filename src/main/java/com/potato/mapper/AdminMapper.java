@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
+import com.potato.domain.NotificationVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
 
@@ -33,6 +34,10 @@ public interface AdminMapper {
 	
 	public List<ReportVO> readReport(); // 신고내역 리스트 - 사용함
 	
+	public void clearBlack(String member_number); // 블랙리스트 해제
+	
 	public ReportVO get_report(String report_number); //신고내역 확인하기 -사용함
+	
+	public List<NotificationVO> notification(); // 관리자 공지 - 완
 	
 }

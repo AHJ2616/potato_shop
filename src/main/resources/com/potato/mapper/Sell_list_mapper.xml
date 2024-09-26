@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potato.mapper.Sell_list_mapper">
+
+<select id="getBoardsByMemberNumber" parameterType="String" resultType="com.potato.domain.BoardVO">
+    <![CDATA[
+    SELECT board_number, types, title, content, writer, writer_number, photo_name, regidate, board_address, price 
+    FROM board 
+    WHERE writer_number = #{member_number}
+    ]]> <!-- CDATA : sql 파일에 부등호 계산을 db에서 하게끔 처리 -->
+</select>
+
+
+
+</mapper>

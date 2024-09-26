@@ -1,11 +1,12 @@
-div {
-  /* 글 왼쪽 정렬하기 */
-  text-align: left;
+div { 
+    text-align: left;
 }
 
 /* 전체 섹션 스타일 */
 #article-profile {
+	width: 40%; /* 원하는 너비로 설정 (예: 80%) */
     padding: 16px;
+    margin: 0 auto; /* 중앙 정렬 */
 }
 
 /* 전체 컨테이너를 flexbox로 설정 */
@@ -13,10 +14,11 @@ div {
     display: flex;
     justify-content: space-between; /* 왼쪽과 오른쪽에 배치 */
     align-items: center; /* 수직 중앙 정렬 */
-    width: 100%; /* 전체 너비 사용 */
-    margin-right: 30%; /* 오른쪽 여백 추가 (값은 필요에 따라 조정) */
+    width: 65%; /* .panel과 동일한 너비 */
+    margin: 0 auto; /* 중앙 정렬 */
 }
 
+/* 숨김 스타일 */
 .hide {
     display: none;
 }
@@ -24,7 +26,8 @@ div {
 /* 왼쪽 부분 스타일 */
 .left-section {
     display: flex;
-    align-items: center;
+    align-items: center; /* 수직 중앙 정렬 */
+    flex: 1; /* 왼쪽 섹션이 가능한 공간 차지 */
 }
 
 /* 오른쪽 부분 스타일 */
@@ -32,6 +35,7 @@ div {
     display: flex;
     flex-direction: column;
     align-items: flex-end; /* 오른쪽 정렬 */
+    flex: 1; /* 오른쪽 섹션도 가능한 공간 차지 */
 }
 
 /* 링크 스타일 제거 (옵션) */
@@ -41,15 +45,17 @@ div {
 }
 
 /* 프로필 이미지 스타일 */
-#article-profile-image img {
+.profile_photo img {
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 100px; /* 크기 조정 */
+    height: 100px; /* 크기 조정 */
 }
 
 /* 프로필 왼쪽 부분 스타일 */
 #article-profile-left {
-    margin-left: 16px;
+    margin-left: 16px; /* 여백 추가 */
+    display: flex;
+    flex-direction: column; /* 주소를 아래에 배치 */
 }
 
 /* 온도 스타일 */
@@ -61,7 +67,7 @@ div {
 .meters {
     background-color: #eee;
     height: 10px;
-    width: 100%;
+    width: 10%;
     border-radius: 5px;
     margin: 8px 0;
     position: relative;
@@ -85,4 +91,88 @@ div {
 
 .face-04 {
     background-color: #ffcc00; /* 색상 예시 */
+}
+    
+/* 판매물품 리스트 */
+
+.item-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    transition: box-shadow 0.2s;
+}
+
+.item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-title {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.item-price {
+    color: #e67e22;
+    font-weight: bold;
+}
+
+.item-location {
+    color: #7f8c8d;
+}
+
+/* 매너칭찬 리스트 */
+.manner-list {
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+    padding: 0; /* 패딩 제거 */
+    counter-reset: item; /* 번호 초기화 */
+}
+
+.manner-list li {
+    display: flex; /* 플렉스 박스를 사용하여 배치 */
+    justify-content: space-between; /* 양 끝으로 배치 */
+    align-items: center; /* 세로 정렬 */
+    background-color: #f9f9f9; /* 배경색 */
+    border-bottom: 1px solid #ddd; /* 항목 간 선 추가 */
+    padding: 15px; /* 패딩 */
+    position: relative; /* 번호를 위치시키기 위해 */
+}
+
+.manner-list li:last-child {
+    border-bottom: none; /* 마지막 항목의 선 제거 */
+}
+
+.manner-list li::before {
+    content: counter(item); /* 항목 번호 */
+    counter-increment: item; /* 번호 증가 */
+    margin-right: 10px; /* 번호와 텍스트 간 간격 */
+    font-weight: bold; /* 번호 강조 */
+}
+
+.manner-list li:hover {
+    background-color: #e2e2e2; /* 호버 시 색상 변경 */
+}
+
+.count {
+    margin-left: auto; /* 왼쪽 여백 자동으로 설정하여 오른쪽으로 이동 */
+    font-weight: bold; /* 강조 */
 }

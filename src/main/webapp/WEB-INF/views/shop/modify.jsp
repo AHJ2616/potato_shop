@@ -8,13 +8,13 @@
 
 <div class="formbold-main-wrapper">
 	<div class="formbold-form-wrapper">
-		<form action="/shop/modify" method="post">
+		<form action="/shop/modify" method="post" enctype="multipart/form-data">
 			<div class="formbold-form-title">
 				<h2>수정등록</h2>
 			</div>
 			<div class="file-input-wrapper">
-				<input type="file" accept="image/*" name="photo_name"> <img
-					id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
+				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple>
+				<img id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
 			</div>
 			<div class="formbold-mb-3">
 				<div>
@@ -85,5 +85,5 @@
 
 
 
-
+<script src="/resources/js/board_register.js"></script>
 <%@ include file="../common/footer.jsp"%>

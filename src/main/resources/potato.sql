@@ -12,16 +12,14 @@ create table member(
    update_date date default sysdate -- 회원수정일
 ); -- 멤버 테이블
 
-insert into member values('admin','admin','1234','관리자','관리자','01012341234','주소','1','default_profile_1.jpg',sysdate,sysdate)
-
 CREATE TABLE user_table (
   user_number VARCHAR2(50) primary key, -- 회원번호 member_number외래키
   reports NUMBER default 0 NOT NULL, -- 신고 수
   temper NUMBER default 36.5 NOT NULL, -- 온도
   trades NUMBER default 0 NOT NULL-- 거래완료 수
 ); -- user 테이블
-
-
+select * from user_table
+ 01J8P3A29998EEF85RBJZ48N4V
 
 create table reports(
    report_number varchar2(1000) constraint pk_report_num primary key, -- 신고번호
@@ -104,6 +102,11 @@ create table coments (
 	ip_address varchar2(50),
 	regidate date default sysdate
 );
+create index idx_coments on coments (regidate desc);
+select * from coments
+select --+ INDEX(coments idx_coments)
+ * from coments order by regidate desc
+
 
 --좋아요 , 구독을 누른 회원 체크
 create table cart (
@@ -112,6 +115,8 @@ create table cart (
 	likes_board_number varchar2(50) not null,
 	likes_member_number varchar2(50) not null
 );
+select * from reply
+
 
 create table alarms(
 alarm_number varchar2(50) primary key,
@@ -121,6 +126,28 @@ target_key varchar2(50) not null,
 contents varchar2(100) not null,
 status number default 0 not null
 );
+
+CREATE TABLE manner (
+    manner_number NUMBER(10) PRIMARY KEY,
+    description VARCHAR2(255) NOT NULL,
+    mcount NUMBER(10) DEFAULT 0,
+    member_number varchar2(50) not null,
+    FOREIGN KEY (member_number) REFERENCES member(member_number)
+); -- 매너 테이블
+
+-- 시퀀스 생성
+CREATE SEQUENCE manner_seq START WITH 1 INCREMENT BY 1;
+
+select * from member
+-- 더미 데이터 생성
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '친절하고 매너가 좋아요.', '01J875J2PM4BTTVZXD71BFP283', 4);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '응답이 빨라요.', '01J875J2PM4BTTVZXD71BFP283', 10);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '시간 약속을 잘 지켜요.', '01J875J2PM4BTTVZXD71BFP283', 23);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '제가 있는 곳까지 와서 거래했어요.', '01J875J2PM4BTTVZXD71BFP283', 56);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '좋은 물품을 저렴하게 판매해요.', '01J875J2PM4BTTVZXD71BFP283', 7);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '물품상태가 설명한 것과 같아요.', '01J875J2PM4BTTVZXD71BFP283', 38);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '물품설명이 자세해요.', '01J875J2PM4BTTVZXD71BFP283', 2);
+INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '나눔을 해주셨어요.', '01J875J2PM4BTTVZXD71BFP283', 15);
 
 
 create table x_member as select member_number,id,pass,name,nickname,phone,address,grade,regidate from member where 1<>1
@@ -155,8 +182,8 @@ end;
 update login_check set status=0;
 update board set likes=0, interest=0;
 select * from chat_room;
-select * from coments;
 select * from alarms;
+ select * from member
 
 
 --샘플 등록

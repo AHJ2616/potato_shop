@@ -20,6 +20,7 @@ public class BoardVO {
 			private String status; 		  // 상품의 상태 (일반 , 예약 , 판매 완료)
 			private String photo_name;	  // 첨부사진 파일명
 			private Date regidate; 		  // 글 등록(수정)일 (default sysdate)
+			private Date updatedate; 
 			private int likes;			  // 좋아요 수
 			private int interest;		  // 관심 수
 			private int price;			  // 가격

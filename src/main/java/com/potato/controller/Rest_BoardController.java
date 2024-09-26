@@ -44,7 +44,7 @@ public class Rest_BoardController {
 	 
 	  @PostMapping(value ="/update_interest",consumes="application/json", 
 		  	   produces=MediaType.APPLICATION_JSON_VALUE) 
- public ResponseEntity<?> update_interest(@RequestBody CartVO cart) {
+public ResponseEntity<?> update_interest(@RequestBody CartVO cart) {
 	  CartVO cart2 = new CartVO();	 
 	  cart2 = service.get_cart(cart);
 	  String board_number = cart.getLikes_board_number();
@@ -56,8 +56,8 @@ public class Rest_BoardController {
 	  	 }
 	  	service.updateInterest(board_number);
 	  	service.cancelViews(board_number);
- return ResponseEntity.ok(cart);
- }
+return ResponseEntity.ok(cart);
+}
 	  @PostMapping(value ="/cancel_like",consumes="application/json", 
 		  	   produces=MediaType.APPLICATION_JSON_VALUE) 
 	  public ResponseEntity<?> cancel_like(@RequestBody CartVO cart){
@@ -75,7 +75,7 @@ public class Rest_BoardController {
 	  }
 	  
 	  @PostMapping(value ="/cancel_interest",consumes="application/json", 
- 	   produces=MediaType.APPLICATION_JSON_VALUE)
+	   produces=MediaType.APPLICATION_JSON_VALUE)
 	  public ResponseEntity<?> cancel_interest(@RequestBody CartVO cart){
 		  CartVO cart2 = new CartVO();	 
 		  cart2 = service.get_cart(cart);
@@ -92,3 +92,4 @@ public class Rest_BoardController {
 	  }
 	  
 }
+

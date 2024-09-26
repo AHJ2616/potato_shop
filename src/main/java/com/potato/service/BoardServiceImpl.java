@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
+import com.potato.domain.Criteria;
 import com.potato.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -131,6 +132,18 @@ public class BoardServiceImpl implements BoardService{
 	public int set_status(BoardVO board) {
 		// TODO 20.판매상태만 변경하기
 		return mapper.set_status(board);
+	}
+
+	@Override
+	public List<BoardVO> getList(Criteria cri) {
+		// TODO 
+		return mapper.getMoreList(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO 
+		return mapper.getTotalCount(cri);
 	}
 	
 

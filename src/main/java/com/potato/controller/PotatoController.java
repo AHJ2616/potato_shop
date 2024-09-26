@@ -1,16 +1,23 @@
 package com.potato.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.ReportVO;
@@ -41,21 +48,25 @@ public class PotatoController {
 		}
 		
 	}
+	
 
-	/*
-	 * // 회원 정보 검색
-	 * 
-	 * @GetMapping("/admin/memberList") public String
-	 * getMemberList(@RequestParam("id") String id, Model model, RedirectAttributes
-	 * redirectAttributes) { MemberVO member = service.getMemberList(id);
-	 * 
-	 * 
-	 * if(member == null) { log.info("회원아이디 : " + id);
-	 * redirectAttributes.addFlashAttribute("message", "회원이 없습니다."); return
-	 * "redirect:/admin/memberList"; } log.info("검색된 회원 ID: " + id); // 로그 추가
-	 * model.addAttribute("member", member); return "potato/memberList"; // JSP 파일
-	 * 경로 수정 }
-	 */
+	// 회원정보 검색
+	@GetMapping("/memberList")
+	public String getMemberList(@RequestParam("id") String id, Model model, RedirectAttributes redirectAttributes) {
+		MemberVO member = service.getMemberList(id);
+
+		if (member == null) {
+			log.info("회원아이디 : " + id);
+			redirectAttributes.addFlashAttribute("message", "회원이 없습니다.");
+			return "redirect:/admin/home";
+		}
+
+		log.info("검색된 회원 ID: " + id);
+		model.addAttribute("member", member);
+		return "admin/memberList";
+	}
+	
+	
 
 	// 블랙리스트 해제
 	@PostMapping("/blacklist")
@@ -72,9 +83,6 @@ public class PotatoController {
 	}
 
 
-
-	
-
 	// 신고 내역 확인
 	@GetMapping("/report")
 	public void readReport(@RequestParam("report_number") String report_number,Model model,HttpSession session) {
@@ -90,16 +98,31 @@ public class PotatoController {
 		service.updateReport(report);
 		MemberVO member= new MemberVO();
 		member.setMember_number(report.getDefendant());
-		member.setGrade(report.getStatus()); // 0 : 일반회원 4: 블랙리스트
+		member.setGrade(report.getStatus()); // 2 : 경고회원 4: 블랙리스트
 		service.updateBlack(member);
 		return "redirect:/admin/home";
 	}
 
-	// 회원 상세 정보 조회 (AJAX)
-	@GetMapping("/memberDetail")
-	@ResponseBody
-	public MemberVO memberDetail(@RequestParam("id") String id) {
-		return service.getMemberList(id);
+
+	// String -> Date 변환 처리
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+
+
+	// 관리자 공지 글쓰기
+	@GetMapping("/notiWrite")
+	public String notiWrite(Model model) {
+		return "admin/notiWrite"; // notiWrite.jsp로 이동
+	}
+
+	// 관리자 공지 글쓰기
+	@GetMapping("/notiView")
+	public String notiView(Model model) {
+		return "admin/notiView"; // notiWrite.jsp로 이동
 	}
 
 

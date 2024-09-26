@@ -49,3 +49,35 @@
     color: #555558;
 }    
 
+/* 읽은 알림에 대한 스타일 */
+.readed_alarm {
+    background-color: #f0f0f0; /* 옅은 회색 */
+    transition: background-color 0.3s ease; /* 부드러운 색상 전환 효과 */
+}
+
+.readed_alarm:hover {
+    background-color: #e0e0e0; /* 호버 시 약간 더 진한 회색 */
+}
+
+/* 일반 알림 항목에 대한 스타일 (선택적) */
+.alarm_list li {
+    background-color: #ffffff; /* 기본 배경색 (흰색) */
+    transition: background-color 0.3s ease;
+}
+
+.alarm_list li:hover {
+    background-color: #f8f8f8; /* 호버 시 아주 옅은 회색 */
+}
+
+/* 알림 항목 공통 스타일 */
+.alarm_list li {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    list-style-type: none;
+}
+
+.alarm_list li:last-child {
+    border-bottom: none;
+}
+
+

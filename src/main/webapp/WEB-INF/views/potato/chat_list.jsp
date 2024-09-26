@@ -14,7 +14,7 @@
     </tr>
     <c:forEach var="member" items="${memberVO}">
       <tr>
-        <td><img src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt=""></td>
+        <td><img src="${pageContext.request.contextPath}/resources/upload/${member.profile_image}" alt=""></td>
         <td>${member.nickName}</td>
         <td>${member.id}</td>
         <td><a href="/potato/chat?reciever=${member.member_number}&board_number=${member.board_number}">채팅하기</a>

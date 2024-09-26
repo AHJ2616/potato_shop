@@ -8,12 +8,11 @@
 <section id="article-profile">
        <a id="article-profile-link">
            <div class="container">
-           <h5>판매자 프로필</h5>
+           <h5 class="hide">판매자 프로필</h5>
                <!-- 왼쪽 섹션 -->
                <div class="left-section">
                   <div class="profile_photo">
-					<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt="" 
-					 width=100px height=100px>
+					<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt="" width=100px height=100px>
 					<span class="mask"></span>
 				  </div>
                    <div id="article-profile-left">
@@ -46,38 +45,45 @@
       		<br><br>
       		
       		<ul class="nav nav-tabs">
-				<li class="nav-item">
-					<a class="nav-link active show" href="#reviews" data-toggle="tab">후기</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#items" data-toggle="tab">판매물품(업데이트중)</a>
-				</li>
+			    <li class="nav-item">
+			        <a class="nav-link active show" href="#reviews" data-toggle="tab">후기</a>
+			    </li>
+			    <li class="nav-item">
+			        <a class="nav-link" id="itemsTab" href="#items" data-toggle="tab">판매 물품</a>
+			    </li>
+			    <li class="nav-item">
+			        <a class="nav-link" id="mannerTab" href="#manner" data-toggle="tab">매너 칭찬(업데이트중)</a>
+			    </li>
 			</ul>
-				
+			
 			<div class="panel-heading" align="center" style="text-align: center;">
-       			<p></p>
-       			<button id='addReplyBtn' type="button" class="btn btn-success" style="float: right;">후기 등록</button>
-      		</div>
-      		
-      		<!-- /.panel-heading" -->
-      		<br><br><br>
-      		
-      		<div class="panel-body">
-      			<div class="tab-content">
-                    <div id="reviews" class="tab-pane active">
-		      			<ul class="chat">
-		      				<!-- reply(댓글) 시작 -->
-		      			</ul>
-      				</div>
-      				<div id="items" class="tab-pane">
-                        <ul class="item-list">
-                            <!-- 판매물품 내용들 -->
-                            <!-- <li>판매물품 1</li>
-                            <li>판매물품 2</li> -->
-                        </ul>
-                    </div>
-                 </div>
-            </div>
+			    <p></p>
+			    <button id='addReplyBtn' type="button" class="btn btn-success" style="float: right;">후기 등록</button>
+			    <button id='mannerButton' type="button" class="btn btn-warning" style="float: right; margin-right: 10px;">칭찬 등록</button>
+			</div>
+			<br><br><br>
+			
+			<div class="panel-body">
+			    <div class="tab-content">
+			        <div id="reviews" class="tab-pane active">
+			            <ul class="chat">
+			                <!-- reply(댓글) 시작 -->
+			            </ul>
+			        </div>
+			        <div id="items" class="tab-pane">
+			            <ul class="item-list" id="itemList">
+			                <!-- 판매물품 내용들 -->
+			            </ul>
+			        </div>
+			        <div id="manner" class="tab-pane">
+					    <ul class="manner-list" id="mannerList">
+					        <%-- <c:forEach var="manner" items="${mannerList}">
+					            <li>${manner.description} - 선택 횟수: ${manner.mcount}</li>
+					        </c:forEach> --%>
+					    </ul>
+					</div>
+			    </div>
+			</div>
       		<!-- /.panel-body -->
       		<div class="panel-footer">
       		</div>
@@ -101,7 +107,7 @@
             <div class="modal-body">
                 <div class="form-group">
                 	<label>후기</label>
-                	<input class="form-control" name='content' value='New Reply!!!' placeholder="댓글은 최대 1000자까지 입력가능합니다.">
+                	<input class="form-control" name='content' value='New Reply!!!' placeholder="후기는 최대 1000자까지 입력가능합니다.">
                 </div>
                 <div class="form-group">
                 	<label>작성자</label>
@@ -131,12 +137,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-                <h4 class="modal-title" id="replyModalLabel">대댓글을 남겨주세요</h4>
+                <h4 class="modal-title" id="replyModalLabel">답글을 남겨주세요</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>대댓글</label>
-                    <input class="form-control" name='replyContent' placeholder="대댓글은 최대 1000자까지 입력가능합니다.">
+                    <label>답글</label>
+                    <input class="form-control" name='replyContent' placeholder="답글은 최대 1000자까지 입력가능합니다.">
                 </div>
                 <div class="form-group">
                     <label>작성자</label>
@@ -160,6 +166,27 @@
 </div>
 <!-- /.modal -->
 
+<!-- 칭찬 항목 선택을 위한 모달 -->
+<div id="mannerModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">칭찬 항목 선택</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="modalMannerList"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button id="submitMannerBtn" type="button" class="btn btn-primary">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
@@ -167,19 +194,202 @@
 
 <script>
 $(document).ready(function() {
-    var idValue = ${member.member_number}; // 판매자 정보
+    // 칭찬 등록 버튼 클릭 시 모달 열기
+    $('#mannerButton').click(function() {
+        const memberNumber = '${member.member_number}'; // 현재 멤버 번호
+        
+        // 칭찬 항목 가져오기
+        $.getJSON('/manner/items/' + memberNumber, function(data) {
+            const modalMannerList = $('#modalMannerList');
+            modalMannerList.empty(); // 모달 내 목록 초기화
+
+            if (data && data.length) {
+                data.forEach(function(item) {
+                    modalMannerList.append(
+                        '<li>' +
+                        '<input type="radio" name="mannerItem" value="' + item.manner_number + '"> ' + item.description +
+                        '</li>'
+                    );
+                });
+            } else {
+                modalMannerList.append('<li>등록된 칭찬 항목이 없습니다.</li>');
+            }
+
+            $('#mannerModal').modal('show'); // 모달 열기
+        }).fail(function() {
+            alert("칭찬 항목을 가져오는 데 실패했습니다.");
+        });
+    });
+
+    // 칭찬 항목 등록 버튼 클릭 시
+    $('#submitMannerBtn').click(function() {
+        const mannerItem = $('input[name="mannerItem"]:checked').val(); // 선택된 칭찬 항목
+        const memberNumber = '${member.member_number}';
+
+        if (!mannerItem) {
+            alert("칭찬 항목을 선택해 주세요.");
+            return;
+        }
+
+        // 칭찬하기 데이터 전송
+        $.ajax({
+            type: 'POST',
+            url: '/manner/submit', // URL 수정
+            data: { manner_number: mannerItem, member_number: memberNumber },
+            success: function(response) {
+                alert("칭찬이 등록되었습니다!");
+                $('#mannerModal').modal('hide'); // 모달 닫기
+                location.reload(); // 페이지 새로 고침
+            },
+            error: function(xhr, status, error) {
+                alert("칭찬 등록에 실패했습니다.");
+            }
+        });
+    });
+});
+
+
+// 매너칭찬 리스트
+document.getElementById('mannerTab').addEventListener('click', function() {
+    var memberNumber = '${member.member_number}'; // 실제 회원 번호로 대체
+    console.log('Member Number:', memberNumber); // 확인용 로그
+    var url = '/manner/items/' + encodeURIComponent(memberNumber);
+    
+    fetch(url)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json(); // JSON 형식으로 응답 받기
+        })
+        .then(function(data) {
+		    var mannerList = document.getElementById('mannerList');
+		    mannerList.innerHTML = ''; // 기존 내용 지우기
+		
+		    // 데이터가 있을 경우 출력
+		    data.forEach(function(manner) {
+		        var li = document.createElement('li');
+		        li.innerHTML = manner.description + '<span class="count">' + manner.mcount + '명</span>'; // '명' 추가
+		        mannerList.appendChild(li);
+		    });
+		})
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+});
+
+// 각 탭의 버튼 숨김, 출력
+$(document).ready(function() {
+    const chatRoomStatus = ${chat_roomVO != null ? chat_roomVO.status : 4}; // null 체크 추가
+
+    // 초기 상태 설정
+    $('#addReplyBtn').hide(); // 후기 등록 버튼 기본 숨김
+    $('#mannerButton').hide(); // 칭찬 등록 버튼 기본 숨김
+
+    // 초기 탭 설정: 항상 후기 탭으로 설정
+    $('a[href="#reviews"]').tab('show'); // 초기 탭을 후기 탭으로 설정
+
+    // 페이지 로드 시 거래 상태에 따라 후기 등록 버튼 보이기
+    if (chatRoomStatus === 4) {
+        $('#addReplyBtn').show(); // 거래 상태가 4일 때 후기 등록 버튼 보이기
+    }
+
+    // 탭 전환 시 이벤트 처리
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        const target = $(e.target).attr("href"); // 현재 선택된 탭의 href
+        var replyPageFooter = $(".panel-footer");
+        
+        if (target === '#reviews') {
+            // 후기 탭일 때 페이징 처리 보이기
+            replyPageFooter.show();
+        } else {
+            // 다른 탭일 때 페이징 처리 숨기기
+            replyPageFooter.hide();
+        }
+        
+        if (target === '#reviews') {
+            // 후기 탭으로 돌아올 때
+            if (chatRoomStatus === 4) {
+                $('#addReplyBtn').show(); // 거래 상태가 4일 때 후기 등록 버튼 보이기
+            } else {
+                $('#addReplyBtn').hide(); // 거래 상태가 4가 아닐 경우 숨기기
+            }
+            $('#mannerButton').hide(); // 칭찬 등록 버튼 숨기기
+        } else if (target === '#manner') {
+            // 칭찬 탭으로 전환할 때
+            if (chatRoomStatus === 4) {
+                $('#mannerButton').show(); // 거래 상태가 4일 때 칭찬 등록 버튼 보이기
+            } else {
+                $('#mannerButton').hide(); // 거래 상태가 4가 아닐 경우 숨기기
+            }
+            $('#addReplyBtn').hide(); // 후기 등록 버튼 숨기기
+        } else {
+            // 다른 탭에서는 모두 숨기기
+            $('#addReplyBtn').hide();
+            $('#mannerButton').hide();
+        }
+    });
+});
+
+// 판매물품 리스트 출력
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('itemsTab').addEventListener('click', function() {
+        var memberNumber = '${member.member_number}'; // 동적으로 가져오는 방법에 따라 변경
+        fetch('${pageContext.request.contextPath}/sell_list/member/' + memberNumber)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                var itemList = document.getElementById('itemList');
+                itemList.innerHTML = ''; // 이전 내용 지우기
+
+                data.forEach(function(item) {
+                    var listItem = document.createElement('li');
+                    listItem.className = 'item';
+
+                    // 이미지 URL 생성 (JSP에서 컨텍스트 경로를 사용)
+                    var imageUrl = "${pageContext.request.contextPath}/resources/images/" + item.photo_name;
+
+                    // 문자열 연결 방식으로 HTML 생성
+                    listItem.innerHTML = '<img src="' + imageUrl + '" alt="' + item.title + '" class="item-image" />' +
+                                         '<div class="item-details">' +
+                                         '<h3 class="item-title">' + item.title + '</h3>' +
+                                         '<p class="item-price">' + item.price + ' 원</p>' +
+                                         '<p class="item-location">' + item.board_address + '</p>' +
+                                         '</div>';
+                    
+             		// 리스트 아이템 클릭 시 이동
+                    listItem.addEventListener('click', function() {
+                        window.location.href = '${pageContext.request.contextPath}/shop/get?board_number=' + item.board_number; // 상품 board_number에 따라 URL 변경
+                    });
+                                         
+                    itemList.appendChild(listItem);
+                });
+            })
+            .catch(function(error) {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+});
+
+
+$(document).ready(function() {
+    var member_value = '${member.member_number}'; // 판매자 정보
     var replyUL = $(".chat");
     //var currentUser = 'kwh'; // 로그인한 계정
-    var currentUser = ${sessionScope.member_number}; // 로그인한 계정
+    var currentUser = '${sessionScope.nickName}'; // 로그인한 계정
     
-    console.log("idValue:", idValue);
+    console.log("member_value:", member_value);
     console.log("currentUser:", currentUser);
 
     showList(1); // 후기 리스트 출력
 
     // 댓글 리스트 출력
     function showList(page) {
-    replyService.getList({ id: idValue, page: page || 1 }, function(replyCnt, list) {
+    replyService.getList({ member_number: member_value, page: page || 1 }, function(replyCnt, list) {
         console.log("replyCnt:", replyCnt);
         console.log("list:", list);
 
@@ -264,21 +474,6 @@ $(document).ready(function() {
         showReplyPage(replyCnt);
     });
 } // function showList 종료
-
-
-//본인이 등록한 판매물품 리스트 출력
-/* function showItems() {
-    itemService.getItemsBySeller(idValue, function(items) {
-        if (!items || items.length === 0) {
-            itemListUL.html("<li>등록된 판매물품이 없습니다.</li>");
-            return;
-        }
-
-        let itemHtml = items.map(item => "<li><strong>${item.title}</strong><p>가격: ${item.price} 원</p><p>${item.description}</p><button class='btn btn-danger delete-item-btn' data-item_id='${item.id}'>삭제</button></li>").join('');
-
-        itemListUL.html(itemHtml);
-    });
-} */
 		
 		
 		// 탭 클릭 이벤트
@@ -388,17 +583,15 @@ $(document).ready(function() {
 		    $('#reviewModal').hide();
 		    modal.modal("hide");
 			showList(pageNum);
-		  });
+		});
 		
 		// 댓글 추가 기능
 		modalRegisterBtn.on("click",function(e){
 			
-			$('.black-bg').fadeIn('noshow');
-			
 			var reply = {
 					content : modalInputContent.val(),
 					writer : modalInputWriter.val(),
-					id : idValue
+					member_number : member_value
 			};
 			replyService.add(reply, function(result){
 				

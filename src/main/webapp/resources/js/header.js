@@ -85,11 +85,14 @@ $(document).ready(function() {
 	
 });
 window.addEventListener('unload', logout);
+
+
+
 });   
 
-$('#del_all').on('click',function(e) {
+$(document).on('click', '#del_all', function(e) {
     e.preventDefault(); // 기본 링크 동작 방지
-    let member_number = $('#session_number').val();
+    let member_number = $(this).data('member-number')
     $.ajax({
         url: '/alarm/delete_all',
         type: 'POST',
@@ -97,6 +100,7 @@ $('#del_all').on('click',function(e) {
         data: JSON.stringify({member_number:member_number}), // 알림 내용 전송
         success: function(response) {
              $li.remove();
+             refresh_alarm();
         },
         error: function(xhr, status, error) {
             alert('알림 삭제 실패: ' + (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : '서버 오류가 발생했습니다.'));
@@ -104,15 +108,15 @@ $('#del_all').on('click',function(e) {
     });
 });
 
-$('#alarm_del').on('click',function(e) {
+$(document).on('click', '#alarm_del', function(e) {
     e.preventDefault(); // 기본 링크 동작 방지
     let $li = $(this).closest('li');
     let data = {
-        alarm_number: $li.find('#a_number').val(),
-        member_number: $('#session_number').val(),
-        target_type: $li.find('#a_target_type').val(),
-        target_key: $li.find('#a_target_key').val(),
-        status: $li.find('#a_status').val(),
+        alarm_number: $(this).data('alarm-number'),
+        member_number: $(this).data('member-number'),
+        target_type: $(this).data('target-type'),
+        target_key: $(this).data('target-key'),
+        status: $(this).data('status')
     };
     $.ajax({
         url: '/alarm/delete',
@@ -129,15 +133,15 @@ $('#alarm_del').on('click',function(e) {
     });
 });
 
-$('#alarm_func').on('click',function(e) {
+$(document).on('click', '#alarm_func', function(e) {
     e.preventDefault(); // 기본 링크 동작 방지
     let $li = $(this).closest('li');
     let data = {
-        alarm_number: $li.find('#a_number').val(),
-        member_number: $('#session_number').val(),
-        target_type: $li.find('#a_target_type').val(),
-        target_key: $li.find('#a_target_key').val(),
-        status: $li.find('#a_status').val(),
+        alarm_number: $(this).data('alarm-number'),
+        member_number: $(this).data('member-number'),
+        target_type: $(this).data('target-type'),
+        target_key: $(this).data('target-key'),
+        status: $(this).data('status')
     };
     $.ajax({
         url: '/alarm/func',
@@ -156,6 +160,8 @@ $('#alarm_func').on('click',function(e) {
         }
     });
 });
+
+
 
 $(document).on('pagechange', function() {
     refresh_alarm();

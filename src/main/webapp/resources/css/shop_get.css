@@ -90,3 +90,31 @@
 .face-04 {
     background-color: #ffcc00; /* 색상 예시 */
 }
+
+/* 테이블 스타일 */
+.table-bordered {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFBE6; /* 옅은 노란색 배경 */
+    margin-bottom: 20px;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #ddd; /* 테두리 선 */
+    padding: 12px;
+    text-align: left;
+}
+
+.table-bordered th {
+    background-color: #FFF9C4; /* 헤더 배경색 (약간 더 진한 노란색) */
+    font-weight: bold;
+}
+
+.table-bordered tr:nth-child(even) {
+    background-color: #FFFDF0; /* 짝수 행 배경색 (약간 더 밝은 노란색) */
+}
+
+.table-bordered tr:hover {
+    background-color: #FFF9C4; /* 마우스 오버 시 배경색 */
+}

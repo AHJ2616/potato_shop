@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
+import com.potato.domain.NotificationVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
 import com.potato.mapper.AdminMapper;
@@ -77,6 +79,18 @@ public class AdminServiceImpl implements AdminService{
 	public ReportVO get_report(String report_number) {
 		// TODO 신고내역 확인
 		return mapper.get_report(report_number);
+	}
+	
+	@Override // 블랙리스트 해제
+	public void clearBlack(String member_number) {
+		
+		mapper.clearBlack(member_number);
+	}
+
+	@Override
+	public List<NotificationVO> notification() {
+		// TODO Auto-generated method stub
+		return mapper.notification();
 	}
 	
 }

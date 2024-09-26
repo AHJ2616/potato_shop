@@ -20,7 +20,12 @@
     </div>
     </div>
   </section>
-
+  <c:if test="${not empty message}">
+            alert("${message}");
+        </c:if>
+        <c:if test="${not empty errorMessage}">
+            alert("${errorMessage}");
+        </c:if>
   <!-- end shop section -->
 
    <%@ include file="./common/footer.jsp" %>

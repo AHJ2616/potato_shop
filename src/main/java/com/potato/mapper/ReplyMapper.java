@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import com.potato.domain.ReplyVO;
-import com.potato.domain.MemberVO;
 import com.potato.domain.Reply_critera;
-import com.potato.domain.Re_replyVO;
 
 @Mapper
 public interface ReplyMapper {
@@ -25,11 +22,11 @@ public interface ReplyMapper {
 	public int delete(String reply_number); // 댓글 번호를 가지고 레코드를 삭제.
 	
 	// 댓글 리스트 : 페이징처리 + board_number (pk+fk) -> 여러개의 파라미터인 경우 @Param을 사용하면 편리함
-	public List<ReplyVO> getListWithPaging(@Param("reCritera") Reply_critera reCritera, @Param("id") String id);
+	public List<ReplyVO> getListWithPaging(@Param("reCritera") Reply_critera reCritera, @Param("member_number") String member_number);
 	//																페이징처리 기준점, 게시물의 번호 pk+fk
 	
 	// 해당하는 댓글 갯수
-	public int getCountById(String id);
+	public int getCountById(String member_number);
 			
 			
 	}

@@ -97,14 +97,14 @@ public class Reply_controller {
 		}
 		
 		// 댓글 리스트(사용)
-		// http://localhost:80/replies/page/{id}/{page}
+		// http://localhost:80/replies/page/{member_number}/{page}
 		// http://localhost:80/replies/page/kwh/1.json
-	    @GetMapping(value="/page/{id}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	    public ResponseEntity<ReplyPageDTO> getReplies(@PathVariable("page") int page, @PathVariable("id") String id) {
+	    @GetMapping(value="/page/{member_number}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	    public ResponseEntity<ReplyPageDTO> getReplies(@PathVariable("page") int page, @PathVariable("member_number") String member_number) {
 	    	
 	    	Reply_critera reCritera = new Reply_critera(page, 10); // 현재 페이지와 리스트 개수를 전달
 	        
-	    	return new ResponseEntity<>(service.getListPage(reCritera, id), HttpStatus.OK);
+	    	return new ResponseEntity<>(service.getListPage(reCritera, member_number), HttpStatus.OK);
 	    }
 
 	}

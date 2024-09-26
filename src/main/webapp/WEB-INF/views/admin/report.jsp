@@ -50,7 +50,7 @@
                         <input type="hidden" name="report_number" value="${reportVO.report_number}" />
                         <input type="hidden" name="writer_id" value="${reportVO.writer_id}" />
                         <input type="radio" name="status" value="4"> 블랙리스트 등록
-					    <input type="radio" name="status" value="0"> 경고 조치
+					    <input type="radio" name="status" value="2"> 경고 조치
 						<button class="btn">처리하기</button>
                     </form>
                     <button type="button" class="btn" onclick="window.history.back();">돌아가기</button>

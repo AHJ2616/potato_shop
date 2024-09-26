@@ -77,4 +77,9 @@
   ]]>
   </select> <!-- 신고내역 리스트(사용함) -->
   
+  <select id="notification" resultType="com.potato.domain.NotificationVO">
+     SELECT * FROM notification
+</select> <!-- 관리자 공지 확인 -->
+  
+  
   </mapper>

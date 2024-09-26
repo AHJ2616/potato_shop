@@ -50,10 +50,18 @@ public class BoardController {
 		CartVO cart = new CartVO();
 		member.setMember_number(board.getWriter_number());
 		cart.setLikes_board_number(board_number);
-		cart.setLikes_member_number(session.getAttribute("member_number").toString());
 		model.addAttribute("member",m_service.profile(member)); //판매자의 넘버,id,닉네임,프사
 		model.addAttribute("user",m_service.mypage2(member)); //판매자의 온도
-		model.addAttribute("cart",service.get_cart(cart)); //카트 정보 가져오기
+		
+		try {
+			cart.setLikes_member_number(session.getAttribute("member_number").toString());
+			if(cart!=null) {
+			model.addAttribute("cart",service.get_cart(cart)); //카트 정보 가져오기
+			}
+		} catch (Exception e) {
+			//
+			e.printStackTrace();
+		}
 	}
 	
 	@GetMapping("/modify")
@@ -81,8 +89,8 @@ public class BoardController {
 			String photo_name = file.getOriginalFilename();
 			Ulid ulid = UlidCreator.getUlid();
 			
-			fileName = ulid+"_"+photo_name;
-			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\images\\" + fileName));
+			fileName = ulid+"_"+photo_name.substring(0, photo_name.lastIndexOf('.'))+".png";
+			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\upload\\" + fileName));
 			
 			board.setPhoto_name(fileName);
 		}
@@ -92,7 +100,19 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(@ModelAttribute("board") BoardVO board, RedirectAttributes rttr) throws Exception{
+		String fileName = null;
+		MultipartFile file = board.getFileUpload();
+		if(!file.isEmpty()) {
+			String photo_name = file.getOriginalFilename();
+			Ulid ulid = UlidCreator.getUlid();
+			
+			fileName = ulid+"_"+photo_name.substring(0, photo_name.lastIndexOf('.'))+".png";
+			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\upload\\" + fileName));
+			
+			board.setPhoto_name(fileName);
+		}
+		
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}

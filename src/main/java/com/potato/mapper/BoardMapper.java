@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
+import com.potato.domain.Criteria;
 
 @Mapper
 public interface BoardMapper {
@@ -71,6 +72,12 @@ public interface BoardMapper {
 	
 	//20.판매상태만 변경하기
 	public int set_status(BoardVO board);
+	
+	//21.페이징 처리 리스트 출력
+	public List<BoardVO> getMoreList(Criteria cri);
+		
+	//22.게시물의 전체 개수 구함
+	public int getTotalCount(Criteria cri);
 	
 	
 	//구매확정시 -> 후기 작성기능 활성화

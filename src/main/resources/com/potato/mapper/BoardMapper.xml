@@ -150,5 +150,22 @@ and writer_number =#{writer_number}
 ]]>
 </update>
 
+<select id="getMoreList" resultType="BoardVO"> <!-- id:메서드명, resultType:객체 -->
+	<![CDATA[
+		select * from 
+		(select /*+index_desc(board pk_board_num) */ 
+		rownum rn, board_number, title, status, photo_name, updatedate, likes, interest,
+		price, views, board_address from board where
+		rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum} -1) * #{amount}
+	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
+</select>
+
+<select id="getTotalCount" resultType="int">
+	<![CDATA[
+		select count(*) from board where board_number > 0
+	]]> <!-- 게시물의 총 개수를 구한다. -->
+</select>
+
 	
 </mapper>

@@ -6,6 +6,8 @@ $(document).ready(function() {
     
      // 좋아요 버튼
     $("#likeBtn").on("click", function() {
+	console.log('실행1:'+member_number);
+	if(member_number && member_number.trim() !== ''){
        $.ajax({
           url: "/shop/update_like",
           type: "POST",
@@ -17,14 +19,15 @@ $(document).ready(function() {
 		  }),
           success: function() {
              alert("값이 성공적으로 업데이트되었습니다.");
-             window.location.href = window.location.href;
+             window.location.reload();
           },
           error: function() {
              alert("값 업데이트 중 오류가 발생했습니다.");
           }
        });
   
-
+}
+else{ alert("로그인 후 이용해주세요.");}
     });
  
     // 좋아요 취소 버튼
@@ -40,7 +43,7 @@ $(document).ready(function() {
 		  }),
           success: function() {
              alert("값이 성공적으로 업데이트되었습니다.");
-             window.location.href = window.location.href;
+             window.location.reload();
           },
           error: function() {
              alert("값 업데이트 중 오류가 발생했습니다.");
@@ -61,7 +64,7 @@ $(document).ready(function() {
 		  }),
           success: function() {
              alert("값이 성공적으로 업데이트되었습니다.");
-             window.location.href = window.location.href;
+             window.location.reload();
           },
           error: function() {
              alert("값 업데이트 중 오류가 발생했습니다.");
@@ -73,6 +76,7 @@ $(document).ready(function() {
  
     // 관심 버튼
     $("#interestBtn").on("click", function() {
+	if(member_number && member_number.trim() !== ''){
        $.ajax({
           url: "/shop/update_interest",
           type: "POST",
@@ -84,12 +88,13 @@ $(document).ready(function() {
 		  }),
           success: function() {
              alert("값이 성공적으로 업데이트되었습니다.");
-             window.location.href = window.location.href;
+             window.location.reload();
           },
           error: function() {
              alert("값 업데이트 중 오류가 발생했습니다.");
           }
        });
+       }else{ alert("로그인 후 이용해주세요.");}
     });
     
     // 리스트 페이지 이동

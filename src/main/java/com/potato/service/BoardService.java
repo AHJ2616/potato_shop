@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
+import com.potato.domain.Criteria;
 
 public interface BoardService {
 	
@@ -69,5 +70,11 @@ public interface BoardService {
 		
 		//20.판매상태만 변경하기
 		public int set_status(BoardVO board);
+		
+		//21.페이징 처리 리스트 출력
+		public List<BoardVO> getList(Criteria cri);
+			
+		//22.게시물의 전체 개수 구함
+		public int getTotal(Criteria cri);
 
 }

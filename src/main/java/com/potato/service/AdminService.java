@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
+import com.potato.domain.NotificationVO;
 import com.potato.domain.ReplyVO;
 import com.potato.domain.ReportVO;
 
@@ -38,5 +39,11 @@ public interface AdminService {
  public List<MemberVO> viewBlack();
  
  public ReportVO get_report(String report_number);
+ 
+ // 블랙리스트 해제
+ public void clearBlack(String member_number);
+ 
+ // 관리자 공지 확인
+ public List<NotificationVO> notification();
 	
 }

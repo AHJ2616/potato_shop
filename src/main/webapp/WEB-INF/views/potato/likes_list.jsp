@@ -29,7 +29,7 @@
           						 <div class="container">
               						 <div class="left-section">
                 						 <div class="profile_photo">
-									    	<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${likes_list.profile_image}" alt="" 
+									    	<img id="img_thumb" src="${pageContext.request.contextPath}/resources/upload/${likes_list.profile_image}" alt="" 
 												 width=100px height=100px>
 											<span class="mask"></span>
 				  						</div>
@@ -70,7 +70,7 @@
           						 <div class="container">
               						 <div class="left-section">
                 						 <div class="profile_photo">
-									    	<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${likes_list.profile_image}" alt="" 
+									    	<img id="img_thumb" src="${pageContext.request.contextPath}/resources/upload/${likes_list.profile_image}" alt="" 
 												 width=100px height=100px>
 											<span class="mask"></span>
 				  						</div>

@@ -50,9 +50,9 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public ReplyPageDTO getListPage(Reply_critera reCritera, String id) {
+	public ReplyPageDTO getListPage(Reply_critera reCritera, String member_number) {
 		// 댓글 갯수 구해서 리스트 출력
-		return new ReplyPageDTO(mapper.getCountById(id), mapper.getListWithPaging(reCritera, id));
+		return new ReplyPageDTO(mapper.getCountById(member_number), mapper.getListWithPaging(reCritera, member_number));
 	}
 
 }

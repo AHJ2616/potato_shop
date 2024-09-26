@@ -62,18 +62,28 @@ public class Chat_controller {
 	public void chat_list(Model model,HttpSession session) {
 		MemberVO member = new MemberVO(); // 세션 나의 member_number 저장용
 		
-
 		member.setMember_number(session.getAttribute("member_number").toString());
+		//member = 로그인한 사용자
+		
 		List<Chat_roomVO> list1 = new ArrayList<Chat_roomVO>(); //chat리스트 불러오기
 		List<Chat_profileVO> list2 = new ArrayList<Chat_profileVO>(); //상대방 프로필 리스트 불러오기
 		list1 = service.room_list(member);
-		for(Chat_roomVO each_lists : list1) {
-		MemberVO member2 = new MemberVO(); // 불러올 상대방 프로필 저장용
+		//채팅 리스트 불러와서 list1에 저장
+		
+		for(Chat_roomVO each_lists : list1) { //each_list마다 프로필을 다르게 불러온다.
+			
+		MemberVO member2 = new MemberVO(); 
+		//member2 = 채팅상대
 		Chat_profileVO chat_pro = new Chat_profileVO();
+		//chat_pro = 채팅상대의 프로필데이터
+		
 		if(each_lists.getCeller_number().equals(member.getMember_number())) {
+			//판매자 = 본인이면 , 구매자가 상대방이다.
 		member2.setMember_number(each_lists.getBuyer_number());
 		}
-		else {member2.setMember_number(each_lists.getCeller_number());
+		else if(each_lists.getBuyer_number().equals(member.getMember_number())) {
+			//구매자 = 본인이면 , 판매자가 상대방이다.
+		member2.setMember_number(each_lists.getCeller_number());
 		}
 		member2 = m_service.profile(member2);
 		chat_pro.setAddress(member2.getAddress());
