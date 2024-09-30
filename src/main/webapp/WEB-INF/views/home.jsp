@@ -3,7 +3,13 @@
  <title>감자마켓</title>
   <!-- shop section -->
   <%@ include file="./common/header.jsp" %>
-  
+   <c:if test="${not empty message}">
+        <div id="successAlert" class="alert alert-success">${message}</div>
+    </c:if>
+    <c:if test="${not empty errorMessage}">
+        <div id="errorAlert" class="alert alert-danger">${errorMessage}</div>
+    </c:if>
+    
   <section class="shop_section layout_padding">
     <div class="container">
     <div class="heading_container heading_center">
@@ -27,5 +33,21 @@
             alert("${errorMessage}");
         </c:if>
   <!-- end shop section -->
+  
+  <script>
+    // 3초 후 알림 메시지 숨기기
+    setTimeout(function() {
+        var successAlert = document.getElementById('successAlert');
+        var errorAlert = document.getElementById('errorAlert');
+        
+        if (successAlert) {
+            successAlert.style.display = 'none';
+        }
+        if (errorAlert) {
+            errorAlert.style.display = 'none';
+        }
+    }, 3000);
+</script>
+  
 
    <%@ include file="./common/footer.jsp" %>

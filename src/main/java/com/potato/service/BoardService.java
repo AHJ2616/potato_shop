@@ -9,7 +9,7 @@ import com.potato.domain.Criteria;
 public interface BoardService {
 	
 	//1.전체 게시글 리스트 불러오기
-		public List<BoardVO> getList();
+		public List<BoardVO> getList(int page, int size);
 
 		//2.게시글 작성
 		public void register(BoardVO board);

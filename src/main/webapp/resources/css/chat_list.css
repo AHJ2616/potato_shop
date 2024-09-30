@@ -1,58 +1,18 @@
 #chat-list {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 60%;
-  height: calc(100vh - 200px); /* header와 footer의 높이를 고려하여 높이를 설정 */
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#chat-list h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-#chat-list li:last-child {
-  border-bottom: none;
-}
-
-#chat-list img {
-  width: 100px; /* 이미지 너비를 100px */
-  height: 100px; /* 이미지 높이를 100px */
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-#chat-list span {
-  font-size: 18px;
-  font-weight: bold;
-  margin-right: 20px;
-}
-
-#chat-list {
-  position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: calc(100vh - 200px); /* header와 footer의 높이를 고려하여 높이를 설정 */
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  max-width: 500px;
+  margin: 30px auto;
   padding: 20px;
+  background-color: #fffef0;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #chat-list h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 #chat-list ul {
@@ -62,91 +22,163 @@
 }
 
 #chat-list li {
-  padding: 20px;
-  border-bottom: 1px solid #ccc;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 #chat-list li:last-child {
   border-bottom: none;
 }
 
-#chat-list table {
-  width: 100%;
-  border-collapse: collapse; /* 테이블 경계선 겹침 방지 */
+.chat-item {
+  display: flex;
+  align-items: center;
 }
 
-#chat-list th, #chat-list td {
-  border: 1px solid #ccc; /* 테이블 셀 경계선 추가 */
-  padding: 10px; /* 셀 패딩 추가 */
-  text-align: left; /* 텍스트 정렬 */
+.profile-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
-#chat-list tr:nth-child(even) {
-  background-color: #f2f2f2; /* 짝수 행 배경색 변경 */
+.chat-info {
+  flex-grow: 1;
 }
 
-#chat-list tr:hover {
-  background-color: #e0e0e0; /* 마우스 오버 시 배경색 변경 */
-  
+.nickname {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
 }
 
-#chat-list tr {
-  height: 80px; /* 각 행의 높이를 40px로 고정 */
+.id a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-#chat-list th, #chat-list td {
-  border: 1px solid #ccc; /* 테이블 셀 경계선 추가 */
-  padding: 10px; /* 셀 패딩 추가 */
-  text-align: left; /* 텍스트 정렬 */
+.chat-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-/* .profile_module{
-	height: 96px;
-    padding: 22px 18px 10px 18px;
-    box-sizing: border-box;
-	
+.chat-button, .view-post-button {
+  padding: 5px 10px;
+  margin: 2px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  font-size: 12px;
+  width: 80px;
 }
 
-.profile_info{
-	position: relative;
+.chat-button {
+  background-color: #ff6f0f;
+  color: white;
+}
+
+.view-post-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.lists-container {
     display: flex;
-    padding-right: 98px;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    gap: 20px; /* 컬럼 사이의 간격 추가 */
 }
 
-.profile_photo{    
-    position: relative;
-    width: 100px;
-    height: 100px;
-} 
-
-.profile_photo .mask {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: url(https://static.nid.naver.com/images/web/user/img_bg_profile_thumb.png) 0 0;
+.list-column {
+    width: calc(50% - 10px); /* 전체 너비의 50%에서 간격의 절반을 뺌 */
+    background-color: #fffef0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-.profile_user{
-	-webkit-box-flex: 1;
-    flex: 1;
+.list-column h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.profile_name{
-	margin: -1px 0 2px;
-    line-height: 20px;
-    white-space: nowrap;
+.list-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-	
-.go_chat{
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: 1px;
-    max-width: 200px;
-    font-size: 1.3rem;
-    line-height: 20px;
-} */
-	
+
+.list-column li {
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.list-column li:last-child {
+    border-bottom: none;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.item-info {
+    flex-grow: 1;
+}
+
+.nickname {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.id a {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.view-post-button {
+    padding: 5px 10px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 12px;
+    width: 80px;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .lists-container {
+        flex-direction: column;
+    }
+    .list-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

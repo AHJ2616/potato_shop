@@ -5,44 +5,26 @@
 <div id="chat-list">
 <title>채팅 목록</title>
   <h2>나의 채팅목록</h2>
-  <table>
-    <tr>
-      <th>프로필 사진</th> <!-- <td>를 <th>로 변경 -->
-      <th>닉네임</th>
-      <th>아이디</th>
-      <th>선택</th>
-    </tr>
+  <ul>
     <c:forEach var="member" items="${memberVO}">
-      <tr>
-        <td><img src="${pageContext.request.contextPath}/resources/upload/${member.profile_image}" alt=""></td>
-        <td>${member.nickName}</td>
-        <td>${member.id}</td>
-        <td><a href="/potato/chat?reciever=${member.member_number}&board_number=${member.board_number}">채팅하기</a>
-         | <a href="/shop/get?board_number=${member.board_number}">게시글보기</a> </td>
-      </tr>
+      <li>
+        <div class="chat-item">
+          <div class="profile-image">
+            <img src="${pageContext.request.contextPath}/resources/upload/${member.profile_image}" alt="프로필 사진">
+          </div>
+          <div class="chat-info">
+            <div class="nickname">${member.nickName}</div>
+            <div class="id">
+              <a href="/potato/mylist?number=${member.member_number}&id=${member.id}">${member.id}</a>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <a href="/potato/chat?reciever=${member.member_number}&board_number=${member.board_number}" class="chat-button">채팅하기</a>
+            <a href="/shop/get?board_number=${member.board_number}" class="view-post-button">게시글보기</a>
+          </div>
+        </div>
+      </li>
     </c:forEach>
-  </table>
-  <%-- <ul>
-  <c:forEach var="member" items="${memberVO}">
-  <li>
-  <div class="profile_module">
-  	<div class="profile_info">
-  		<div class="profile_photo">
-			<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}"  width="100" height="100">
-			<span class="mask"></span>
-		</div>
-		<div class="profile_user">
-			<div class="profile_name">
-			<a>${member.nickName}</a>
-			</div>
-			<div class="go_chat">
-			<a href="/potato/chat?reciever=${member.member_number}">채팅하기</a>
-			</div>
-		</div>
-  	</div>
-  </div>
-  </li>
-  </c:forEach>
-  </ul> --%>
+  </ul>
 </div>
 <%@ include file="../common/footer.jsp"%>

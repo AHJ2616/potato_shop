@@ -1,12 +1,17 @@
 package com.potato.controller;
 
+import java.util.List;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
 import com.potato.service.BoardService;
 
@@ -90,6 +95,12 @@ return ResponseEntity.ok(cart);
 		  service.cancelViews(board_number);
 		  return ResponseEntity.ok(cart2);
 	  }
+	  
+	  @GetMapping(value = "/more", produces = MediaType.APPLICATION_JSON_VALUE)
+	    public ResponseEntity<List<BoardVO>> more(@RequestParam("page") int page) {
+	        List<BoardVO> boardList = service.getList(page, 12);
+	        return ResponseEntity.ok(boardList);
+	    }
 	  
 }
 

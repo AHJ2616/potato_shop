@@ -7,11 +7,11 @@ pageEncoding="UTF-8"%>
 
 <div class="register-container">
 <h2>회원가입</h2>
+
 <form id="registerForm" action="/potato/register" method="post" >
     <div class="form-group">
         <label for="id">아이디</label>
         <input type="text" class="form-control" id="id" name="id" required data-error="아이디를 입력해주세요.">
-        <button type="button" class="btn btn-secondary" id="idCheckBtn">중복확인</button>
         <span id="result"></span>
         <div id="alert-id" class="custom-alert"></div>
     </div>

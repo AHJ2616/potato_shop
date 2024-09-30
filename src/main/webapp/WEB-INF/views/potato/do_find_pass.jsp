@@ -12,10 +12,12 @@
         <span>결과가 존재하지 않습니다</span>
     </c:when>
     <c:otherwise>
-    <span>당신의 임시 비밀번호 6자리는 <c:out value="${result}"></c:out> 입니다.</span>
+    <span>당신의 임시 비밀번호 6자리는 
+    <span style="color: green; font-size: 20px;"><c:out value="${result}"></c:out></span> 입니다.</span>
     <span>로그인 후 비밀번호 변경을 해주세요</span>
     </c:otherwise>
 	</c:choose>    
+	<br>   
     	<a href="/potato/login">로그인</a> | <a href="/potato/find_pass">비밀번호 찾기</a>
     </div>
 </div>

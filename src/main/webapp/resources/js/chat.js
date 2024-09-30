@@ -67,8 +67,17 @@ $(document).ready(function() {
     });
   }
 
+  function scrollToBottom() {
+      let chatBody = $('.chat-body');
+      chatBody.scrollTop(chatBody[0].scrollHeight);
+  }
 
-            // 채팅 지우기
+  // 초기 로드 시 스크롤 이동
+  loadMessages();
+  setTimeout(scrollToBottom, 100);
+
+
+  // 채팅 지우기
             function deleteMessage(chatNumber) {
                 $.ajax({
                     url: '/chat/delete',
@@ -87,20 +96,20 @@ $(document).ready(function() {
                 });
             }
 
-            // Load messages initially
-            loadMessages();
 
-            // 전송버튼 눌러서 전송하기
+            // 전송버튼 눌러서 전송하기 (이 부분만 남기고 다른 중복된 클릭 이벤트 핸들러는 제거)
             $('#send-button').click(function() {
                 const message = $('#content').val().trim();
                 if (message) {
                     sendMessage(message);
+                    setTimeout(scrollToBottom, 100);
                 }
             });
 
             // 엔터키를 눌러도 전송이 되게하기
-            $('#message-input').keypress(function(e) {
-                if (e.which === 13) { // Enter key
+            $('#content').keypress(function(e) {
+                if (e.which === 13 && !e.shiftKey) { // Enter key without Shift
+                    e.preventDefault(); // 기본 엔터 동작 방지
                     $('#send-button').click();
                 }
             });
@@ -138,7 +147,6 @@ $("#buyBtn").on('click',chat_status);
 $("#buyBtn2").on('click',chat_status);
 $("#cellBtn").on('click',chat_status);
 $("#cellBtn2").on('click',chat_status);  
-loadMessages();
 function focus_roll(){ $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);	}
 focus_roll;		
   setInterval(function() {
@@ -146,4 +154,3 @@ focus_roll;
 }, 5000); // 3초마다 채팅내용을 불러옵니다.
   
 });
-            

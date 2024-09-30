@@ -181,8 +181,8 @@ end;
 
 update login_check set status=0;
 update board set likes=0, interest=0;
-select * from chat_room;
-select * from alarms;
+select * from chat;
+select * from board order by board_number desc;
  select * from member
 
 

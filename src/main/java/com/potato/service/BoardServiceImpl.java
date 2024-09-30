@@ -20,11 +20,6 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper mapper;
 
 	@Override
-	public List<BoardVO> getList() {
-		return mapper.getList();
-	}
-
-	@Override
 	public void register(BoardVO board) {
 		mapper.insert(board);
 	}
@@ -145,6 +140,14 @@ public class BoardServiceImpl implements BoardService{
 		// TODO 
 		return mapper.getTotalCount(cri);
 	}
+
+	@Override
+	public List<BoardVO> getList(int page, int size) {
+		int startRow = (page - 1) * size + 1;
+		int endRow = page * size;
+		return mapper.getList(startRow, endRow);
+	}
+
 	
 
 }//class end

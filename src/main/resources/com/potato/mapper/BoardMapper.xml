@@ -8,7 +8,17 @@
 
 <select id="getList" resultType="BoardVO"> <!-- id:메서드명, resultType:객체 -->
 	<![CDATA[
-		select * from board where board_number > 0
+		SELECT *
+	FROM (
+		SELECT b.*, ROWNUM AS rn
+		FROM (
+			SELECT *
+			FROM board
+			ORDER BY board_number DESC
+		) b
+		WHERE ROWNUM <= #{endRow}
+	)
+	WHERE rn > #{startRow}
 	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
 </select>
 

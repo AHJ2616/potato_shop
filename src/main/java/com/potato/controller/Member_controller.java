@@ -51,7 +51,7 @@ public class Member_controller {
 		service.register2(memberVO);
 		service.register3(memberVO);
 		if(result==1) {
-		rttr.addFlashAttribute("message", "회원가입을 축하드립니다");
+		rttr.addFlashAttribute("message", memberVO.getNickName()+"님 회원가입을 축하드립니다");
 		return "redirect:/home";}
 		if(result==0) {
 		rttr.addFlashAttribute("errorMessage", "회원가입에 실패했습니다. 다시 시도해주세요.");
@@ -90,10 +90,12 @@ public class Member_controller {
 	//나의 활동내역 보기
 	//톰캣 세션영역에 저장된 member_number,id를 이용하여 자료조회 후 model에 저장
 	@GetMapping("/mylist")
-	public void mylist(Model model,HttpSession session) {
+	public void mylist(@RequestParam("number")String member_number,@RequestParam("id")String id,Model model,HttpSession session) {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId((String) session.getAttribute("id"));
-		memberVO.setMember_number((String)session.getAttribute("member_number"));
+		memberVO.setId(id);
+		memberVO.setMember_number(member_number);
+		model.addAttribute("check",id);
+		
 		
 		model.addAttribute("replyVO", service.mylist1(memberVO));
 		model.addAttribute("re_replyVO", service.mylist2(memberVO));
@@ -101,6 +103,7 @@ public class Member_controller {
 		model.addAttribute("reportVO", service.mylist4(memberVO));
 		
 	}
+	
 	
 	//좋아요 관심 리스트 보기
 	//톰캣 세션영역에 저장된 member_number로 자료 조회

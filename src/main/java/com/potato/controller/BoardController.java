@@ -3,6 +3,7 @@ package com.potato.controller;
 import java.io.File;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void list(Model model) {
-		model.addAttribute("list", service.getList());
+		model.addAttribute("list", service.getList(1,13)); //초기 페이지
 	}
 	
 	@GetMapping("/get")
@@ -81,7 +82,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(@ModelAttribute("board") BoardVO board) throws Exception {
+	public String register(@ModelAttribute("board") BoardVO board, HttpServletRequest request) throws Exception {
 		String fileName = null;
 		MultipartFile file = board.getFileUpload();
 		
@@ -90,7 +91,15 @@ public class BoardController {
 			Ulid ulid = UlidCreator.getUlid();
 			
 			fileName = ulid+"_"+photo_name.substring(0, photo_name.lastIndexOf('.'))+".png";
-			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\upload\\" + fileName));
+			
+			//파일 저장 경로
+			String uploadPath = request.getServletContext().getRealPath("/resources/upload/");
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
+			
+			file.transferTo(new File(uploadPath + fileName));
 			
 			board.setPhoto_name(fileName);
 		}
@@ -100,7 +109,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(@ModelAttribute("board") BoardVO board, RedirectAttributes rttr) throws Exception{
+	public String modify(@ModelAttribute("board") BoardVO board, RedirectAttributes rttr, HttpServletRequest request) throws Exception{
 		String fileName = null;
 		MultipartFile file = board.getFileUpload();
 		if(!file.isEmpty()) {
@@ -108,7 +117,13 @@ public class BoardController {
 			Ulid ulid = UlidCreator.getUlid();
 			
 			fileName = ulid+"_"+photo_name.substring(0, photo_name.lastIndexOf('.'))+".png";
-			file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\upload\\" + fileName));
+			String uploadPath = request.getServletContext().getRealPath("/resources/upload/");
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
+			
+			file.transferTo(new File(uploadPath + fileName));
 			
 			board.setPhoto_name(fileName);
 		}

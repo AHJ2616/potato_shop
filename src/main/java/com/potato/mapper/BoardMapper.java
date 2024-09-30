@@ -3,6 +3,7 @@ package com.potato.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
@@ -12,7 +13,7 @@ import com.potato.domain.Criteria;
 public interface BoardMapper {
 	
 	//1.전체 게시글 리스트 불러오기
-	public List<BoardVO> getList();
+	public List<BoardVO> getList(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
 	//2.게시글 작성
 	public void insert(BoardVO board);
