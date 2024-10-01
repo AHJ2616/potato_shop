@@ -1,6 +1,10 @@
 package com.potato.controller;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
+import com.potato.domain.Criteria;
 import com.potato.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +30,30 @@ import lombok.extern.log4j.Log4j2;
 public class Rest_BoardController {
 
 	private BoardService service;
+	
+	
+	@GetMapping(value="/listMore",consumes="application/json", 
+		  	   	produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam(defaultValue = "1") int pageNum,
+            							   @RequestParam(defaultValue = "12") int amount) {
+		 // Criteria 객체 생성
+        Criteria cri = new Criteria(pageNum, amount);
 
+        // 서비스에서 전체 개수와 게시물 리스트 가져오기
+        int total = service.getTotal(cri);
+        List<BoardVO> list = service.getMoreList(cri);
+
+        // 응답 데이터 맵 생성
+        Map<String, Object> response = new HashMap<>();
+        response.put("list", list != null ? list : new ArrayList<>());
+
+        // 더 많은 데이터가 있는지 확인
+        boolean hasMore = (pageNum * amount) < total;
+        response.put("hasMore", hasMore); // 더 많은 데이터가 있는지 여부 추가
+
+        // ResponseEntity로 JSON 형식의 데이터를 반환
+        return ResponseEntity.ok(response);
+	}
 	
 	  @PostMapping(value ="/update_like",consumes="application/json")
 	  public ResponseEntity<?>update_like(@RequestBody CartVO cart) {
@@ -95,12 +123,6 @@ return ResponseEntity.ok(cart);
 		  service.cancelViews(board_number);
 		  return ResponseEntity.ok(cart2);
 	  }
-	  
-	  @GetMapping(value = "/more", produces = MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<List<BoardVO>> more(@RequestParam("page") int page) {
-	        List<BoardVO> boardList = service.getList(page, 12);
-	        return ResponseEntity.ok(boardList);
-	    }
 	  
 }
 

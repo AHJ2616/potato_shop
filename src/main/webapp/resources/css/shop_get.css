@@ -31,6 +31,7 @@
 
 /* 링크 스타일 제거 (옵션) */
 #article-profile-link {
+	background-color: #f9f9f9;
     text-decoration: none;
     color: inherit;
 }

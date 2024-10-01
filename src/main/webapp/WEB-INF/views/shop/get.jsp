@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/resources/js/board_get.js"></script>
 <link href="/resources/css/shop_get.css" rel="stylesheet" />
 <%@ include file="../common/header.jsp"%>
+<link rel="stylesheet" href="/resources/css/chat_list.css">
+<script src="/resources/js/chat_list.js"></script>
 <div class="product-details">
 	<section id="article-profile">
 		<a id="article-profile-link">
@@ -19,13 +21,11 @@
 							alt="" width=100px height=100px> <span class="mask"></span>
 					</div>
 					<div id="article-profile-left">
-						<a id="nickname"
-							href="/potato/review?member_number=${board.writer_number}">${member.nickName}</a>
+						<a href="#" id="dropbtn" class="dropbtn">${member.nickName}</a>
 						<div id="region-name">
 							<span>${member.address}</span>
 						</div>
 					</div>
-
 					<!-- 오른쪽 섹션 -->
 					<div class="right-section">
 						<dl id="temperature-wrap">
@@ -34,6 +34,7 @@
 								<span>${user.temper}°C</span>
 							</dd>
 						</dl>
+
 						<div class="meters">
 							<div class="bar bar-color-04" style="width: 40%;"></div>
 						</div>
@@ -41,10 +42,29 @@
 				</div>
 		</a>
 	</section>
+	
+		<!-- 프로필 클릭시 나오는 선택 화면 -->
+					<div id="myDropdown" class="dropdown-content">
+						<a
+							href="/potato/mylist?number=${member.member_number}&id=${member.id}">활동내역
+							보기</a><br> 
+							<c:if test="${sessionScope.member_number!=null}">
+							<a
+							href="/potato/chat?reciever=${member.member_number}&board_number=${board.board_number}">1:1
+							채팅</a><br></c:if> <a
+							href="/potato/review?member_number=${member.member_number}">후기
+							보기</a>
+					</div>
 	<div class="product-image">
-		<img id="productImage" src="../resources/upload/${board.photo_name}"
-			alt="Product Image">
+    <c:forEach items="${image}" var="imageList">
+        <img class="productImage" src="../resources/upload/${imageList.photo_name}" alt="Product Image">
+    </c:forEach>
 	</div>
+<div id="image-preview" class="image-preview-container"></div>
+<div>
+    <button type="button" id="prevButton" class="button">이전 이미지</button>
+    <button type="button" id="nextButton" class="button">다음 이미지</button>
+</div>
 	<div class="form-group">
 		<input type="hidden" id="member_number" value="${sessionScope.member_number}"/>
 		<input type="hidden" id="board_number" value="${board.board_number}"/>
@@ -240,5 +260,39 @@
 	</div>
 </div>
 </div>
+<script>
+$(document).ready(function() {
+    let currentIndex = 0; // 현재 이미지 인덱스
+    const existingImages = $('.productImage'); // 기존 이미지 리스트
+    const totalImages = existingImages.length; // 기존 이미지 개수
 
+    // 첫 번째 이미지 보여주기
+    showImage(currentIndex);
+
+    function showImage(index) {
+        const previewContainer = $('#image-preview');
+        previewContainer.empty(); // 기존 미리보기 초기화
+
+        if (index < totalImages) {
+            // 기존 이미지 보여주기
+            const existingImg = $(existingImages[index]);
+            previewContainer.append(existingImg.clone().removeClass('productImage').addClass('image-preview'));
+        }
+    }
+
+    $('#prevButton').on('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--; // 이전 이미지로 이동
+            showImage(currentIndex);
+        }
+    });
+
+    $('#nextButton').on('click', function() {
+        if (currentIndex < totalImages - 1) {
+            currentIndex++; // 다음 이미지로 이동
+            showImage(currentIndex);
+        }
+    });
+});
+</script>
 <%@ include file="../common/footer.jsp"%>

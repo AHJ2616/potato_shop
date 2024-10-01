@@ -134,6 +134,7 @@ public class Member_controller {
         	member2.setMember_number(member_number);
             MemberVO member = service.profile(member2);
             model.addAttribute("member", member);
+    		model.addAttribute("user",service.mypage2(member)); //판매자의 온도
         }
         
     }

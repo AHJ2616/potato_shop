@@ -12,7 +12,7 @@
                <!-- 왼쪽 섹션 -->
                <div class="left-section">
                   <div class="profile_photo">
-					<img id="img_thumb" src="${pageContext.request.contextPath}/resources/images/${member.profile_image}" alt="" width=100px height=100px>
+					<img id="img_thumb" src="${pageContext.request.contextPath}/resources/upload/${member.profile_image}" alt="" width=100px height=100px>
 					<span class="mask"></span>
 				  </div>
                    <div id="article-profile-left">
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     listItem.className = 'item';
 
                     // 이미지 URL 생성 (JSP에서 컨텍스트 경로를 사용)
-                    var imageUrl = "${pageContext.request.contextPath}/resources/images/" + item.photo_name;
+                    var imageUrl = "${pageContext.request.contextPath}/resources/upload/" + item.photo_name;
 
                     // 문자열 연결 방식으로 HTML 생성
                     listItem.innerHTML = '<img src="' + imageUrl + '" alt="' + item.title + '" class="item-image" />' +

@@ -26,5 +26,5 @@ public class BoardVO {
 			private int price;			  // 가격
 			private int views;			  // 조회수
 			private String type;		  // 좋아요, 관심 버튼 타입값
-			private MultipartFile fileUpload; // 파일 업로드 코드
+			private MultipartFile[] fileUpload; // 파일 업로드 코드
 }

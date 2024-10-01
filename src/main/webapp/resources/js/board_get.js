@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log('실행0');
     let modal = $("#deleteModal");
     let board_number = document.getElementById("board_number").value;
     let member_number = document.getElementById("member_number").value;

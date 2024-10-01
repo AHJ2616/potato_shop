@@ -34,8 +34,10 @@ public class Chat_controller {
 	
 	@GetMapping("/chat")
 	public void list(@RequestParam("reciever")String reciever,@RequestParam("board_number")String board_number,HttpSession session,Model model) {
+		String buyer_number=session.getAttribute("member_number").toString();
+		if(!buyer_number.equals(reciever)) {
 		Chat_roomVO chat_room = new Chat_roomVO(); //채팅방 번호 저장용
-		chat_room.setBuyer_number(session.getAttribute("member_number").toString());
+		chat_room.setBuyer_number(buyer_number);
 		chat_room.setCeller_number(reciever);
 		chat_room.setBoard_number(board_number);
 		MemberVO memberVO = new MemberVO(); //상대방 데이터 저장용
@@ -56,6 +58,7 @@ public class Chat_controller {
 		String chat_number = chatVO.getChat_number();
 		model.addAttribute("chatVO",service.find_chat(chat_number));
 		model.addAttribute("memberVO",memberVO);
+		}
 	}
 
 	@GetMapping("/chat_list")

@@ -1,184 +1,208 @@
 #chat-list {
-  width: 100%;
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  background-color: #fffef0;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 500px;
+	margin: 30px auto;
+	padding: 20px;
+	background-color: #fffef0;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #chat-list h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-align: center;
 }
 
 #chat-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 #chat-list li {
-  padding: 15px 0;
-  border-bottom: 1px solid #e0e0e0;
+	padding: 15px 0;
+	border-bottom: 1px solid #e0e0e0;
 }
 
 #chat-list li:last-child {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .chat-item {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .profile-image img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 15px;
 }
 
 .chat-info {
-  flex-grow: 1;
+	flex-grow: 1;
 }
 
 .nickname {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 3px;
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 3px;
 }
 
 .id a {
-  color: #666;
-  text-decoration: none;
-  font-size: 14px;
+	color: #666;
+	text-decoration: none;
+	font-size: 14px;
 }
 
 .chat-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 .chat-button, .view-post-button {
-  padding: 5px 10px;
-  margin: 2px 0;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  font-size: 12px;
-  width: 80px;
+	padding: 5px 10px;
+	margin: 2px 0;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	font-size: 12px;
+	width: 80px;
 }
 
 .chat-button {
-  background-color: #ff6f0f;
-  color: white;
+	background-color: #ff6f0f;
+	color: white;
 }
 
 .view-post-button {
-  background-color: #f0f0f0;
-  color: #333;
+	background-color: #f0f0f0;
+	color: #333;
 }
 
 .lists-container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 0 20px;
-    gap: 20px; /* 컬럼 사이의 간격 추가 */
+	display: flex;
+	justify-content: space-between;
+	max-width: 1200px;
+	margin: 50px auto;
+	padding: 0 20px;
+	gap: 20px; /* 컬럼 사이의 간격 추가 */
 }
 
 .list-column {
-    width: calc(50% - 10px); /* 전체 너비의 50%에서 간격의 절반을 뺌 */
-    background-color: #fffef0;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+	width: calc(50% - 10px); /* 전체 너비의 50%에서 간격의 절반을 뺌 */
+	background-color: #fffef0;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 }
 
 .list-column h2 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-align: center;
 }
 
 .list-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 .list-column li {
-    padding: 15px 0;
-    border-bottom: 1px solid #e0e0e0;
+	padding: 15px 0;
+	border-bottom: 1px solid #e0e0e0;
 }
 
 .list-column li:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .list-item {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .profile-image img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 15px;
 }
 
 .item-info {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
 .nickname {
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 3px;
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 3px;
 }
 
 .id a {
-    color: #666;
-    text-decoration: none;
-    font-size: 14px;
+	color: #666;
+	text-decoration: none;
+	font-size: 14px;
 }
 
 .item-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 .view-post-button {
-    padding: 5px 10px;
-    margin: 2px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    font-size: 12px;
-    width: 80px;
-    background-color: #f0f0f0;
-    color: #333;
+	padding: 5px 10px;
+	margin: 2px 0;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	font-size: 12px;
+	width: 80px;
+	background-color: #f0f0f0;
+	color: #333;
 }
 
-@media (max-width: 768px) {
-    .lists-container {
-        flex-direction: column;
-    }
-    .list-column {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+@media ( max-width : 768px) {
+	.lists-container {
+		flex-direction: column;
+	}
+	.list-column {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #FFFBE6;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+}
+
+.show {
+	display: block;
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/admin_header.jsp"%>
+<%@ include file="../common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="/resources/css/admin.css">
@@ -50,6 +50,7 @@
 									<td><a
 										href="/admin/report?report_number=${reportVO.report_number}">검토하기</a></td>
 								</tr>
+								
 							</c:forEach>
 						</tbody>
 					</table>
@@ -105,9 +106,16 @@
 							<c:forEach var="coment" items="${coments}">
 								<tr>
 									<td>
+									<c:choose>
+									<c:when test="${coment.id=='비회원'}">
+									<c:out value="${coment.id}" />
+									</c:when>
+									<c:otherwise>
 									<a href="/admin/memberList?id=${coment.id}">
 									<c:out value="${coment.id}" />
 									</a>
+									</c:otherwise>
+									</c:choose>
 									</td>
 									<td><c:out value="${coment.message}" /></td>
 									<td><fmt:formatDate value="${coment.regidate}"

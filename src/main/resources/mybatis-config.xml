@@ -18,6 +18,7 @@
     <typeAlias alias="Board_member_cartVO" type="com.potato.domain.Board_member_cartVO"/>
     <typeAlias alias="AlarmsVO" type="com.potato.domain.AlarmsVO"/>
     <typeAlias alias="MannerVO" type="com.potato.domain.MannerVO"/>
+    <typeAlias alias="ImageSlideVO" type="com.potato.domain.ImageSlideVO"/>
 </typeAliases> 
     	<mappers>
     		<mapper resource="com/potato/mapper/Member_mapper.xml" />

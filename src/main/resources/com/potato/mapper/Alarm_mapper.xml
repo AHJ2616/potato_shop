@@ -16,7 +16,7 @@ values (#{alarm_number},#{member_number},#{target_type},#{target_key},#{contents
 <!-- 2.알람내역을 불러온다 -->
 <select id="get_alarms" resultType="AlarmsVO">
 <![CDATA[
-select * from alarms where member_number=#{member_number}
+select * from alarms where member_number=#{member_number} order by status asc
 ]]>
 </select>
 

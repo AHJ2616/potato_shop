@@ -10,6 +10,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href="/resources/css/chat_list.css" rel="stylesheet" />
 <%@ include file="../common/header.jsp"%>
+<link rel="stylesheet" href="/resources/css/chat_list.css">
+<script src="/resources/js/chat_list.js"></script>
 <br>
 <br>
 <div class="lists-container">
@@ -18,6 +20,11 @@
 		<ul>
 			<c:forEach var="likes_list" items="${result}">
 				<c:if test="${likes_list.likes == 1}">
+				<div id="myDropdown" class="dropdown-content">
+    <a href="/potato/mylist?number=${likes_list.likes_member_number}&id=${likes_list.id}">활동내역 보기</a><br>
+        <a href="/potato/chat?reciever=${likes_list.likes_member_number}&board_number=${likes_list.board_number}">1:1 채팅</a><br>
+        <a href="/potato/review?member_number=${likes_list.likes_member_number}">후기 보기</a>
+</div>
 					<li>
 						<div class="list-item">
 							<div class="profile-image">
@@ -26,7 +33,7 @@
 							<div class="item-info">
 								<div class="nickname">${likes_list.nickName}</div>
 								<div class="id">
-									<a href="/potato/mylist?number=${likes_list.likes_member_number}&id=${likes_list.id}">${likes_list.id}</a>
+									<a href="#" id="dropbtn" class="dropbtn">${likes_list.id}</a>
 								</div>
 							</div>
 							<div class="item-actions">
@@ -44,6 +51,11 @@
 		<ul>
 			<c:forEach var="likes_list" items="${result}">
 				<c:if test="${likes_list.interest == 1}">
+				<div id="myDropdown" class="dropdown-content">
+    <a href="/potato/mylist?number=${likes_list.likes_member_number}&id=${member.id}">활동내역 보기</a><br>
+        <a href="/potato/chat?reciever=${likes_list.likes_member_number}&board_number=${likes_list.board_number}">1:1 채팅</a><br>
+        <a href="/potato/review?member_number=${likes_list.likes_member_number}">후기 보기</a>
+</div>
 					<li>
 						<div class="list-item">
 							<div class="profile-image">
@@ -52,7 +64,7 @@
 							<div class="item-info">
 								<div class="nickname">${likes_list.nickName}</div>
 								<div class="id">
-									<a href="/potato/mylist?number=${likes_list.likes_member_number}&id=${likes_list.id}">${likes_list.id}</a>
+									<a href="#" id="dropbtn" class="dropbtn">${likes_list.id}</a>
 								</div>
 							</div>
 							<div class="item-actions">

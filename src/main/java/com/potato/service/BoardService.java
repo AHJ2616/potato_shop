@@ -5,11 +5,12 @@ import java.util.List;
 import com.potato.domain.BoardVO;
 import com.potato.domain.CartVO;
 import com.potato.domain.Criteria;
+import com.potato.domain.ImageSlideVO;
 
 public interface BoardService {
 	
 	//1.전체 게시글 리스트 불러오기
-		public List<BoardVO> getList(int page, int size);
+		public List<BoardVO> getList();
 
 		//2.게시글 작성
 		public void register(BoardVO board);
@@ -25,7 +26,7 @@ public interface BoardService {
 		
 		//6.게시글 검색
 		public List<BoardVO> search(String title);
-
+		public List<BoardVO> search1(String types, String title);
 		
 		//7.좋아요 추가
 		public int updateLikes(String board_number);
@@ -72,9 +73,22 @@ public interface BoardService {
 		public int set_status(BoardVO board);
 		
 		//21.페이징 처리 리스트 출력
-		public List<BoardVO> getList(Criteria cri);
+		public List<BoardVO> getMoreList(Criteria cri);
 			
 		//22.게시물의 전체 개수 구함
 		public int getTotal(Criteria cri);
+		
+		//23.이미지 테이블 보드넘버 가져오기
+		public BoardVO imageUtil(String photo_name);
+			
+		//24.이미지 테이블 삭제
+		public boolean imageDelete(String board_number);
+		
+		//25.보드넘버기준 이미지 가져오기
+		public List<ImageSlideVO> getImage(String board_number);
+		
+		//26. 이미지 슬라이드용
+		public void image(ImageSlideVO image);
+		
 
 }

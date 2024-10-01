@@ -113,7 +113,7 @@
             </c:if>
         </c:forEach>
         </div>
-	 <button id="load-more" class="btn btn-primary" data-page="${pageMaker.endPage + 1}">더보기</button>
+	 <button id="load-more" class="btn btn-primary" data-page="${pageMaker.endPage + 1}">+</button>
 </section>
 <script src="/resources/js/board_list.js"></script>
 <%@ include file="../common/footer.jsp" %>

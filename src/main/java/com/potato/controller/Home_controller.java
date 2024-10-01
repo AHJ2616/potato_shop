@@ -16,7 +16,7 @@ public class Home_controller {
 	
 	MemberService service;
 	
-	@GetMapping("/home")
+	@GetMapping({"/home","/qna"})
 	public void home() {
 		
 	}

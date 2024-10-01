@@ -138,6 +138,12 @@ CREATE TABLE manner (
 -- 시퀀스 생성
 CREATE SEQUENCE manner_seq START WITH 1 INCREMENT BY 1;
 
+create table image(
+   board_number varchar2(50) not null,
+   photo_name varchar2(1000) not null
+);
+
+
 select * from member
 -- 더미 데이터 생성
 INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '친절하고 매너가 좋아요.', '01J875J2PM4BTTVZXD71BFP283', 4);
@@ -179,21 +185,9 @@ begin
 	insert into login_check (member_number,id) values(:new.member_number,:new.id);
 end; 
 
+
 update login_check set status=0;
 update board set likes=0, interest=0;
-select * from chat;
+select * from chat_room;
 select * from board order by board_number desc;
- select * from member
-
-
---샘플 등록
-insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
-   values (seq_board.nextval, '옷', '테스트용 제목1', '테스트용 내용1', '아니', '01J84DEM9246TM36NVB5M78TXT', '경기도 화성시', '판매중', 'p5.png', 150000);
-insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
-   values (seq_board.nextval, '전자기기', '테스트용 제목2', '테스트용 내용2', '아니', '01J84DEM9246TM36NVB5M78TXT', '경기도 화성시','판매중', 'gifts.png', 100000);
-insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
-   values (seq_board.nextval, '생활용품', '테스트용 제목3', '테스트용 내용3', '아니', '01J84DEM9246TM36NVB5M78TXT', '경기도 화성시','예약중', 'p3.png', 40000);
-insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
-   values (seq_board.nextval, '전자기기', '테스트용 제목4', '테스트용 내용4', '아니', '01J84DEM9246TM36NVB5M78TXT', '경기도 화성시','판매완료', 'p1.png', 80000);
-insert into board (board_number, types, title, content, writer, writer_number, board_address, status, photo_name, price)
-   values (seq_board.nextval, '옷', '테스트용 제목5', '테스트용 내용5', '아니', '01J84DEM9246TM36NVB5M78TXT', '경기도 화성시','판매완료', 'p7.png', 50000);
+select * from alarms

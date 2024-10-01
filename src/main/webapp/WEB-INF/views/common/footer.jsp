@@ -74,10 +74,10 @@
           </div>
           <div class="col-md-6 col-lg-3">
             <h6>
-              NEED HELP
+              <a href="/qna">QnA게시판</a>
             </h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+              고객님들이 자주 묻는 질문에 대한 답변을 확인할 수 있습니다. 다른 질문사항이 있으다면 언제든지 개선사항을 알려주세요
             </p>
           </div>
           <div class="col-md-6 col-lg-3">

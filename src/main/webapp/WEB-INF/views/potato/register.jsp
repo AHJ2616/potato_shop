@@ -5,33 +5,35 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/resources/css/register.css">
 <title>회원가입</title>
 
-<div class="register-container">
-<h2>회원가입</h2>
+<div class="register_container">
+<h2 align="center">회원가입</h2>
 
-<form id="registerForm" action="/potato/register" method="post" >
+<form class="registerForm" id="registerForm" action="/potato/register" method="post" >
     <div class="form-group">
-        <label for="id">아이디</label>
+    <span> <span style="color: red;">*</span> 필수 기입사항 입니다</span>
+    <br><br>
+        <label for="id">아이디 <span style="color: red;">*</span> </label>
         <input type="text" class="form-control" id="id" name="id" required data-error="아이디를 입력해주세요.">
         <span id="result"></span>
         <div id="alert-id" class="custom-alert"></div>
     </div>
     <div class="form-group">
-        <label for="pass">비밀번호</label>
+        <label for="pass">비밀번호 <span style="color: red;">*</span></label>
         <input type="password" class="form-control" id="pass" name="pass" required data-error="비밀번호를 입력해주세요.">
         <div id="alert-pass" class="custom-alert"></div>
     </div>
     <div class="form-group">
-        <label for="name">이름</label>
+        <label for="name">이름 <span style="color: red;">*</span></label>
         <input type="text" class="form-control" id="name" name="name" required data-error="이름을 입력해주세요.">
         <div id="alert-name" class="custom-alert"></div>
     </div>
     <div class="form-group">
-        <label for="nickName">닉네임</label>
+        <label for="nickName">닉네임 <span style="color: red;">*</span></label>
         <input type="text" class="form-control" id="nickName" name="nickName" required data-error="닉네임을 입력해주세요.">
         <div id="alert-nickName" class="custom-alert"></div>
     </div>
     <div class="form-group">
-        <label for="phone">전화번호</label>
+        <label for="phone">전화번호 <span style="color: red;">*</span></label>
         <input type="tel" id="phone" name="phone" required
        placeholder="숫자 11자리 입력" 
        data-error="전화번호를 입력해주세요."
@@ -39,7 +41,7 @@ pageEncoding="UTF-8"%>
     </div>
       <div id="alert-phone" class="custom-alert" style="display:inline-block;"></div>
     <div class="form-group">
-        <label for="address">주소</label>
+        <label for="address">주소 <span style="color: red;">*</span></label>
         <input type="text" class="form-control" id="address" name="address" required data-error="주소를 입력해주세요.">
         <div id="alert-address" class="custom-alert"></div>
     </div>

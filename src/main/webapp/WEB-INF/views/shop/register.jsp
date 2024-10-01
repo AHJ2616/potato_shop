@@ -1,10 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- jstl 코어 태그용 -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- jstl 포메팅 태그용 -->
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- jstl 코어 태그용 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- jstl 포메팅 태그용 -->
+<style>
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.image-preview {
+	width: 600px; /* 미리보기 이미지 크기 조정 */
+	height: 600px;
+	margin: 5px;
+}
 
-<%@ include file="../common/header.jsp" %>
+.image-preview-container {
+	display: flex; /* 가로 방향으로 정렬 */
+	justify-content: center; /* 가운데 정렬 */
+	margin-top: 10px; /* 위쪽 여백 */
+}
 
+.button {
+	margin: 5px; /* 버튼 간격 조정 */
+}
+</style>
+<%@ include file="../common/header.jsp"%>
 <div class="formbold-main-wrapper">
 	<!-- 스타일을 외부로 분리 -->
 	<div class="formbold-form-wrapper">
@@ -14,12 +36,23 @@
 		</div>
 		<form id="uploadForm" action="/shop/register" method="POST" enctype="multipart/form-data">
 			<div class="file-input-wrapper">
-				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple>
-				<img id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
+				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple onchange="previewImages()">
+				<label for="InputFile">파일 선택</label>
+				<!-- 파일 선택을 위한 레이블 -->
+				<div id="image-preview" class="image-preview-container"></div>
 			</div>
-			<input type="hidden" id="writer" name="writer" value="<c:out value='${sessionScope.nickName}'/>"/>
-			<input type="hidden" id="writer_number" name="writer_number" value="<c:out value='${sessionScope.member_number}'/>"/>
-			<input type="hidden" id="board_address" name="board_address" value="<c:out value='${sessionScope.address}'/>"/>
+			<div>
+				<button type="button" id="prevButton" class="button">이전 이미지</button>
+				<button type="button" id="nextButton" class="button">다음 이미지</button>
+			</div>
+			<input type="hidden" id="writer" name="writer"
+				value="<c:out value='${sessionScope.nickName}'/>" /> <input
+				type="hidden" id="writer_number" name="writer_number"
+				value="<c:out value='${sessionScope.member_number}'/>" /> <input
+				type="hidden" id="board_address" name="board_address"
+				value="<c:out value='${sessionScope.address}'/>" /> <input
+				type="hidden" id="selectedCategoriesInput" name="selectedCategories"
+				value="" />
 			<div class="formbold-mb-3">
 				<div>
 					<label for="title" class="formbold-form-label">제목</label> <input
@@ -36,16 +69,33 @@
 			</div>
 			<div class="formbold-mb-3">
 				<label for="content" class="formbold-form-label">내용</label>
-				<textarea name="content" id="content" class="formbold-form-input" required></textarea>
+				<textarea name="content" id="content" class="formbold-form-input"
+					required></textarea>
 			</div>
 			<div class="formbold-input-flex">
 				<div>
 					<select name="types" class="types" required>
-						<option value="" disabled selected>카테고리</option>
-						<option value="전자기기">전자기기</option>
-						<option value="옷">옷</option>
-						<option value="생활용품">생활용품</option>
-						<option value="스포츠용품">스포츠용품</option>
+						<option value="" disabled selected>카테고리 선택</option>
+						<option value="디지털기기">디지털기기</option>
+						<option value="생활가전">생활가전</option>
+						<option value="가구/인테리어">가구/인테리어</option>
+						<option value="생활/주방">생활/주방</option>
+						<option value="유아동">유아동</option>
+						<option value="유아도서">유아도서</option>
+						<option value="여성의류">여성의류</option>
+						<option value="여성잡화">여성잡화</option>
+						<option value="남성패션/잡화">남성패션/잡화</option>
+						<option value="뷰티/미용">뷰티/미용</option>
+						<option value="스포츠/레저">스포츠/레저</option>
+						<option value="취미/게임/음반">취미/게임/음반</option>
+						<option value="도서">도서</option>
+						<option value="티켓/교환권">티켓/교환권</option>
+						<option value="가공식품">가공식품</option>
+						<option value="건강기능식품">건강기능식품</option>
+						<option value="반려동물용품">반려동물용품</option>
+						<option value="식물">식물</option>
+						<option value="기타 중고물품">기타 중고물품</option>
+						<option value="삽니다">삽니다</option>
 					</select>
 				</div>
 			</div>

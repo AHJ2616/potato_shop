@@ -1,10 +1,11 @@
 package com.potato.controller;
 
 
-import java.net.URI;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,19 +30,22 @@ public class Rest_alarm_controller {
 	
 	
 	@PostMapping(value="/delete")
-	public void alarm_delete(@RequestBody AlarmsVO alarm) {
+	public void alarm_delete(@RequestBody AlarmsVO alarm,HttpSession session) {
 		service.delete_alarm(alarm);
+		session.setAttribute("alarms",service.get_alarms(alarm));
 	}
 	
 	@PostMapping(value="/delete_all")
-	public void alarm_delete_all(@RequestBody AlarmsVO alarm) {
+	public void alarm_delete_all(@RequestBody AlarmsVO alarm,HttpSession session) {
 		service.delete_alarm2(alarm);
+		session.setAttribute("alarms",service.get_alarms(alarm));
 	}
 
 	@PostMapping(value="/func")
-	public String alaram_func(@RequestBody AlarmsVO alarm) {
+	public String alaram_func(@RequestBody AlarmsVO alarm,HttpSession session) {
 		System.out.println("리퀘스트바디 확인 : "+alarm);
 		int x = service.status_alarm(alarm);
+		session.setAttribute("alarms",service.get_alarms(alarm));
 		switch(alarm.getTarget_type()) {
 		case "chat" :
 			String chat_number = alarm.getTarget_key();

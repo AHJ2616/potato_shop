@@ -13,8 +13,14 @@
 				<h2>수정등록</h2>
 			</div>
 			<div class="file-input-wrapper">
-				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple>
-				<img id="image-preview" class="image-preview" src="" alt="미리보기 이미지">
+				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple onchange="previewImages()">
+				<label for="InputFile">파일 선택</label>
+				<!-- 파일 선택을 위한 레이블 -->
+				<div id="image-preview" class="image-preview-container"></div>
+			</div>
+			<div>
+				<button type="button" id="prevButton" class="button">이전 이미지</button>
+				<button type="button" id="nextButton" class="button">다음 이미지</button>
 			</div>
 			<div class="formbold-mb-3">
 				<div>
@@ -39,11 +45,27 @@
 			<div class="formbold-input-flex">
 				<div>
 					<select name="types" class="types" required>
-						<option value="" disabled selected>카테고리</option>
-						<option value="전자기기">전자기기</option>
-						<option value="옷">옷</option>
-						<option value="생활용품">생활용품</option>
-						<option value="스포츠용품">스포츠용품</option>
+						<option value="" disabled selected>카테고리 선택</option>
+						<option value="디지털기기">디지털기기</option>
+						<option value="생활가전">생활가전</option>
+						<option value="가구/인테리어">가구/인테리어</option>
+						<option value="생활/주방">생활/주방</option>
+						<option value="유아동">유아동</option>
+						<option value="유아도서">유아도서</option>
+						<option value="여성의류">여성의류</option>
+						<option value="여성잡화">여성잡화</option>
+						<option value="남성패션/잡화">남성패션/잡화</option>
+						<option value="뷰티/미용">뷰티/미용</option>
+						<option value="스포츠/레저">스포츠/레저</option>
+						<option value="취미/게임/음반">취미/게임/음반</option>
+						<option value="도서">도서</option>
+						<option value="티켓/교환권">티켓/교환권</option>
+						<option value="가공식품">가공식품</option>
+						<option value="건강기능식품">건강기능식품</option>
+						<option value="반려동물용품">반려동물용품</option>
+						<option value="식물">식물</option>
+						<option value="기타 중고물품">기타 중고물품</option>
+						<option value="삽니다">삽니다</option>
 					</select>
 				</div>
 			</div>
@@ -80,10 +102,6 @@
 </div>
 <input type="hidden" name="board_number" value='<c:out value="${ board.board_number }"/>'>
 <button type="submit" class="formbold-btn">등록하기</button>
-	</form>
-
-
-
-
+</form>
 <script src="/resources/js/board_register.js"></script>
 <%@ include file="../common/footer.jsp"%>

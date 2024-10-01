@@ -69,11 +69,11 @@
     }
 
     .member-table tr:nth-child(even), .user-table tr:nth-child(even) {
-        background-color: #f9f9f9;
+        background-color: #FFFBE6;
     }
-
+    
     .member-table th, .user-table th {
-        background-color: #f2f2f2;
+        background-color: #FFF9C4;
         font-weight: bold;
     }
 
