@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.potato.mapper.Pay_mapper">
+
+<!-- 충전 정보 삽입 -->
+<insert id="chargePay" parameterType="PayVO">
+	<![CDATA[
+    INSERT INTO pay (id, from_member_number, to_member_number, pay_amount, point_amount, pay_date)
+    VALUES (#{id}, #{from_member_number}, #{to_member_number}, #{pay_amount}, #{point_amount}, SYSDATE)
+    ]]>
+</insert>
+
+<!-- 충전하는 회원의 가상머니 증가 -->
+<update id="incrementPay">
+	<![CDATA[
+    UPDATE member
+    SET pay = pay + #{pay_amount}
+    WHERE member_number = #{from_member_number}
+    ]]>
+</update>
+
+<!-- 포인트를 머니로 전환 -->
+<update id="convertPointsToPay">
+	<![CDATA[
+    UPDATE members
+    SET pay = pay + #{point}, point = point - #{point}
+    WHERE member_number = #{member_number}
+    ]]>
+</update>
+
+<!-- 채팅방의 board_number를 이용해 해당 상품 가격 가져오기 -->
+<select id="findPriceByBoardNumber" resultType="int">
+	<![CDATA[
+    SELECT price FROM board WHERE board_number = #{board_number}
+    ]]>
+</select>
+
+</mapper>

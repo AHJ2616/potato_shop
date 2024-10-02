@@ -10,10 +10,23 @@
 <section class="shop_section layout_padding">
     <div class="container">
         <div class="heading_container heading_center">
-            
         </div>
     </div>
     <div class="search-container">
+    <form id="checkboxForm" method="get">
+	    <div class="radio-container">
+	        <label class="radio-label">
+	            <input type="radio" name="list" onchange="navigateTo('/shop/list')" />
+	            인기게시물
+	        </label>
+	    </div>
+	    <div class="radio-container">
+	        <label class="radio-label">
+	            <input type="radio" name="list" onchange="navigateTo('/shop/recent')" />
+	            최근게시물
+	        </label>
+	    </div>
+	</form>
     <form id="itemSearch" action="/shop/search" method="get">
         <select name="types" class="types">
             <option value="" disabled selected>카테고리 선택</option>
@@ -39,15 +52,18 @@
             <option value="삽니다">삽니다</option>
         </select>
 			<input type="search" name="title" placeholder="검색어를 입력해주세요.">
-			<button type="submit" id="searchBtn">Search</button>&nbsp; &nbsp;
-		</form>
-		<c:choose>
+			<button type="submit" id="searchBtn">Search</button>
+			<div id="searchRankDisplay">
+			    <ul id="searchRankList"></ul>
+			</div>
+			<c:choose>
                 <c:when test="${empty sessionScope.id}">
                 </c:when>
                 <c:otherwise>
                     <button id="regBtn" type="button" class="btn btn-outline-warning" onclick="location.href='/shop/register'">내 물건 등록</button>
                 </c:otherwise>
             </c:choose>
+		</form>
 </div>
     <div class="row" id="posts-container">
     <c:forEach items="${list}" var="boardlist">
@@ -93,8 +109,46 @@
     </c:forEach>
 </div>
 <div class="text-center mt-4">
-     <button id="load-more">+</button>
+    <button id="load-more">+</button>
 </div>
 </section>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetchSearchRank(); // 페이지 로드 시 검색 순위 가져오기
+});
+
+function navigateTo(url) {
+    // 체크박스가 선택되면 해당 URL로 이동
+    window.location.href = url;  
+}
+function fetchSearchRank() {
+    fetch('/shop/rank')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // JSON 형태로 파싱
+        })
+        .then(data => {
+        	console.log(JSON.stringify(data, null, 2));
+        	console.log(data.length);
+        	console.log(data);
+            const searchRankList = document.getElementById('searchRankList');
+            searchRankList.innerHTML = ''; // 기존 목록을 지움
+
+            // 데이터가 배열 형태일 경우 각 항목을 리스트에 추가
+            data.forEach((rankItem, index) => {
+            	console.log(rankItem);
+                const listItem = document.createElement('li');
+                listItem.textContent = `${rankItem.title}`;
+                console.log(listItem);
+                searchRankList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching search rank:', error);
+        });
+}
+</script>
 <script src="/resources/js/board_list.js"></script>
 <%@ include file="../common/footer.jsp" %>

@@ -72,6 +72,7 @@
 <body>
 	<div class="hero_area">
 		<!-- header section strats -->
+		<div class="notification_bar" ></div>
 		<header class="header_section">
 			<nav class="navbar navbar-expand-lg custom_nav-container ">
 				<c:choose>
@@ -126,7 +127,7 @@
 							</c:when>
 							<c:otherwise>
 								<a
-									href="/potato/mypage?member_number=<c:out value='${sessionScope.member_number}'/>">
+									href="/potato/mypage">
 									<i class="fa fa-user" aria-hidden="true"></i> <span>${sessionScope.nickName}</span>
 								</a>
 								<a href="#" id="alarm_button"><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -185,11 +186,13 @@
 								</a>
 								<a href="/potato/chat_list"><span>채팅목록</span> </a>
 								<a href="/potato/likes_list"><span>관심목록</span> </a>
+								<a href="/pay/pay_info"><span>감자페이</span> </a>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</div>
 			</nav>
+			<div class="notification_bar2" ></div>
 			<!-- 로그인 모달 -->
 			<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 				aria-labelledby="loginModalLabel" aria-hidden="true">

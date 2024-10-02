@@ -27,6 +27,8 @@ public interface BoardService {
 		//6.게시글 검색
 		public List<BoardVO> search(String title);
 		public List<BoardVO> search1(String types, String title);
+		public void insertSearch(String title);
+		public List<BoardVO> searchRank();
 		
 		//7.좋아요 추가
 		public int updateLikes(String board_number);
@@ -90,5 +92,7 @@ public interface BoardService {
 		//26. 이미지 슬라이드용
 		public void image(ImageSlideVO image);
 		
+		//27. 최신순 보드가져오기
+		public List<BoardVO> getRecent(Criteria cri);
 
 }

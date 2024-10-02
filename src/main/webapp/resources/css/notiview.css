@@ -1,0 +1,83 @@
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #FFFFFF; /* 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+
+h1 {
+    text-align: center;
+    color: #3E2723; /* 제목 색상 */
+}
+.important {
+    color: #6D4C41; /* 브라운 색상 */
+    font-weight: bold; /* 굵게 표시 */
+    font-size: 1.2em; /* 글자 크기 증가 */
+}
+
+.view-count {
+    color: #6D4C41; /* 브라운 색상 */
+    font-weight: bold;
+}
+
+
+.important-link {
+    font-weight: bold; /* 제목을 굵게 */
+    color: #6D4C41; /* 브라운 색상 */
+}
+
+.member-table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 겹침 방지 */
+    margin-top: 20px;
+}
+
+.member-table th, .member-table td {
+    padding: 10px; /* 셀 안쪽 여백 */
+    text-align: left; /* 텍스트 정렬 */
+    border-bottom: 1px solid #BCAAA4; /* 아래쪽 테두리 */
+}
+
+.member-table th {
+    background-color: #8D6E63; /* 제목 배경색 */
+    color: #FFFFFF; /* 제목 텍스트 색상 */
+}
+
+.member-table tr:hover {
+    background-color: #F1F1F1; /* 마우스 오버 시 배경색 변화 */
+}
+
+.btn-primary {
+    background-color: #8D6E63; /* 버튼 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    padding: 10px 15px; /* 버튼 안쪽 여백 */
+    text-decoration: none; /* 텍스트 장식 제거 */
+    border-radius: 4px; /* 버튼 모서리 둥글게 */
+}
+
+.btn {
+    background-color: #8D6E63; /* 포테이토 서비스의 primary 색상 */
+    color: #FFFFFF; /* 흰색 텍스트 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 버튼의 모서리를 둥글게 */
+    font-size: 16px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 굵기 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    transition: background-color 0.3s ease; /* 배경색 전환 */
+}
+
+/* 호버 상태 스타일 */
+.btn:hover {
+    background-color: #6D4C41; /* 조금 더 진한 색상 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+}
+
+/* 클릭 상태 스타일 */
+.btn:active {
+    background-color: #5D4037; /* 더 진한 색상 */
+    box-shadow: none; /* 클릭 시 그림자 제거 */
+    transform: translateY(2px); /* 살짝 눌린 듯한 효과 */
+}

@@ -1,6 +1,7 @@
 const contextPath = 'http://localhost';
 
 $(document).ready(function() {
+	
 	$('#regBtn').click(function() {
 		location.href = '/shop/register';
 	});

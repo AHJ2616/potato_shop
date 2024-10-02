@@ -40,4 +40,10 @@ public interface AdminMapper {
 	
 	public List<NotificationVO> notification(); // 관리자 공지 - 완
 	
+	public NotificationVO notice(int notice_number); // 관리자 공지 하나 확인
+	
+	public int insertBoard(NotificationVO notice); // 공지 추가 - 완
+	
+	public int deleteReport(int notice_number); // 게시판 삭제
+	
 }

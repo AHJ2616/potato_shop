@@ -739,9 +739,11 @@ a:focus {
 
 /* info section */
 .info_section {
+  border-top: 2px solid black; /* 두께와 색상 지정 */
+  padding: 10px; /* 내용과 경계 사이의 여백 */
   position: relative;
-  background-color: #2d2d2d;
-  color: #ffffff;
+  background-color: #FFF;
+  color: black;
   margin: 0 45px 45px;
 }
 
@@ -767,7 +769,7 @@ a:focus {
 
 .info_section .social_container .social_box a {
   margin: 0 10px;
-  color: #ffffff;
+  color: #CFA36E;
   font-size: 24px;
 }
 
@@ -782,7 +784,7 @@ a:focus {
   outline: none;
   border: none;
   color: #ffffff;
-  background: #f89cab;
+  background: #ffd966;
   margin-top: 15px;
   text-transform: uppercase;
 }
@@ -803,7 +805,7 @@ a:focus {
 }
 
 .info_section p {
-  color: #cbc9c9;
+  color: black;
 }
 
 .info_section .info_link-box a {
@@ -821,13 +823,13 @@ a:focus {
 }
 
 .info_section .info_link-box a i {
-  color: #ffffff;
+  color: #CFA36E;
   margin-right: 5px;
   font-size: 18px;
 }
 
 .info_section .info_link-box a span {
-  color: #cbc9c9;
+  color: black;
 }
 
 .info_section .info_link-box a:hover span {

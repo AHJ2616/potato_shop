@@ -3,7 +3,7 @@
         max-width: 1200px; /* 전체 크기를 1200px로 증가 */
         margin: 20px auto; /* 화면 중앙 정렬 */
         padding: 20px;
-        background-color: #fff;
+        background-color: #Fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         display: flex; /* Flexbox 사용 */
@@ -79,7 +79,7 @@
 
     /* 링크 스타일 */
     a {
-        color: #007bff;
+        color: #CFA36E;
         text-decoration: none;
     }
 
@@ -92,7 +92,7 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: #ffffff;
     }
 
     /* 프로필 사진 변경 폼 스타일 */

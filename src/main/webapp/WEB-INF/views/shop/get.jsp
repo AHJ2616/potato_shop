@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/resources/js/board_get.js"></script>
+<script src="/resources/js/chat_list.js"></script>
+<link rel="stylesheet" href="/resources/css/chat_list.css">
 <link href="/resources/css/shop_get.css" rel="stylesheet" />
 <%@ include file="../common/header.jsp"%>
-<link rel="stylesheet" href="/resources/css/chat_list.css">
-<script src="/resources/js/chat_list.js"></script>
 <div class="product-details">
 	<section id="article-profile">
 		<a id="article-profile-link">
@@ -56,14 +56,24 @@
 							보기</a>
 					</div>
 	<div class="product-image">
-    <c:forEach items="${image}" var="imageList">
-        <img class="productImage" src="../resources/upload/${imageList.photo_name}" alt="Product Image">
-    </c:forEach>
+	    <c:forEach items="${image}" var="imageList">
+	        <img class="productImage" src="../resources/upload/${imageList.photo_name}" alt="Product Image">
+	    </c:forEach>
 	</div>
-<div id="image-preview" class="image-preview-container"></div>
-<div>
-    <button type="button" id="prevButton" class="button">이전 이미지</button>
-    <button type="button" id="nextButton" class="button">다음 이미지</button>
+	<div class="image-container">
+    <button type="button" id="prevButton" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+		  <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
+		</svg>
+    </button>
+
+    <div id="image-preview" class="image-preview-container"></div>
+
+    <button type="button" id="nextButton" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+  		<path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+		</svg>
+    </button>
 </div>
 	<div class="form-group">
 		<input type="hidden" id="member_number" value="${sessionScope.member_number}"/>
@@ -295,4 +305,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
 <%@ include file="../common/footer.jsp"%>

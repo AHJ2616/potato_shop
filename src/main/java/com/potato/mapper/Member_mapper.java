@@ -83,5 +83,11 @@ public interface Member_mapper {
 	
 	//22.[트리거문제] 회원가입시 login_check테이블도 같이 생성
 	public void register3(MemberVO memberVO);
+	
+	//23.회원 pay 정보 조회
+	public long getPay(String member_number);
+		
+	//24.회원 point 정보 조회
+	public long getPoint(String member_number);
 
 }

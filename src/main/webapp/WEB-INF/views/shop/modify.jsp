@@ -16,30 +16,40 @@
 				<input type="file" accept="image/*" name="fileUpload" id="InputFile" multiple onchange="previewImages()">
 				<label for="InputFile">파일 선택</label>
 				<!-- 파일 선택을 위한 레이블 -->
+			</div>
+			<div class="image-container">
+				<button type="button" id="prevButton" class="button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+					  <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
+					</svg>
+				</button>
+				
 				<div id="image-preview" class="image-preview-container"></div>
-			</div>
-			<div>
-				<button type="button" id="prevButton" class="button">이전 이미지</button>
-				<button type="button" id="nextButton" class="button">다음 이미지</button>
+				
+				<button type="button" id="nextButton" class="button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+			  			<path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+					</svg>
+				</button>
 			</div>
 			<div class="formbold-mb-3">
 				<div>
-					<label for="title" class="formbold-form-label">제목</label> <input
-						type="text" name="title" id="title" value='<c:out value="${ board.title }"/>' class="formbold-form-input"
-						required />
+					<label for="title" class="formbold-form-label">제목</label>
+					<input type="text" name="title" id="title" value='<c:out value="${ board.title }"/>' class="formbold-form-input" maxlength="20" required />
+					<small id="titleCount">0/20</small> <!-- 글자 수 표시 -->
 				</div>
 			</div>
 			<div class="formbold-mb-3">
 				<div>
-					<label for="price" class="formbold-form-label">가격</label> <input
-						type="text" name="price" id="price" value='<c:out value="${ board.price }"/>' class="formbold-form-input"
-						required />
+					<label for="price" class="formbold-form-label">가격</label>
+					<input type="text" name="price" id="price" value='<c:out value="${ board.price }"/>' class="formbold-form-input" maxlength="10" required />
+					<small id="priceCount">0/10</small>
 				</div>
 			</div>
 			<div class="formbold-mb-3">
-				<label for="content" class="formbold-form-label">내용</label> <input
-					type="text" name="content" id="content" value='<c:out value="${ board.content }"/>' class="formbold-form-input"
-					required />
+				<label for="content" class="formbold-form-label">내용</label>
+				<textarea name="content" id="content" class="formbold-form-input" maxlength="500" required /></textarea>
+				<small id="contentCount">0/500</small>
 			</div>
 
 			<div class="formbold-input-flex">
@@ -68,9 +78,6 @@
 						<option value="삽니다">삽니다</option>
 					</select>
 				</div>
-			</div>
-			
-			<div class="formbold-input-flex">
 				<div>
 					<select name="status" class="status" required>
 						<option value="" disabled selected>상품상태</option>
@@ -84,7 +91,7 @@
 				<label for="supportCheckbox" class="formbold-checkbox-label">
 					<div class="formbold-relative">
 						<input type="checkbox" id="supportCheckbox"
-							class="formbold-input-checkbox" required />
+							class="formbold-input-checkbox" required />&nbsp;&nbsp;정의된 이용약관 및 정책에 동의합니다.
 						<div class="formbold-checkbox-inner">
 							<span class="formbold-opacity-0"> <svg width="11"
 									height="8" viewBox="0 0 11 8" fill="none"
@@ -95,13 +102,14 @@
                                     </svg>
 							</span>
 						</div>
-					</div> 정의된 이용약관 및 정책에 동의합니다.
+					</div>
 				</label>
 			</div>
+			<input type="hidden" name="board_number" value='<c:out value="${ board.board_number }"/>'>
+			<button type="submit" class="formbold-btn">등록하기</button>
+		</form>
 	</div>
 </div>
-<input type="hidden" name="board_number" value='<c:out value="${ board.board_number }"/>'>
-<button type="submit" class="formbold-btn">등록하기</button>
-</form>
+
 <script src="/resources/js/board_register.js"></script>
 <%@ include file="../common/footer.jsp"%>

@@ -142,6 +142,18 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
+	public void insertSearch(String title) {
+		// TODO 검색입력
+		mapper.insertSearch(title);
+	}
+	
+	@Override
+	public List<BoardVO> searchRank() {
+		// TODO 검색순위 가져오기
+		return mapper.searchRank();
+	}
+	
+	@Override
 	public int set_status(BoardVO board) {
 		// TODO 20.판매상태만 변경하기
 		return mapper.set_status(board);
@@ -151,6 +163,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> getMoreList(Criteria cri) {
 		// TODO 페이징처리
 		return mapper.getMoreList(cri);
+	}
+	
+	@Override
+	public List<BoardVO> getRecent(Criteria cri) {
+		// TODO 최근게시물
+		return mapper.getRecent(cri);
 	}
 
 	@Override
@@ -176,6 +194,5 @@ public class BoardServiceImpl implements BoardService{
 		// TODO 이미지 테이블 삭제하기
 		return mapper.imageDelete(board_number) == 1;
 	}
-
 
 }//class end

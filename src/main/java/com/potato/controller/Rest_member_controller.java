@@ -1,29 +1,26 @@
 package com.potato.controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.github.f4b6a3.ulid.Ulid;
+import com.github.f4b6a3.ulid.UlidCreator;
 import com.potato.domain.AlarmsVO;
 import com.potato.domain.Login_checkVO;
 import com.potato.domain.MemberVO;
@@ -128,35 +125,33 @@ public class Rest_member_controller {
 	}
 	
 	@PostMapping(value="/upload")
-	public ResponseEntity<String> handleFileUpload(MultipartHttpServletRequest request) {
+	public ResponseEntity<String> handleFileUpload(MultipartHttpServletRequest request) throws Exception {
 	    MultipartFile file = request.getFile("file"); // "file"은 폼에서 지정한 name 속성
 	    String member_number = request.getParameter("member_number");
-
+	    try {
 	    if (file == null || file.isEmpty()) {
 	        return ResponseEntity.badRequest().body("파일을 선택해 주세요.");
 	    }
 
 	    String fileName = file.getOriginalFilename(); // 파일명 저장
+	    Ulid ulid = UlidCreator.getUlid(); // 파일명은 겹치면 덮어씌우는 현상이 나와서 랜덤코드로 파일명 전환
+	    String uniqueFileName = ulid+"_" + fileName;
+	    file.transferTo(new File("D:\\workspace\\potato\\src\\main\\webapp\\resources\\upload\\"+uniqueFileName));
+	    
+	    
 	    MemberVO memberVO = new MemberVO();
-	    memberVO.setProfile_image(fileName); // DB에 저장할 파일명 설정
+	    memberVO.setProfile_image(uniqueFileName); // DB에 저장할 파일명 설정
 	    memberVO.setMember_number(member_number);
 
-	    // ServletContext 초기화
-	    final String UPLOAD_DIRECT = servletContext.getRealPath("/resources/upload/");
-
-	    try {
-	        // 파일 저장 경로 설정
-	        Path path = Paths.get(UPLOAD_DIRECT, fileName);
-	        Files.createDirectories(path.getParent()); // 디렉토리 생성
-	        file.transferTo(path.toFile()); // 파일 저장
-	        service.modify_profile(memberVO); // 프로필 수정 서비스 호출
-	        return ResponseEntity.ok("파일 업로드 성공!");
+	    service.modify_profile(memberVO); // 프로필 수정 서비스 호출
+	    return ResponseEntity.ok("파일 업로드 성공!");
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 실패: " + e.getMessage());
 	    }
 	
 }
+	
 	@PostMapping(value="/delete")
 	public ResponseEntity<Map<String, String>> delete(@RequestBody MemberVO memberVO,HttpSession session){
 		int result = service.delete(memberVO);

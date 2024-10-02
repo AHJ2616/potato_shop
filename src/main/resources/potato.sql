@@ -9,17 +9,18 @@ create table member(
    grade number(1) default 0 not null, -- 회원등급
    profile_image varchar2(1000) not null, -- 프로필
    regidate date default sysdate, -- 회원가입일  
-   update_date date default sysdate -- 회원수정일
+   update_date date default sysdate, -- 회원수정일
+   pay NUMBER DEFAULT 0,  --페이
+   point NUMBER DEFAULT 0 --포인트
 ); -- 멤버 테이블
 
 CREATE TABLE user_table (
   user_number VARCHAR2(50) primary key, -- 회원번호 member_number외래키
   reports NUMBER default 0 NOT NULL, -- 신고 수
-  temper NUMBER default 36.5 NOT NULL, -- 온도
+  temper NUMBER default 36.5 NOT NULL CHECK (temper BETWEEN 1 AND 99), -- 온도
   trades NUMBER default 0 NOT NULL-- 거래완료 수
 ); -- user 테이블
-select * from user_table
- 01J8P3A29998EEF85RBJZ48N4V
+
 
 create table reports(
    report_number varchar2(1000) constraint pk_report_num primary key, -- 신고번호
@@ -102,6 +103,7 @@ create table coments (
 	ip_address varchar2(50),
 	regidate date default sysdate
 );
+
 create index idx_coments on coments (regidate desc);
 select * from coments
 select --+ INDEX(coments idx_coments)
@@ -115,7 +117,6 @@ create table cart (
 	likes_board_number varchar2(50) not null,
 	likes_member_number varchar2(50) not null
 );
-select * from reply
 
 
 create table alarms(
@@ -143,22 +144,76 @@ create table image(
    photo_name varchar2(1000) not null
 );
 
+create table qna(
+   qna_number varchar2(50) primary key,
+   question varchar2(1000) not null,
+   answer varchar2(1000) not null
+);
 
-select * from member
--- 더미 데이터 생성
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '친절하고 매너가 좋아요.', '01J875J2PM4BTTVZXD71BFP283', 4);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '응답이 빨라요.', '01J875J2PM4BTTVZXD71BFP283', 10);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '시간 약속을 잘 지켜요.', '01J875J2PM4BTTVZXD71BFP283', 23);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '제가 있는 곳까지 와서 거래했어요.', '01J875J2PM4BTTVZXD71BFP283', 56);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '좋은 물품을 저렴하게 판매해요.', '01J875J2PM4BTTVZXD71BFP283', 7);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '물품상태가 설명한 것과 같아요.', '01J875J2PM4BTTVZXD71BFP283', 38);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '물품설명이 자세해요.', '01J875J2PM4BTTVZXD71BFP283', 2);
-INSERT INTO manner (manner_number, description, member_number, mcount) VALUES (manner_seq.NEXTVAL, '나눔을 해주셨어요.', '01J875J2PM4BTTVZXD71BFP283', 15);
+create table notification(
+notice_number number primary key,
+writer varchar2(50) not null,
+title varchar2(500) not null,
+content varchar2(1000) not null,
+regidate Date default sysdate,
+important number(1) default 0 not null
+)
 
+create sequence notice_seq;
 
 create table x_member as select member_number,id,pass,name,nickname,phone,address,grade,regidate from member where 1<>1
 ;
 alter table x_member add (leave_date date default sysdate);
+
+create table pay (
+ id VARCHAR2(50) PRIMARY KEY,             -- 페이 고유 번호
+    from_member_number VARCHAR2(50) NOT NULL,  -- 송금하는 사람
+    to_member_number VARCHAR2(50) NOT NULL,    -- 받는 사람
+    pay_amount NUMBER NOT NULL,                 -- 가상머니
+    point_amount NUMBER NOT NULL,               -- 적립 포인트
+    pay_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 결제 시간
+    FOREIGN KEY (from_member_number) REFERENCES member(member_number),
+    FOREIGN KEY (to_member_number) REFERENCES member(member_number)
+); -- 결제 시스템 테이블 (페이, 포인트)
+
+update login_check set status=0;
+
+
+
+
+
+--더미 데이터
+
+insert into qna(qna_number,question,answer) values(
+1,'중고물품을 구매하려면 어떻게 해야 하나요?',
+'원하는 물품을 검색한 후, 해당 물품의 상세 페이지로 이동하여 "구매하기" 버튼을 클릭하면 구매 절차를 진행할 수 있습니다.'
+)
+insert into qna(qna_number,question,answer) values(
+7,'물품을 판매하기 전에 상태를 어떻게 확인하나요?',
+'물품의 상태를 사진으로 촬영하고, 상세 설명에 상태를 기재하여 구매자에게 정확한 정보를 제공해야 합니다.'
+)
+insert into qna(qna_number,question,answer) values(
+8,'거래가 완료된 후 리뷰는 어떻게 남기나요?',
+'거래가 완료된 후, 구매자는 판매자의 프로필 페이지에서 "리뷰 남기기" 버튼을 클릭하여 리뷰를 작성할 수 있습니다.'
+)
+insert into qna(qna_number,question,answer) values(
+9,'물품을 구매한 후 취소할 수 있나요?',
+'직접적인 취소 서비스는 제공하지 않고 있습니다. 구매자와 직접 해결하셔야 합니다.'
+)
+insert into qna(qna_number,question,answer) values(
+10,'사이트 이용 중 문제가 발생하면 어떻게 하나요?',
+'사이트 이용 중 문제가 발생하면 고객센터에 문의하시거나, QnA 페이지를 참조하여 해결 방법을 찾아보실 수 있습니다.'
+)
+
+
+
+
+
+
+
+
+
+
 
 --탈퇴시 탈퇴 테이블에 추가
 create or replace trigger add_x_member
@@ -185,9 +240,3 @@ begin
 	insert into login_check (member_number,id) values(:new.member_number,:new.id);
 end; 
 
-
-update login_check set status=0;
-update board set likes=0, interest=0;
-select * from chat_room;
-select * from board order by board_number desc;
-select * from alarms

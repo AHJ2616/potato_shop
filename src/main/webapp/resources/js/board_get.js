@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	
+	
     let modal = $("#deleteModal");
     let board_number = document.getElementById("board_number").value;
     let member_number = document.getElementById("member_number").value;

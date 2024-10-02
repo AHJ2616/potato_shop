@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
 import com.potato.domain.NotificationVO;
 import com.potato.domain.ReplyVO;
@@ -41,15 +40,15 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override // 공지 추가
-	public void insertBoard(BoardVO board) {
-		log.info("공지 추가 : " + board);
-		mapper.insertBoard(board);
+	public void insertBoard(NotificationVO notice) {
+		log.info("공지 추가 : " + notice);
+		mapper.insertBoard(notice);
 	}
 
 	@Override // 게시글 삭제
-	public void deleteReport(BoardVO boardVO) {
-		log.info("게시글 삭제 : " + boardVO);
-         mapper.deleteReport(boardVO);
+	public void deleteReport(int notice_number) {
+		log.info("게시글 삭제 : " + notice_number);
+         mapper.deleteReport(notice_number);
 	}
 
 	@Override // 댓글 삭제
@@ -92,5 +91,12 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return mapper.notification();
 	}
+
+	@Override
+	public NotificationVO notice(int notice_number) {
+		// TODO Auto-generated method stub
+		return mapper.notice(notice_number);
+	}
+
 	
 }

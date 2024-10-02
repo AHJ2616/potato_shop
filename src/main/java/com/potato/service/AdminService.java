@@ -2,7 +2,6 @@ package com.potato.service;
 
 import java.util.List;
 
-import com.potato.domain.BoardVO;
 import com.potato.domain.MemberVO;
 import com.potato.domain.NotificationVO;
 import com.potato.domain.ReplyVO;
@@ -21,10 +20,10 @@ public interface AdminService {
  public void updateBlack(MemberVO memberVO);
 
  // 공지사항 추가
- public void insertBoard(BoardVO board);
+ public void insertBoard(NotificationVO notice);
 
  // 게시글 삭제
- public void deleteReport(BoardVO boardVO);
+ public void deleteReport(int notice_number);
 
  // 댓글 삭제
  public void replyDelete(ReplyVO replyVO);
@@ -43,7 +42,10 @@ public interface AdminService {
  // 블랙리스트 해제
  public void clearBlack(String member_number);
  
- // 관리자 공지 확인
+ // 관리자 공지 전체확인
  public List<NotificationVO> notification();
+ 
+ // 관리자 공지 하나 읽기
+ public NotificationVO notice(int notice_number);
 	
 }

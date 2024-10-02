@@ -34,14 +34,13 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/shop/*")
 @Controller
 @Log4j2
-@AllArgsConstructor		// 모든 필드값으로 생성자 만듬
+@AllArgsConstructor // 모든 필드값으로 생성자 만듬
 public class BoardController {
 
 	// 필드
 	private BoardService service;
 	private MemberService m_service;
-	
-	
+
 	@GetMapping("/list")
 	public Map<String, Object> MoreList(@RequestParam(defaultValue = "1") int pageNum,
             							   @RequestParam(defaultValue = "12") int amount) {
@@ -60,45 +59,68 @@ public class BoardController {
 		 return response;
 	}
 	
+	@GetMapping("/recent")
+	public Map<String, Object> recentList(@RequestParam(defaultValue = "1") int pageNum,
+            							   @RequestParam(defaultValue = "12") int amount) {
+		 Criteria cri = new Criteria(pageNum, amount);
+		 int total = service.getTotal(cri);
+		 List<BoardVO> list = service.getRecent(cri);
+
+		 // 응답 데이터 맵
+		 Map<String, Object> response = new HashMap<>();
+		 response.put("list", list != null ? list : new ArrayList<>());
+
+		 // 더 많은 데이터가 있는지 확인
+		 boolean hasMore = (pageNum * amount) < total;
+		 response.put("hasMore", hasMore); // 추가된 부분
+
+		 return response;
+	}
+	
 	@GetMapping("/get")
-	public void get(@RequestParam("board_number") String board_number, Model model,HttpSession session) {
+	public void get(@RequestParam("board_number") String board_number, Model model, HttpSession session) {
 		service.updateViews(board_number);
+		
 		BoardVO board = service.get(board_number);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
+		
+		List<ImageSlideVO> image = service.getImage(board_number);
+		model.addAttribute("image", image);
+		
 		MemberVO member = new MemberVO();
 		CartVO cart = new CartVO();
 		member.setMember_number(board.getWriter_number());
 		cart.setLikes_board_number(board_number);
-		model.addAttribute("member",m_service.profile(member)); //판매자의 넘버,id,닉네임,프사
-		model.addAttribute("user",m_service.mypage2(member)); //판매자의 온도
-		
+		model.addAttribute("member", m_service.profile(member)); // 판매자의 넘버,id,닉네임,프사
+		model.addAttribute("user", m_service.mypage2(member)); // 판매자의 온도
+
 		try {
 			cart.setLikes_member_number(session.getAttribute("member_number").toString());
-			if(cart!=null) {
-			model.addAttribute("cart",service.get_cart(cart)); //카트 정보 가져오기
+			if (cart != null) {
+				model.addAttribute("cart", service.get_cart(cart)); // 카트 정보 가져오기
 			}
 		} catch (Exception e) {
 			//
 			e.printStackTrace();
 		}
 	}
-	
+
 	@GetMapping("/modify")
 	public void modify(@RequestParam("board_number") String board_number, Model model) {
 		BoardVO board = service.get(board_number);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
 		MemberVO member = new MemberVO();
 		member.setMember_number(board.getWriter_number());
-		model.addAttribute("member",m_service.profile(member)); //넘버,id,닉네임,프사
-		model.addAttribute("user",m_service.mypage2(member)); //온도
-		
+		model.addAttribute("member", m_service.profile(member)); // 넘버,id,닉네임,프사
+		model.addAttribute("user", m_service.mypage2(member)); // 온도
+
 	}
-	
+
 	@GetMapping("/register")
 	public void register() {
-		
+
 	}
-	
+
 	@PostMapping("/register")
 	public String register(@ModelAttribute("board") BoardVO board) throws Exception {
 		MultipartFile[] files = board.getFileUpload(); // 배열로 받기
@@ -131,7 +153,7 @@ public class BoardController {
 
 		return "redirect:/shop/list";
 	}
-	
+
 	@PostMapping("/modify")
 	public String modify(@ModelAttribute("board") BoardVO board, RedirectAttributes rttr) throws Exception {
 		MultipartFile[] files = board.getFileUpload(); // 배열로 받기
@@ -164,7 +186,7 @@ public class BoardController {
 		}
 		return "redirect:/shop/list";
 	}
-	
+
 	@PostMapping("/remove")
 	public String remove(@RequestParam("board_number") String board_number, RedirectAttributes rttr) {
 		if (service.remove(board_number)) {
@@ -179,6 +201,7 @@ public class BoardController {
 			@RequestParam("title") String title, Model model) {
 		if (types == null || types.isEmpty()) {
 			model.addAttribute("search", service.search(title));
+			service.insertSearch(title);
 		} else {
 			model.addAttribute("search", service.search1(types, title));
 		}

@@ -1,0 +1,177 @@
+/* pay_charge */
+#phoneAuthPopup {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+.AmountShortcut_shortcut-list__pEIG9 {
+    list-style: none; /* 리스트 스타일 없애기 */
+    padding: 0; /* 패딩 제거 */
+    display: flex; /* Flexbox로 가로로 정렬 */
+}
+.AmountShortcut_item__LIolC {
+    flex: 1; /* 버튼을 균일하게 분배 */
+    border-right: 1px solid #ccc; /* 오른쪽 테두리 */
+}
+.AmountShortcut_item__LIolC:last-child {
+    border-right: none; /* 마지막 버튼은 오른쪽 테두리 없애기 */
+}
+.AmountShortcut_button-amount__tuXDw {
+    width: 100%; /* 버튼 전체 너비 */
+    padding: 10px; /* 버튼 안쪽 여백 */
+    background-color: #d4b300; /* 더 진한 누런색 배경 */
+    color: #333; /* 버튼 글씨색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 0; /* 모서리 각지게 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+}
+.AmountShortcut_button-amount__tuXDw:hover {
+    background-color: #c69f00; /* 버튼 호버 색상 (더 진한 색상) */
+}
+.AmountShortcut_item__LIolC:first-child .AmountShortcut_button-amount__tuXDw {
+    border-top-left-radius: 5px; /* 첫 번째 버튼 왼쪽 모서리 둥글게 */
+    border-bottom-left-radius: 5px; /* 첫 번째 버튼 왼쪽 모서리 둥글게 */
+}
+.AmountShortcut_item__LIolC:last-child .AmountShortcut_button-amount__tuXDw {
+    border-top-right-radius: 5px; /* 마지막 버튼 오른쪽 모서리 둥글게 */
+    border-bottom-right-radius: 5px; /* 마지막 버튼 오른쪽 모서리 둥글게 */
+}
+.input-container {
+    position: relative; /* 상대 위치 설정 */
+}
+#amount {
+    width: 100%; /* 입력 필드가 전체 너비 사용 */
+    padding-right: 40px; /* X 버튼과의 간격 */
+    -moz-appearance: textfield; /* 기본 위아래 버튼 숨김 */
+}
+#amount::-webkit-inner-spin-button, 
+#amount::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* 크롬 브라우저에서 위아래 버튼 제거 */
+    margin: 0;
+}
+.clear-button {
+    position: absolute;
+    right: 10px; /* 오른쪽 간격 */
+    top: 50%; /* 수직 중앙 정렬 */
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+    background-color: transparent; /* 배경 투명 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 포인터 커서 */
+    color: #ff0000; /* 빨간색 */
+    font-size: 18px; /* 크기 조정 */
+}
+
+#charge-container {
+    max-width: 600px;
+    margin: 100px auto; /* 페이지 중앙에 위치 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* 배경색 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px; /* 항목 간 여백 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px; /* 라벨과 입력 필드 간 여백 */
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745; /* 버튼 색상 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #218838; /* 버튼 hover 시 색상 변화 */
+}
+
+
+/* pay_info */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+#profile-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 100px; /* 프로필을 아래로 내림 */
+    margin-left: 430px; /* 프로필을 오른쪽으로 옮김 */
+}
+.profile_photo img {
+    border-radius: 50%; /* 둥글게 만들기 */
+      width: 100px;
+      height: 100px;
+  }
+  #article-profile-left {
+      display: flex;
+      flex-direction: column;
+  }
+  #info {
+display: flex;
+justify-content: space-between;
+margin-top: 100px; /* 섹션 간 여백 증가 */
+padding: 20px; /* 패딩 증가 */
+background-color: #fff9e6; /* 누런색 배경 */
+border-radius: 5px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+max-width: 1000px;
+margin: 20px auto; /* 중앙 정렬 및 아래쪽 여백 추가 */
+}
+.info-section {
+    flex: 1;
+    text-align: left; /* 왼쪽 정렬로 변경 */
+margin: 0 10px; /* 섹션 간 여백 추가 */
+}
+      .info-section h2 {
+          margin: 0;
+          font-size: 18px; /* 폰트 크기 줄임 */
+    font-weight: bold;
+}
+.info-section p {
+    font-size: 20px; /* 글씨 크기 키움 */
+    margin-top: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500; /* 글씨 두께 조정 */
+    color: #333; /* 글씨 색상 조정 */
+}
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #6c757d;
+}

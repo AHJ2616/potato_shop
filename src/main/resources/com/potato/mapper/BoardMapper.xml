@@ -8,7 +8,15 @@
 
 <select id="getList" resultType="BoardVO"> <!-- id:메서드명, resultType:객체 -->
 	<![CDATA[
-		select * from board where board_number > 0
+		SELECT * FROM board 
+		WHERE board_number > 0
+		ORDER BY 
+		    CASE 
+	        WHEN status = '판매중' THEN 1
+	        WHEN status = '예약중' THEN 2
+	        WHEN status = '판매완료' THEN 3
+	        ELSE 4
+    END
 	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
 </select>
 
@@ -181,15 +189,67 @@ and writer_number =#{writer_number}
 ]]>
 </update>
 
+<insert id="insertSearch">
+<![CDATA[
+	insert into search_rank(title) values(#{title})
+]]>
+</insert>
+
+<select id="searchRank" resultType="BoardVO">
+	<![CDATA[
+		SELECT title, COUNT(*) AS count
+		FROM search_rank
+		GROUP BY title
+		ORDER BY count DESC
+	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
+</select>
+
 <select id="getMoreList" resultType="BoardVO"> <!-- id:메서드명, resultType:객체 -->
 	<![CDATA[
-		select * from 
-		(select /*+index_desc(board pk_board_num) */ 
-		rownum rn, board_number, title, status, photo_name, regidate, updatedate, likes, interest,
-		price, views, board_address from board where
-		rownum <= #{pageNum} * #{amount})
-		where rn > (#{pageNum} -1) * #{amount}
+	SELECT * FROM (
+    SELECT /*+index_desc(board pk_board_num) */
+        rownum rn, board_number, title, status, photo_name, regidate, updatedate, likes, interest,
+        price, views, board_address 
+    FROM (
+        SELECT * FROM board 
+        WHERE board_number > 0
+        ORDER BY 
+            CASE 
+                WHEN status = '판매중' THEN 1
+                WHEN status = '예약중' THEN 2
+                WHEN status = '판매완료' THEN 3
+                ELSE 4
+            END,
+            views DESC
+    ) 
+    WHERE rownum <= #{pageNum} * #{amount}
+) 
+WHERE rn > (#{pageNum} - 1) * #{amount}
 	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
+</select>
+
+<select id="getRecent" resultType="BoardVO">
+	<![CDATA[
+		SELECT * FROM (
+    SELECT /*+index_desc(board pk_board_num) */
+        rownum rn, board_number, title, status, photo_name, regidate, updatedate, likes, interest,
+        price, views, board_address 
+    FROM (
+        SELECT * FROM board 
+        WHERE board_number > 0
+        ORDER BY 
+            CASE 
+                WHEN status = '판매중' THEN 1
+                WHEN status = '예약중' THEN 2
+                WHEN status = '판매완료' THEN 3
+                ELSE 4
+            END,
+            GREATEST(regidate, updatedate) DESC
+    ) 
+    WHERE rownum <= #{pageNum} * #{amount}
+) 
+WHERE rn > (#{pageNum} - 1) * #{amount}
+	]]>
 </select>
 
 <select id="getTotalCount" resultType="int">

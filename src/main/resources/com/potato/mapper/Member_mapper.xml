@@ -187,6 +187,20 @@ insert into login_check (member_number,id) values(#{member_number},#{id})
 ]]>
 </insert>
 
+<!-- 23.회원 pay 정보 조회 -->
+<select id="getPay" parameterType="String" resultType="long">
+	<![CDATA[
+    SELECT pay FROM member WHERE member_number = #{member_number}
+    ]]>
+</select>
+
+<!-- 24.회원 point 정보 조회 -->
+<select id="getPoint" parameterType="String" resultType="long">
+	<![CDATA[
+    SELECT point FROM member WHERE member_number = #{member_number}
+    ]]>
+</select>
+
 
 </mapper>
 

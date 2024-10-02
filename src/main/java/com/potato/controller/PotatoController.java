@@ -2,6 +2,7 @@ package com.potato.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,15 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.potato.domain.BoardVO;
+import com.potato.domain.ComentsVO;
 import com.potato.domain.ReportVO;
 import com.potato.domain.MemberVO;
+import com.potato.domain.NotificationVO;
 import com.potato.service.AdminService;
 import com.potato.service.EtcService;
 
@@ -41,10 +41,34 @@ public class PotatoController {
 	@GetMapping("/home")
 	public void admin(Model model,HttpSession session) {
 		String member_number = session.getAttribute("member_number").toString();
-		if(member_number.equals("admin")) {
-		model.addAttribute("reportList", service.readReport());
-		model.addAttribute("black", service.viewBlack());
-		model.addAttribute("coments",etc_service.get_coments());
+		if (member_number.equals("admin")) {
+	        // 신고 내역 최신 5개
+	        List<ReportVO> reportList = service.readReport();
+	        if (reportList.size() > 5) {
+	            reportList = reportList.subList(0, 5);
+	        }
+	        model.addAttribute("reportList", reportList);
+	        
+	        // 블랙리스트 최신 5개
+	        List<MemberVO> blacklist = service.viewBlack();
+	        if (blacklist.size() > 5) {
+	            blacklist = blacklist.subList(0, 5);
+	        }
+	        model.addAttribute("black", blacklist);
+	        
+	        // 고객의 편지 최신 5개
+	        List<ComentsVO> coments = etc_service.get_coments();
+	        if (coments.size() > 5) {
+	            coments = coments.subList(0, 5);
+	        }
+	        model.addAttribute("coments", coments);
+	        
+	        // 관리자 공지 최신 5개
+	        List<NotificationVO> notifications = service.notification();
+	        if (notifications.size() > 5) {
+	            notifications = notifications.subList(0, 5);
+	        }
+	        model.addAttribute("noti", notifications);
 		}
 		
 	}
@@ -75,14 +99,6 @@ public class PotatoController {
 		return "redirect:/admin/home"; // 블랙리스트 등록 후 회원 목록으로 리다이렉트
 	}
 
-	// 공지 추가
-	@PostMapping("/board")
-	public String insertBoard(@ModelAttribute BoardVO board) {
-		service.insertBoard(board);
-		return "redirect:/admin/boardList"; // 공지 추가 후 게시판 목록으로 리다이렉트
-	}
-
-
 	// 신고 내역 확인
 	@GetMapping("/report")
 	public void readReport(@RequestParam("report_number") String report_number,Model model,HttpSession session) {
@@ -112,18 +128,51 @@ public class PotatoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-
-	// 관리자 공지 글쓰기
+	// 관리자 공지 글쓰기 페이지
 	@GetMapping("/notiWrite")
-	public String notiWrite(Model model) {
+	public String notiWrite(@RequestParam("member_number") String member_number, HttpSession session,Model model) {
+		session.setAttribute("member_number", member_number);
 		return "admin/notiWrite"; // notiWrite.jsp로 이동
 	}
 
-	// 관리자 공지 글쓰기
+	// 글쓰기
+	@PostMapping("/notiWrite/registration")
+	public String registration(@ModelAttribute NotificationVO noti, HttpSession session) {
+	    String member_number = (String) session.getAttribute("member_number");
+	    noti.setWriter(member_number); // writer에 세션에서 가져온 값을 설정
+	    
+	    service.insertBoard(noti);
+	    return "redirect:/admin/notiView?member_number=" + member_number;
+	}
+	
+	// 관리자 공지 글보기 페이지
 	@GetMapping("/notiView")
-	public String notiView(Model model) {
+	public String notiView(@RequestParam("member_number") String member_number, Model model, HttpSession session) {
+		session.setAttribute("member_number", member_number);
+	    List<NotificationVO> notice = service.notification(); // 서비스에서 리스트를 반환하도록 해야 함
+	    model.addAttribute("notice", notice);	
+		 
 		return "admin/notiView"; // notiWrite.jsp로 이동
 	}
+	
+	// 관리자 공지 글보기 상세페이지
+		@GetMapping("/notice")
+		public String notice(@RequestParam("notice_number") int notice_number, Model model) {
+			    
+			    // 필요한 작업 수행
+	     NotificationVO notice = service.notice(notice_number); // 서비스에서 리스트를 반환하도록 해야 함
+	     model.addAttribute("notice", notice);
 
+			 
+			return "admin/notice"; // notiWrite.jsp로 이동
+		}
 
+		// 공지 글 삭제
+		@PostMapping("/deleteNotice")
+		public String deleteNotice(@ModelAttribute  NotificationVO notice,HttpSession session) {
+			String member_number = session.getAttribute("member_number").toString();
+			int notice_number = notice.getNotice_number();
+			service.deleteReport(notice_number);
+			return "redirect:/admin/notiView?member_number=" + member_number; 
+		}
 }

@@ -21,16 +21,21 @@
   
   <insert id="insertBoard">
   <![CDATA[
-		insert into board(board_number,types,title, content, writer, writer_number,
-		status, photo_name, regidate)
-		values (seq_board.nextval ,#{types}, #{title}, #{content}, #{writer},
-		#{writer_number}, #{status}, #{photo_name}, sysdate)
+		 INSERT INTO notification (writer, title, content, regidate, important, notice_number)
+    VALUES (
+      #{writer},
+      #{title},
+      #{content},
+      sysdate,
+      COALESCE(#{important}, 0),
+      notice_seq.nextval
+    )
 		]]>
   </insert> <!-- 공지 추가 -->
   
   <delete id="deleteReport">
   <![CDATA[
-     delete from board where board_number = #{board_number} 
+     delete from notification where notice_number = #{notice_number} 
   ]]>
   </delete> <!-- 게시판 삭제 -->
   
@@ -42,7 +47,7 @@
   
   <select id="readReport" resultType="ReportVO">
   <![CDATA[
-     select  * FROM reports where status=0
+     select  * FROM reports where status=0 order by regidate desc
   ]]>
   </select> <!-- 신고내역 리스트(사용함) -->
   
@@ -58,7 +63,7 @@
   
    <select id="viewBlack" resultType="MemberVO">
     <![CDATA[
-       select * from member where grade=4
+       select * from member where grade=4 order by regidate desc
    ]]>
    </select> <!-- 블랙리스트 확인 (사용함)-->
      
@@ -77,9 +82,12 @@
   ]]>
   </select> <!-- 신고내역 리스트(사용함) -->
   
-  <select id="notification" resultType="com.potato.domain.NotificationVO">
-     SELECT * FROM notification
+  <select id="notification" resultType="NotificationVO">
+     SELECT * FROM notification  ORDER BY regidate desc
 </select> <!-- 관리자 공지 확인 -->
   
+  <select id="notice" resultType="NotificationVO">
+  select * from notification where notice_number = #{notice_number}
+  </select>
   
   </mapper>

@@ -19,6 +19,9 @@
     <typeAlias alias="AlarmsVO" type="com.potato.domain.AlarmsVO"/>
     <typeAlias alias="MannerVO" type="com.potato.domain.MannerVO"/>
     <typeAlias alias="ImageSlideVO" type="com.potato.domain.ImageSlideVO"/>
+    <typeAlias alias="QnaVO" type="com.potato.domain.QnaVO"/>
+    <typeAlias alias="NotificationVO" type="com.potato.domain.NotificationVO"/>
+    <typeAlias alias="PayVO" type="com.potato.domain.PayVO"/>
 </typeAliases> 
     	<mappers>
     		<mapper resource="com/potato/mapper/Member_mapper.xml" />
@@ -30,5 +33,6 @@
     		<mapper resource="com/potato/mapper/Alarm_mapper.xml" />
     		<mapper resource="com/potato/mapper/Sell_list_mapper.xml" />
     		<mapper resource="com/potato/mapper/Manner_mapper.xml" />
+    		<mapper resource="com/potato/mapper/Pay_mapper.xml" />
     	</mappers>
     </configuration>

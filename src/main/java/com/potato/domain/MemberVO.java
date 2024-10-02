@@ -20,6 +20,8 @@ public class MemberVO {
 		private String profile_image; //프로필 사진
 		private Date regidate;		  //회원 가입일 (default sysdate)
 		private Date update_date;	  //정보 수정일 (default sysdate)
+		private long pay;			  //페이
+		private long point;			  //포인트
 		
 		public MemberVO() {}
 }

@@ -162,7 +162,17 @@ public class MemberService_impl implements MemberService {
 		mapper.register3(member);
 	}
 
-	
+	@Override
+    public long getPay(String member_number) {
+		// TODO 23.회원 pay 정보 조회
+        return mapper.getPay(member_number);
+    }
+
+    @Override
+    public long getPoint(String member_number) {
+    	// TODO 24.회원 point 정보 조회
+        return mapper.getPoint(member_number);
+    }
 
 
 }

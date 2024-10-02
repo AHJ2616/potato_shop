@@ -30,33 +30,83 @@
 <input type="hidden" name="defendant" value="${memberVO.member_number}"/>
 <button id="reportBtn" type="submit" class="btn btn-danger">신고하기</button>
 <c:choose>
-    <c:when test="${chatVO.buyer_number==sessionScope.member_number && chatVO.status==0}">
-    <input type="hidden" id="set_status" value="1" />
-    	<button id="buyBtn" type="button" class="btn btn-danger">예약신청</button>
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 0}">
+        <input type="hidden" id="set_status" value="1" />
+        <button id="buyBtn" type="button" class="btn btn-danger">예약신청</button>
     </c:when>
-    <c:when test="${chatVO.buyer_number==sessionScope.member_number && (chatVO.status==1||chatVO.status==2)}">
-    	<a>예약 신청완료</a>
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 1}">
+        <a>예약 신청완료</a>
     </c:when>
-    <c:when test="${chatVO.buyer_number==sessionScope.member_number && chatVO.status==3}">
-    	<button id="buyBtn2" type="button" class="btn btn-danger">구매 확정</button>
-    	<input type="hidden" id="set_status" value="4" />
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 2}">
+        <button id="buyBtn2" type="button" class="btn btn-danger" onclick="showPaymentOptions()">구매 확정</button>
+        <input type="hidden" id="set_status" value="3" />
     </c:when>
-    <c:when test="${chatVO.buyer_number==sessionScope.member_number && chatVO.status==4}">
-    	<a>구매 완료됨</a>
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 3}">
+        <a>구매완료</a>
     </c:when>
-    <c:when test="${chatVO.celler_number==sessionScope.member_number && (chatVO.status==0||chatVO.status==1)}">
-    	<button id="cellBtn" type="button" class="btn btn-danger">판매 예약</button>
-    	<input type="hidden" id="set_status" value="2" />
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 4}">
+        <a>구매완료</a>
+        <a href="#" onclick="openMannerModal()" style="background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
+            칭찬합시다(1,000p 적립)
+        </a>
     </c:when>
-    <c:when test="${chatVO.celler_number==sessionScope.member_number && chatVO.status==2}">
-    	<button id="cellBtn2" type="button" class="btn btn-danger">판매 확정</button>
-    	<input type="hidden" id="set_status" value="3" />
+    <c:when test="${chatVO.buyer_number == sessionScope.member_number && chatVO.status == 5}">
+        <a>거래 및 칭찬이 모두 완료되었습니다</a>
     </c:when>
-    <c:when test="${chatVO.celler_number==sessionScope.member_number && (chatVO.status==3||chatVO.status==4)}">
-    	<a>판매 완료됨</a>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 0}">
+        <a>예약 신청 대기 중</a>
+    </c:when>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 1}">
+        <button id="cellBtn" type="button" class="btn btn-danger">판매 예약</button>
+        <input type="hidden" id="set_status" value="2" />
+    </c:when>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 2}">
+        <a>판매 예약 완료</a>
+    </c:when>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 3}">
+        <button id="cellBtn2" type="button" class="btn btn-danger">판매 확정</button>
+        <input type="hidden" id="set_status" value="4" />
+    </c:when>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 4}">
+        <a>판매 완료됨</a>
+    </c:when>
+    <c:when test="${chatVO.celler_number == sessionScope.member_number && chatVO.status == 5}">
+        <a>거래 및 칭찬이 모두 완료되었습니다</a>
     </c:when>
 </c:choose>
 </form>
 	  </div>
-<%@ include file="../common/footer.jsp"%>
+	  
+<div id="mannerModal" style="display:none; position: absolute; right: 150px; top: 120px; background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+    <h2>매너 설문</h2>
+    <form id="mannerSurvey">
+        <div>
+            <label>
+                <input type="radio" name="rating" value="5"> 5점. 매우 만족한 거래였습니다.
+            </label><br>
+            <label>
+                <input type="radio" name="rating" value="4"> 4점. 매너가 좋네요.
+            </label><br>
+            <label>
+                <input type="radio" name="rating" value="3"> 3점. 잘 쓰겠습니다.
+            </label><br>
+            <label>
+                <input type="radio" name="rating" value="2"> 2점. 약간 아쉬운 부분이 있었어요.
+            </label><br>
+            <label>
+                <input type="radio" name="rating" value="1"> 1점. 최악이네요.
+            </label><br>
+        </div>
+        <button id="finishBtn" type="button" data-value="5">제출</button>
+    </form>
+    
+    
+    <button onclick="closeMannerModal()">닫기</button>
+</div>
+	  
+<script>
+var chatStatus = ${chatVO.status}; // chatVO.status 값을 가져옴
+console.log("현재 채팅 상태:", chatStatus); // 콘솔에 상태 출력
 
+</script>
+<%@ include file="../common/footer.jsp"%>
